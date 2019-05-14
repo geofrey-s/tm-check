@@ -12,6 +12,22 @@ public class Faculty extends User {
     @JoinColumn(name = "current_course_id")
     Course currentCourse;
 
+    public Course getCurrentCourse() {
+        return currentCourse;
+    }
+
+    public void setCurrentCourse(Course currentCourse) {
+        this.currentCourse = currentCourse;
+    }
+
+    public List<Course> getOfferedCourses() {
+        return offeredCourses;
+    }
+
+    public void setOfferedCourses(List<Course> offeredCourses) {
+        this.offeredCourses = offeredCourses;
+    }
+
     @OneToMany
     List<Course> offeredCourses;
 }
