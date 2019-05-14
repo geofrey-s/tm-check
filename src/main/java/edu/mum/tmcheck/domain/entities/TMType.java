@@ -1,16 +1,13 @@
 package edu.mum.tmcheck.domain.entities;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity
-public class Location {
+public class TMType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    @Column(unique = true)
     String name;
-
-    @Column(unique = true)
-    String code;
 }

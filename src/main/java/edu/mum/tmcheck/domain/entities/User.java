@@ -9,6 +9,8 @@ public class User {
     @Id
     long id;
 
+    String name;
+
     @Column(unique = true)
     String username;
 

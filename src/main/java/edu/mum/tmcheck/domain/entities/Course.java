@@ -1,16 +1,19 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class Location {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    @Column(unique = true)
     String name;
 
     @Column(unique = true)
     String code;
+
+    @OneToMany
+    List<OfferedCourse> offeredCourses;
 }

@@ -2,14 +2,10 @@ package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
-
-    String name;
+public class Student extends User{
 
     @ManyToOne
     @JoinColumn(name = "entry_id")
@@ -18,5 +14,8 @@ public class Student {
     @Column(unique = true)
     String studentId;
 
-    LocalDate departedDate;
+    LocalDate departureDate;
+
+    @OneToMany
+    List<OfferedCourse> enrolledCourses;
 }
