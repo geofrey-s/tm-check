@@ -1,7 +1,7 @@
-package edu.mum.tmcheck.domain.serviceimp;
+package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Entry;
-import edu.mum.tmcheck.domain.services.EntryService;
+import edu.mum.tmcheck.services.EntryService;
 
 class EntryServiceImp implements EntryService {
 

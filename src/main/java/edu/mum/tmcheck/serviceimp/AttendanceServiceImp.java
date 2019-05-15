@@ -1,9 +1,9 @@
-package edu.mum.tmcheck.domain.serviceimp;
+package edu.mum.tmcheck.serviceimp;
 
 
 import edu.mum.tmcheck.domain.entities.Attendance;
 import edu.mum.tmcheck.domain.entities.Card;
-import edu.mum.tmcheck.domain.services.AttendanceService;
+import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class AttendanceServiceImp implements AttendanceService {
 
     @Override
     public boolean loadFromFile(String filename) {
-        try (Stream<String> stream = Files.lines(Paths.get(filename))){
+        try (Stream<String> stream = Files.lines(Paths.get(filename))) {
             stream
                     .filter(Objects::nonNull)
                     .map(line -> line.split(","))
@@ -56,11 +56,11 @@ public class AttendanceServiceImp implements AttendanceService {
 
     }
 
-    protected Object[] processScannedAttendanceRecord(String[]line){
+    protected Object[] processScannedAttendanceRecord(String[] line) {
 
     }
 
-    protected boolean isManualEntry(String[] line){
+    protected boolean isManualEntry(String[] line) {
         if (line.length == 0 || line[0].length() == 0) return false;
 
         // if the first entry is a date format

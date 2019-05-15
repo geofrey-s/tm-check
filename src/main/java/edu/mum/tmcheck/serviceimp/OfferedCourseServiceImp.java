@@ -1,4 +1,4 @@
-package edu.mum.tmcheck.domain.serviceimp;
+package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 

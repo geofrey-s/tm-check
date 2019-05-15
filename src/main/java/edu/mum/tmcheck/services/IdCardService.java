@@ -1,4 +1,4 @@
-package edu.mum.tmcheck.domain.services;
+package edu.mum.tmcheck.services;
 
 public interface IdCardService {
     public void create();

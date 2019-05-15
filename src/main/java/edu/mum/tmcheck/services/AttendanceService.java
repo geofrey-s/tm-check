@@ -1,4 +1,4 @@
-package edu.mum.tmcheck.domain.services;
+package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
 
@@ -11,5 +11,5 @@ public interface AttendanceService {
 
     public void save();
 
-    public void loadFromFile(String filename);
+    public boolean loadFromFile(String filename);
 }
