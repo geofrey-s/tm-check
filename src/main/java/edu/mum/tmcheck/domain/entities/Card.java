@@ -13,6 +13,12 @@ public class Card implements Serializable {
     @Column(unique = true)
     String barcode;
 
+    @OneToOne
+    Student student;
+
+    @Column()
+    boolean status = true;
+
     LocalDate issueDate;
     LocalDate expiryDate;
 

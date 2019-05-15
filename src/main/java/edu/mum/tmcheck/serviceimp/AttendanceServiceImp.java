@@ -2,18 +2,45 @@ package edu.mum.tmcheck.serviceimp;
 
 
 import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.domain.entities.Card;
+import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.services.AttendanceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
 public class AttendanceServiceImp implements AttendanceService {
+    public static final String ATTENDANCE_UPLOAD_DIR = "/attendance-logs";
+
+    @Autowired
+    IdCardServiceImp idCardServiceImp;
+
+    @Autowired
+    MeditationTypeServiceImp meditationTypeServiceImp;
+
+    @Autowired
+    TMtypeServiceImp tMtypeServiceImp;
+
+    @Autowired
+    LocationServiceImp locationServiceImp;
+
+    @Autowired
+    StudentServiceImp studentServiceImp;
+
+    @Autowired
+    AttendanceRepository attendanceRepository;
+
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Override
     public void create() {
@@ -36,15 +63,17 @@ public class AttendanceServiceImp implements AttendanceService {
     }
 
     @Override
+    /**
+     * Reads all students TM attendance records from file and loads the into the database
+     * @param filename log filename
+     */
     public boolean loadFromFile(String filename) {
         try (Stream<String> stream = Files.lines(Paths.get(filename))) {
             stream
                     .filter(Objects::nonNull)
                     .map(line -> line.split(","))
                     .map(aLine -> isManualEntry(aLine) ? processManualAttendanceRecord(aLine) : processScannedAttendanceRecord(aLine))
-                    .forEach(record -> {
-
-                    });
+                    .forEach(this::insertOnlyUnique);
         } catch (IOException e) {
             return false;
         }
@@ -52,14 +81,47 @@ public class AttendanceServiceImp implements AttendanceService {
         return true;
     }
 
-    protected Object[] processManualAttendanceRecord(String[] line) {
+    /**
+     * process students' manually collected TM attendance sessions converting them to standard Attendance objects
+     *
+     * @param line
+     * @return
+     */
+    protected Attendance processManualAttendanceRecord(String[] line) {
+        Attendance record = new Attendance();
 
+        record.setCreatedAt(parseDate(line[0], DATE_FORMAT));
+        record.setStudent(studentServiceImp.findByStudentRegId(line[1]));
+        record.setMeditationType(meditationTypeServiceImp.findByName(Attendance.DEFAULT_MEDITATION_TYPE));
+        record.setLocation(locationServiceImp.findByCode(Attendance.DEFAULT_LOCATION_CODE));
+        record.setTmType(tMtypeServiceImp.findByName(Attendance.DEFAULT_TM_TYPE));
+
+        return record;
     }
 
-    protected Object[] processScannedAttendanceRecord(String[] line) {
+    /**
+     * process students' scanned TM attendance sessions converting them to standard Attendance objects
+     *
+     * @param line
+     * @return
+     */
+    protected Attendance processScannedAttendanceRecord(String[] line) {
+        Attendance record = new Attendance();
 
+        record.setStudent(studentServiceImp.findByBarcode(line[0]));
+        record.setCreatedAt(parseDate(line[1], DATE_FORMAT));
+        record.setMeditationType(meditationTypeServiceImp.findByName(line[2]));
+        record.setLocation(locationServiceImp.findByCode(line[3]));
+        record.setTmType(tMtypeServiceImp.findByName(Attendance.DEFAULT_TM_TYPE));
+
+        return record;
     }
 
+    /**
+     * Determines if a give attendance log record was manually collected or scanned by the student
+     * @param line
+     * @return
+     */
     protected boolean isManualEntry(String[] line) {
         if (line.length == 0 || line[0].length() == 0) return false;
 
@@ -67,4 +129,40 @@ public class AttendanceServiceImp implements AttendanceService {
         return line[0].split("/").length > 1;
     }
 
+    /**
+     * Parses the string to a LocalDate instate using a predefined date format
+     * @param input
+     * @param format
+     * @return
+     */
+    public LocalDate parseDate(String input, String format) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+
+        return LocalDate.parse(input, formatter);
+    }
+
+    /**
+     * Inserts new attendance records in the database ignoring duplicates
+     * @param attendance
+     */
+    protected void insertOnlyUnique(Attendance attendance) {
+        try {
+            attendanceRepository.save(attendance);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * Processes i.e persists attendance log file upload on the server and loads/adds all records to the database
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    public boolean processFileUpload(MultipartFile file) throws IOException {
+        String filename = Paths.get(ATTENDANCE_UPLOAD_DIR, UUID.randomUUID().toString() + ".log").toString();
+        file.transferTo(new File(filename));
+
+        return loadFromFile(filename);
+    }
 }

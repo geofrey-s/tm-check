@@ -14,6 +14,8 @@ public class MeditationType implements Serializable {
     long id;
 
     String name;
+    LocalTime startTime;
+    LocalTime endTime;
 
     public long getId() {
         return id;
@@ -46,7 +48,4 @@ public class MeditationType implements Serializable {
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
-
-    LocalTime startTime;
-    LocalTime endTime;
 }

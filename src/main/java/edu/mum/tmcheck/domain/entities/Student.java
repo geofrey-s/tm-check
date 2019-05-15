@@ -19,6 +19,9 @@ public class Student extends User implements Serializable {
     @ManyToMany(cascade = { CascadeType.ALL})
     List<OfferedCourse> enrolledCourses;
 
+    @OneToOne(mappedBy = "student")
+    Card card;
+
     public Entry getEntry() {
         return entry;
     }
