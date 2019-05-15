@@ -1,7 +1,6 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
 
 @Entity
 public class User {

@@ -3,7 +3,7 @@ package edu.mum.tmcheck.domain.entities;
 import javax.persistence.*;
 
 @Entity
-public class Attendence {
+public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;

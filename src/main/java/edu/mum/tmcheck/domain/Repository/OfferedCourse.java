@@ -1,4 +1,4 @@
-package edu.mum.tmcheck.domain.Repository;
+package edu.mum.tmcheck.domain.repository;
 
 import org.springframework.data.repository.CrudRepository;
 

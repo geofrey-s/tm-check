@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Student extends User{
+public class Student extends User {
 
     @ManyToOne
     @JoinColumn(name = "entry_id")
