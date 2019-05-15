@@ -7,7 +7,6 @@ import java.util.List;
 
 @Entity
 public class Student extends User implements Serializable {
-
     @ManyToOne
     Entry entry;
 
