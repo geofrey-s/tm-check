@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div th:replace="fragments/header::header">Head section goes here</div>
+<body>
+<div class="content-fluid" layout:fragment="content">Page content goes here</div>
+<div th:replace="fragments/footer :: footer">Page footer goes here</div>
+</body>
+</html>
