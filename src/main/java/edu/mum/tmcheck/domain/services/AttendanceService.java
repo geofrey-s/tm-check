@@ -10,4 +10,6 @@ public interface AttendanceService {
     public Attendance get();
 
     public void save();
+
+    public void loadFromFile(String filename);
 }

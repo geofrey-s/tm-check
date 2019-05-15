@@ -23,4 +23,44 @@ public class Attendance {
     @ManyToOne
     @JoinColumn(name = "tm_type_id")
     TMType tmType;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public MeditationType getMeditationType() {
+        return meditationType;
+    }
+
+    public void setMeditationType(MeditationType meditationType) {
+        this.meditationType = meditationType;
+    }
+
+    public TMType getTmType() {
+        return tmType;
+    }
+
+    public void setTmType(TMType tmType) {
+        this.tmType = tmType;
+    }
 }
