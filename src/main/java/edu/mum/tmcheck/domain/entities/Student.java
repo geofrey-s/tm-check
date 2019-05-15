@@ -1,20 +1,24 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class Student extends User{
+public class Student extends User implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "entry_id")
     Entry entry;
 
     @Column(unique = true)
-    String studentId;
+    String studentRegId;
 
     LocalDate departureDate;
+
+
+    @ManyToMany(cascade = { CascadeType.ALL})
+    List<OfferedCourse> enrolledCourses;
 
     public Entry getEntry() {
         return entry;
@@ -24,12 +28,12 @@ public class Student extends User{
         this.entry = entry;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getStudentRegId() {
+        return studentRegId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setStudentRegId(String studentRegId) {
+        this.studentRegId = studentRegId;
     }
 
     public LocalDate getDepartureDate() {
@@ -47,7 +51,4 @@ public class Student extends User{
     public void setEnrolledCourses(List<OfferedCourse> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
     }
-
-    @OneToMany
-    List<OfferedCourse> enrolledCourses;
 }

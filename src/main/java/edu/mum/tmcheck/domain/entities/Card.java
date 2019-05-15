@@ -1,10 +1,11 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class Card {
+public class Card implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;

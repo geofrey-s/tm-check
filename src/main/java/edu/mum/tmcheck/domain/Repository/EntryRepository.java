@@ -1,8 +1,9 @@
 package edu.mum.tmcheck.domain.Repository;
 
+import edu.mum.tmcheck.domain.entities.Entry;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Entry extends CrudRepository<Entry, Long> {
+public interface EntryRepository extends CrudRepository<Entry, Long> {
 }

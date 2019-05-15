@@ -1,27 +1,24 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Attendence {
+public class Attendance implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
     Student student;
 
     @ManyToOne
-    @JoinColumn(name = "location_id")
     Location location;
 
     @ManyToOne
-    @JoinColumn(name = "meditation_type_id")
     MeditationType meditationType;
 
     @ManyToOne
-    @JoinColumn(name = "tm_type_id")
     TMType tmType;
 
     public long getId() {

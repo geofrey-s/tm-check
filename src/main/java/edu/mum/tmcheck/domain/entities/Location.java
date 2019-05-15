@@ -1,9 +1,10 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Location {
+public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;

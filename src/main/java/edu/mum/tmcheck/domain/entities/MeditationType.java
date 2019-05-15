@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.time.LocalTime;
 
 @Entity
-public class MeditationType {
+public class MeditationType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;

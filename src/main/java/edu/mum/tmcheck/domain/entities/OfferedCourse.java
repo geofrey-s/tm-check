@@ -1,19 +1,36 @@
 package edu.mum.tmcheck.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class OfferedCourse {
+public class OfferedCourse implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+
     @ManyToOne
     Course course;
 
     @ManyToOne
+    @JoinColumn
     Faculty faculty;
 
     @ManyToOne
+    @JoinColumn
     Block block;
+
+    @ManyToMany(mappedBy = "enrolledCourses")
+    List<Student> students;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Course getCourse() {
         return course;
@@ -46,6 +63,4 @@ public class OfferedCourse {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
-
-    List<Student> students;
 }

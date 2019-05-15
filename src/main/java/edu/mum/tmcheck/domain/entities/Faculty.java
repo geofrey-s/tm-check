@@ -1,16 +1,18 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Faculty extends User {
+public class Faculty extends User implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "current_course_id")
     Course currentCourse;
+
+    @OneToMany
+    List<Course> offeredCourses;
 
     public Course getCurrentCourse() {
         return currentCourse;
@@ -27,7 +29,4 @@ public class Faculty extends User {
     public void setOfferedCourses(List<Course> offeredCourses) {
         this.offeredCourses = offeredCourses;
     }
-
-    @OneToMany
-    List<Course> offeredCourses;
 }

@@ -1,10 +1,10 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
+import java.io.Serializable;
 
 @Entity
-public class User {
+public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     long id;

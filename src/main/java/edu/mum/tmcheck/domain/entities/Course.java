@@ -1,10 +1,11 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Course {
+public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -13,6 +14,10 @@ public class Course {
 
     @Column(unique = true)
     String code;
+
+
+    @OneToMany
+    List<OfferedCourse> offeredCourses;
 
     public long getId() {
         return id;
@@ -45,7 +50,4 @@ public class Course {
     public void setOfferedCourses(List<OfferedCourse> offeredCourses) {
         this.offeredCourses = offeredCourses;
     }
-
-    @OneToMany
-    List<OfferedCourse> offeredCourses;
 }
