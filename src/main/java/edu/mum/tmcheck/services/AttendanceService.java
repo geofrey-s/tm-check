@@ -1,4 +1,4 @@
-package edu.mum.tmcheck.domain.services;
+package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
 

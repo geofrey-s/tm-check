@@ -1,7 +1,7 @@
-package edu.mum.tmcheck.domain.serviceimp;
+package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Course;
-import edu.mum.tmcheck.domain.services.CourseService;
+import edu.mum.tmcheck.services.CourseService;
 
 class CourseServiceImp implements CourseService {
 
