@@ -13,14 +13,29 @@ public class Card implements Serializable {
     @Column(unique = true)
     String barcode;
 
-    @OneToOne
+    @OneToOne(optional = true)
     Student student;
 
-    @Column()
     boolean status = true;
 
-    LocalDate issueDate;
+    LocalDate issueDate = LocalDate.now();
     LocalDate expiryDate;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public long getId() {
         return id;

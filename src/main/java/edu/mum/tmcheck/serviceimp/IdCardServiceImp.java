@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class IdCardServiceImp {
+public class IdCardServiceImp {
     @Autowired
     IdCardRepository idCardRepository;
 
+    public Card save(Card card){
+        return idCardRepository.save(card);
+    }
+    
     public Card findByBarcode(String barcode){
         return idCardRepository.findByBarcode(barcode);
     }
