@@ -24,4 +24,8 @@ public class EntryServiceImp implements EntryService {
     public Entry save(Entry instance){
         return entryRepository.save(instance);
     }
+
+    public Entry findById(long id){
+        return entryRepository.findById(id).get();
+    }
 }

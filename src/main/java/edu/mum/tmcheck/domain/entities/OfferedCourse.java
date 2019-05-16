@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class OfferedCourse implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @ManyToOne

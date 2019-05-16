@@ -7,5 +7,6 @@ public interface BlockService {
 
     //    public void update();
     public Block get();
-//    public void save();
+    public Block save(Block block);
+    public Block getFirst();
 }

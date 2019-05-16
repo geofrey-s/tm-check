@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 public class User implements Serializable {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     long id;
 

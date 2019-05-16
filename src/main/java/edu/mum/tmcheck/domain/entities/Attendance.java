@@ -1,13 +1,14 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"student_id","meditation_type_id", "location_id"})
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"student_id", "meditation_type_id", "location_id", "created_at"})
 })
-public class Attendance {
+public class Attendance implements Serializable {
     @Transient
     public static final String DEFAULT_MEDITATION_TYPE = "AM";
 
@@ -18,7 +19,7 @@ public class Attendance {
     public static final String DEFAULT_TM_TYPE = "Standard";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @ManyToOne
@@ -37,6 +38,7 @@ public class Attendance {
     @JoinColumn(name = "tm_type_id")
     TMType tmType;
 
+    @Column(name = "created_at")
     LocalDate createdAt;
 
     public LocalDate getCreatedAt() {

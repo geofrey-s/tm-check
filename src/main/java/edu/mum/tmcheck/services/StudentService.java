@@ -2,10 +2,13 @@ package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Student;
 
+import java.util.List;
+
 public interface StudentService {
     public void create();
 
     //    public void update();
     public Student get();
-//    public void save();
+    public Student save(Student student);
+    public List<Student> findAll();
 }

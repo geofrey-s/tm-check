@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Entity
 public class MeditationType implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     String name;

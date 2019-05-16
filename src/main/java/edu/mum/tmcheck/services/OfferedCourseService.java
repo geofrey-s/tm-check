@@ -7,5 +7,5 @@ public interface OfferedCourseService {
 
     //    public void update();
     public OfferedCourse get();
-//    public void save();
+    public OfferedCourse save(OfferedCourse instance);
 }

@@ -75,8 +75,8 @@ public class AttendanceServiceImp implements AttendanceService {
     }
 
     @Override
-    public void save(Attendance studentrecord) {
-            attendanceRepository.save(studentrecord);
+    public Attendance save(Attendance attendance) {
+        return attendanceRepository.save(attendance);
     }
 
     @Override
