@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class EntryAttendanceReportServiceImp implements EntryAttendanceReportService {
     @Autowired
-    EntryAttendanceReportRepository attendanceReportRepository;
+    EntryAttendanceReportRepository entryAttendanceReportRepository;
 
     public List<EntryAttendanceReport> generateByEntry(String entry){
-        return attendanceReportRepository.findByEntry(entry);
+        return entryAttendanceReportRepository.findByEntry(entry);
     }
 }

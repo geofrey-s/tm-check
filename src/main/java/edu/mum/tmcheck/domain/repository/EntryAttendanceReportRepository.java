@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface EntryAttendanceReportRepository extends CrudRepository<EntryAttendanceReport, String> {
-    @Query(value = "SELECT a FROM AttendanceReport AS a WHERE a.entry = :entry")
+    @Query(value = "SELECT a FROM EntryAttendanceReport AS a WHERE a.entry = :entry")
     public List<EntryAttendanceReport> findByEntry(String entry);
 }
