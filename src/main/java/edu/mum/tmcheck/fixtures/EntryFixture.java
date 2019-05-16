@@ -16,13 +16,13 @@ public class EntryFixture extends BaseFixture {
     public void generate(int size) {
         Entry entry = new Entry();
         entry.setStartDate(LocalDate.now());
-        entry.setEndDate(futureYearDate(1));
+        entry.setEndDate(futureDateByYear(1));
         entry.setName("FEB19");
         entryServiceImp.save(entry);
 
         entry = new Entry();
         entry.setStartDate(LocalDate.now());
-        entry.setEndDate(futureYearDate(1));
+        entry.setEndDate(futureDateByYear(1));
         entry.setName("APL19");
         entryServiceImp.save(entry);
     }

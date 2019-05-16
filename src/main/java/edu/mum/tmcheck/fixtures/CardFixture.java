@@ -16,7 +16,7 @@ public class CardFixture extends BaseFixture {
         while (size-- > 0){
             Card card = new Card();
             card.setBarcode(randomBarcode());
-            card.setExpiryDate(futureYearDate(1));
+            card.setExpiryDate(futureDateByYear(1));
 
             idCardServiceImp.save(card);
         }

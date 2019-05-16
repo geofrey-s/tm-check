@@ -18,10 +18,14 @@ public class ApplicationFixture {
     @Autowired
     CourseFixture courseFixture;
 
+    @Autowired
+    BlockFixture blockFixture;
+
     @PostConstruct
     public void initialize() {
         entryFixture.generate(2);
         courseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        blockFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

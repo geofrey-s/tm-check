@@ -21,13 +21,37 @@ public abstract class BaseFixture {
     public abstract void generate(int size);
 
     /**
-     * Generate a future date a given number of years in the future
+     * Generate a future date given a number of years in the future
      * @param numYears
      * @return
      */
-    public LocalDate futureYearDate(Integer numYears) {
+    public LocalDate futureDateByYear(Integer numYears) {
         numYears = numYears != null ? numYears : 1;
         Date futureDate = faker.date().future(numYears * 365, TimeUnit.DAYS);
+        return toLocalDate(futureDate);
+    }
+
+    /**
+     * Generate a future date given a number of months from the reference date
+     * @param numMonths
+     * @param refDate
+     * @return
+     */
+    public LocalDate futureDateByMonth(Integer numMonths, LocalDate refDate) {
+        Date _refDate =  java.sql.Date.valueOf(refDate);
+        numMonths = numMonths != null ? numMonths : 1;
+        Date futureDate = faker.date().future(numMonths * 30, TimeUnit.DAYS, _refDate);
+        return toLocalDate(futureDate);
+    }
+
+    /**
+     * Generate a past date given a number of months in the past
+     * @param numMonths
+     * @return
+     */
+    public LocalDate pastDateByMonth(Integer numMonths) {
+        numMonths = numMonths != null ? numMonths : 1;
+        Date futureDate = faker.date().past(numMonths * 30, TimeUnit.DAYS);
         return toLocalDate(futureDate);
     }
 
