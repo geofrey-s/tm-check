@@ -69,10 +69,12 @@ public class AttendanceServiceImp implements AttendanceService {
      */
     public boolean loadFromFile(String filename) {
         try (Stream<String> stream = Files.lines(Paths.get(filename))) {
-            stream
+            stream.parallel()
                     .filter(Objects::nonNull)
                     .map(line -> line.split(","))
-                    .map(aLine -> isManualEntry(aLine) ? processManualAttendanceRecord(aLine) : processScannedAttendanceRecord(aLine))
+                    .map(aLine -> isManualEntry(aLine)
+                            ? processManualAttendanceRecord(aLine)
+                            : processScannedAttendanceRecord(aLine))
                     .forEach(this::insertOnlyUnique);
         } catch (IOException e) {
             return false;
@@ -119,6 +121,7 @@ public class AttendanceServiceImp implements AttendanceService {
 
     /**
      * Determines if a give attendance log record was manually collected or scanned by the student
+     *
      * @param line
      * @return
      */
@@ -131,6 +134,7 @@ public class AttendanceServiceImp implements AttendanceService {
 
     /**
      * Parses the string to a LocalDate instate using a predefined date format
+     *
      * @param input
      * @param format
      * @return
@@ -143,6 +147,7 @@ public class AttendanceServiceImp implements AttendanceService {
 
     /**
      * Inserts new attendance records in the database ignoring duplicates
+     *
      * @param attendance
      */
     protected void insertOnlyUnique(Attendance attendance) {
