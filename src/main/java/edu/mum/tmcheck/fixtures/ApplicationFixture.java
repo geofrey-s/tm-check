@@ -12,8 +12,12 @@ public class ApplicationFixture {
     @Autowired
     CardFixture cardFixture;
 
+    @Autowired
+    EntryFixture entryFixture;
+
     @PostConstruct
     public void initialize(){
+        entryFixture.generate(2);
         cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

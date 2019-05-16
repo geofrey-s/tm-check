@@ -7,5 +7,5 @@ public interface EntryService {
 
     //    public void update();
     public Entry get();
-//    public void save();
+    public Entry save(Entry instance);
 }

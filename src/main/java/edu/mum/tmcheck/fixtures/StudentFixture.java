@@ -12,7 +12,7 @@ public class StudentFixture extends BaseFixture{
     public void generate(int size) {
         while (size-- > 0){
             Student student = new Student();
-//            student
+            student.setDepartureDate(futureYearDate(1));
         }
     }
 }
