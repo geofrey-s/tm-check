@@ -10,6 +10,11 @@ public interface CourseService {
 
     //    public void update();
     public Course get();
+
     public Course save(Course instance);
+
     public List<Course> findAllById(Collection<Long> ids);
+
+    public Course findById(long id);
+    public Course getFirst();
 }

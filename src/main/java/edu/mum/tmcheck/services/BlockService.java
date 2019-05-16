@@ -8,4 +8,5 @@ public interface BlockService {
     //    public void update();
     public Block get();
     public Block save(Block block);
+    public Block getFirst();
 }

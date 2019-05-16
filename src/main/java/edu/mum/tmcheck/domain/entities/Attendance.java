@@ -18,7 +18,7 @@ public class Attendance {
     public static final String DEFAULT_TM_TYPE = "Standard";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     @ManyToOne

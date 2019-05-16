@@ -25,4 +25,13 @@ public class BlockServiceImp implements BlockService {
     public Block save(Block block) {
         return blockRepository.save(block);
     }
+
+    @Override
+    public Block getFirst() {
+        return blockRepository.getFirst();
+    }
+
+    public Block findById(long id){
+        return blockRepository.findById(id).get();
+    }
 }

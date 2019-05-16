@@ -7,5 +7,6 @@ public interface FacultyService {
 
     //    public void update();
     public Faculty get();
-//    public void save();
+    public Faculty save(Faculty faculty);
+    public Faculty getFirst();
 }

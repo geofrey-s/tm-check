@@ -11,9 +11,7 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
     OfferedCourseServiceImp offeredCourseServiceImp;
 
     @Override
-    public void create() {
-
-    }
+    public void create() {}
 
     @Override
     public OfferedCourse get() {

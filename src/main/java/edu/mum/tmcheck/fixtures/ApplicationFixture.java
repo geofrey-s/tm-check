@@ -21,11 +21,24 @@ public class ApplicationFixture {
     @Autowired
     BlockFixture blockFixture;
 
+    @Autowired
+    FacultyFixture facultyFixture;
+
+    @Autowired
+    OfferedCourseFixture offeredCourseFixture;
+
+    @Autowired
+    LocationFixture locationFixture;
+
     @PostConstruct
     public void initialize() {
         entryFixture.generate(2);
         courseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         blockFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        facultyFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        // @todo need to fix this
+        // offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

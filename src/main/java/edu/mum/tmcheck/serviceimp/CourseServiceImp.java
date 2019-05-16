@@ -18,7 +18,6 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public void create() {
-
     }
 
     @Override
@@ -34,5 +33,14 @@ public class CourseServiceImp implements CourseService {
     @Override
     public List<Course> findAllById(Collection<Long> ids) {
         return courseRepository.findAllByIdIn(ids);
+    }
+
+    public Course findById(long id) {
+        return courseRepository.findById(id).get();
+    }
+
+    @Override
+    public Course getFirst() {
+        return courseRepository.getFirst();
     }
 }

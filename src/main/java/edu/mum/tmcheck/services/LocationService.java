@@ -7,5 +7,5 @@ public interface LocationService {
 
     //    public void update();
     public Location get();
-//    public void save();
+    public Location save(Location location);
 }
