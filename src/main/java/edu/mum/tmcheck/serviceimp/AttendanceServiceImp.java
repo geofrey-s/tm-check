@@ -80,6 +80,16 @@ public class AttendanceServiceImp implements AttendanceService {
     }
 
     @Override
+    public void deletebyid(Long RecordId){
+        attendanceRepository.deleteById(RecordId);
+    }
+
+    @Override
+    public Attendance findTMCheckRecord(Long StudentId, Long MeditationTypeID){
+        List<Attendance> attendanceList  = (List<Attendance>) attendanceRepository.findAll();
+        return attendanceList.stream().filter(record -> record.getStudent().getId() == StudentId && record.getMeditationType().getId() == MeditationTypeID).collect(Collectors.toList()).get(0);
+    }
+    @Override
     /**
      * Reads all students TM attendance records from file and loads the into the database
      * @param filename log filename
