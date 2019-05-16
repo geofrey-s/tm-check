@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MeditationTypeRepository extends CrudRepository<MeditationType, Long> {
-
+    public MeditationType findByName(String name);
 }

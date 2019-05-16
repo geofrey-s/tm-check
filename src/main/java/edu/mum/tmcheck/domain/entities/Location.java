@@ -12,6 +12,9 @@ public class Location implements Serializable {
     @Column(unique = true)
     String name;
 
+    @Column(unique = true)
+    String code;
+
     public long getId() {
         return id;
     }
@@ -35,7 +38,4 @@ public class Location implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
-
-    @Column(unique = true)
-    String code;
 }

@@ -1,9 +1,22 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"student_id","meditation_type_id", "location_id"})
+})
 public class Attendance {
+    @Transient
+    public static final String DEFAULT_MEDITATION_TYPE = "AM";
+
+    @Transient
+    public static final String DEFAULT_LOCATION_CODE = "DB";
+
+    @Transient
+    public static final String DEFAULT_TM_TYPE = "Standard";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
@@ -23,6 +36,16 @@ public class Attendance {
     @ManyToOne
     @JoinColumn(name = "tm_type_id")
     TMType tmType;
+
+    LocalDate createdAt;
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public long getId() {
         return id;
