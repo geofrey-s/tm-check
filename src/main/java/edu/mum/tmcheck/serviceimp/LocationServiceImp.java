@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class LocationServiceImp {
+public class LocationServiceImp {
     @Autowired
     LocationRepository locationRepository;
 

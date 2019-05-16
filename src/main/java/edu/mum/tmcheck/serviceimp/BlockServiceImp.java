@@ -5,7 +5,7 @@ import edu.mum.tmcheck.services.BlockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
 
-class BlockServiceImp implements BlockService {
+public class BlockServiceImp implements BlockService {
     @Autowired
     private BlockRepository blockRepository;
     @Override

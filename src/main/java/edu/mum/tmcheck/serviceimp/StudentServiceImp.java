@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-class StudentServiceImp {
+public class StudentServiceImp {
     @Autowired
     StudentRepository studentRepository;
 
