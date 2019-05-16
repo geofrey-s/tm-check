@@ -15,9 +15,13 @@ public class ApplicationFixture {
     @Autowired
     EntryFixture entryFixture;
 
+    @Autowired
+    CourseFixture courseFixture;
+
     @PostConstruct
-    public void initialize(){
+    public void initialize() {
         entryFixture.generate(2);
+        courseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

@@ -16,7 +16,7 @@ public class Course implements Serializable {
     String code;
 
 
-    @OneToMany
+    @OneToMany()
     List<OfferedCourse> offeredCourses;
 
     public long getId() {
