@@ -52,6 +52,14 @@ public class EntryAttendanceReport implements Serializable {
         return name;
     }
 
+    public double getOverrallAttendance() {
+        return overrallAttendance;
+    }
+
+    public void setOverrallAttendance(double overrallAttendance) {
+        this.overrallAttendance = overrallAttendance;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
