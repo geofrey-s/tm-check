@@ -2,7 +2,12 @@ package edu.mum.tmcheck.serviceimp;
 
 
 import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.domain.entities.Block;
+import edu.mum.tmcheck.domain.entities.OfferedCourse;
+import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
+import edu.mum.tmcheck.domain.repository.BlockRepository;
+import edu.mum.tmcheck.domain.repository.FacultyRepository;
 import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +17,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.lang.Math.toIntExact;
 
 @Service
 public class AttendanceServiceImp implements AttendanceService {
@@ -39,6 +50,12 @@ public class AttendanceServiceImp implements AttendanceService {
 
     @Autowired
     AttendanceRepository attendanceRepository;
+
+    @Autowired
+    FacultyRepository facultyRepository;
+
+    @Autowired
+    BlockRepository blockRepository;
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -100,7 +117,6 @@ public class AttendanceServiceImp implements AttendanceService {
 
         return record;
     }
-
     /**
      * process students' scanned TM attendance sessions converting them to standard Attendance objects
      *
@@ -169,5 +185,85 @@ public class AttendanceServiceImp implements AttendanceService {
         file.transferTo(new File(filename));
 
         return loadFromFile(filename);
+    }
+
+
+    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id)
+    {
+        /*
+        * Get Current Block using the current date Using Filter
+        *
+        * */
+        Block currentblock = ((List<Block>) (blockRepository.findAll())).stream()
+                        .filter(x -> x.getStartDate().isBefore(LocalDate.now()) && x.getEndDate().isAfter(LocalDate.now()))
+                        .collect(Collectors.toList())
+                        .get(0);
+
+        /*
+         * Get Current CourseOfferings in current block
+         *
+         * */
+        List<OfferedCourse> courses = currentblock.getOfferedCourses();
+
+
+        /*
+         * Filter the current course offerings using Faculty ID to get the current course of the professor
+         *
+         * */
+        OfferedCourse currentcourse = courses.stream()
+                                                .filter(x -> x.getFaculty().getId() == id)
+                                                .collect(Collectors.toList()).get(0);
+
+
+        /*
+         * Get Students of that specific course
+         *
+         * */
+        List<Student> students = currentcourse.getStudents();
+
+        List<BlockEndEachStudentMeditationData> StudentsData =  new ArrayList<>();
+
+        /*
+         * Calculate the available session from the block duration
+         *
+         * */
+        long noofdays = Duration.between(currentblock.getStartDate(), currentblock.getEndDate()).toDays();
+        long availablesessions;
+        if(noofdays > 14){
+            availablesessions = 11;
+        }
+        else {
+            availablesessions = 22;
+        }
+
+        /*
+         * Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
+         *
+         * */
+        students.forEach(s ->{
+            List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
+            Long days_attended = attendanceofstudent.stream()
+                                                        .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
+                                                        .count();
+            Long percentage = (days_attended/availablesessions) * 100;
+            double ExtraCredit;
+            if(percentage >= 70)
+                ExtraCredit = 0.5;
+            else if(percentage >= 80)
+                ExtraCredit = 1.0;
+            else if(percentage >= 90)
+                ExtraCredit = 1.5;
+            else
+                ExtraCredit = 0.0;
+
+            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float)percentage, (float)ExtraCredit);
+            StudentsData.add(studentdata);
+        });
+
+
+        /*
+         * Return all the data from the List
+         */
+        return StudentsData;
     }
 }
