@@ -113,4 +113,19 @@ public class EntryAttendanceReport implements Serializable {
     public void setChecks(int checks) {
         this.checks = checks;
     }
+
+    @Override
+    public String toString() {
+        return "EntryAttendanceReport{" +
+                "studentId='" + studentId + '\'' +
+                ", name='" + name + '\'' +
+                ", entry='" + entry + '\'' +
+                ", entry_start=" + entry_start +
+                ", entry_end=" + entry_end +
+                ", standard_tm=" + standard_tm +
+                ", retreats=" + retreats +
+                ", checks=" + checks +
+                ", overrallAttendance=" + overrallAttendance +
+                '}';
+    }
 }

@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(uniqueConstraints={
-        @UniqueConstraint(columnNames = {"student_id","meditation_type_id", "location_id", "created_at"})
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"student_id", "meditation_type_id", "location_id", "created_at"})
 })
 public class Attendance implements Serializable {
     @Transient
