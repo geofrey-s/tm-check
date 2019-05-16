@@ -9,7 +9,7 @@ public interface AttendanceService {
 
     public Attendance get();
 
-    public void save();
+    public Attendance save(Attendance attendance);
 
     public boolean loadFromFile(String filename);
 }

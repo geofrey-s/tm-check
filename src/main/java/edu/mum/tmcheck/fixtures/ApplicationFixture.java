@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.fixtures;
 
+import edu.mum.tmcheck.domain.entities.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +37,15 @@ public class ApplicationFixture {
     @Autowired
     TMTypeFixture tmTypeFixture;
 
+    @Autowired
+    StudentFixture studentFixture;
+
+    @Autowired
+    AdminFixture adminFixture;
+
+    @Autowired
+    AttendanceFixture attendanceFixture;
+
     @PostConstruct
     public void initialize() {
         entryFixture.generate(2);
@@ -44,9 +54,12 @@ public class ApplicationFixture {
         blockFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         facultyFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         // @todo need to fix this
-        // offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        //  offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         meditationTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         tmTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        studentFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        adminFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        attendanceFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

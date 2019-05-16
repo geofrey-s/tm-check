@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -17,6 +18,8 @@ public abstract class BaseFixture {
 
     @Autowired
     protected FakeValuesService fakeValuesService;
+
+    protected Random random = new Random();
 
     public abstract void generate(int size);
 
