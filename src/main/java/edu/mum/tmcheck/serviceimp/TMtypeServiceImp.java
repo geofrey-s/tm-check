@@ -13,4 +13,8 @@ public class TMtypeServiceImp {
     public TMType findByName(String code){
         return tMtypeRepository.findByName(code);
     }
+
+    public TMType save(TMType tmType){
+        return tMtypeRepository.save(tmType);
+    }
 }

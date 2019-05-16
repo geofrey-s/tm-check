@@ -7,5 +7,5 @@ public interface MeditationTypeService {
 
     //    public void update();
     public MeditationType get();
-//    public void save();
+    public MeditationType save(MeditationType meditationType);
 }

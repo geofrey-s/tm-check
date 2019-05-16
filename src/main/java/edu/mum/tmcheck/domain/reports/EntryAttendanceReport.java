@@ -18,9 +18,9 @@ import java.time.LocalDate;
         "e.name AS entry," +
         "e.start_date AS entry_start," +
         "e.end_date AS entry_end," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
+        "SUM(CASE WHEN LOWER(tt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm," +
+        "SUM(CASE WHEN LOWER(tt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
+        "SUM(CASE WHEN LOWER(tt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
         "FROM attendance AS a " +
         "LEFT JOIN user AS u ON u.id = a.student_id " +
         "LEFT JOIN entry AS e ON e.id = u.entry_id " +

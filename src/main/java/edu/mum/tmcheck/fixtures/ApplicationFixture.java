@@ -30,6 +30,12 @@ public class ApplicationFixture {
     @Autowired
     LocationFixture locationFixture;
 
+    @Autowired
+    MeditationTypeFixture meditationTypeFixture;
+
+    @Autowired
+    TMTypeFixture tmTypeFixture;
+
     @PostConstruct
     public void initialize() {
         entryFixture.generate(2);
@@ -40,5 +46,7 @@ public class ApplicationFixture {
         // @todo need to fix this
         // offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        meditationTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        tmTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
     }
 }

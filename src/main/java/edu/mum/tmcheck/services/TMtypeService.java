@@ -7,5 +7,5 @@ public interface TMtypeService {
 
     //    public void update();
     public TMType get();
-//    public void save();
+    public TMType save(TMType tmType);
 }
