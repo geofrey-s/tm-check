@@ -9,25 +9,14 @@ import java.util.List;
 
 @Entity
 public class Faculty extends User implements Serializable {
-    @ManyToOne
-    Course currentCourse;
-
     @OneToMany
-    List<Course> offeredCourses;
+    List<OfferedCourse> offeredCourses;
 
-    public Course getCurrentCourse() {
-        return currentCourse;
-    }
-
-    public void setCurrentCourse(Course currentCourse) {
-        this.currentCourse = currentCourse;
-    }
-
-    public List<Course> getOfferedCourses() {
+    public List<OfferedCourse> getOfferedCourses() {
         return offeredCourses;
     }
 
-    public void setOfferedCourses(List<Course> offeredCourses) {
+    public void setOfferedCourses(List<OfferedCourse> offeredCourses) {
         this.offeredCourses = offeredCourses;
     }
 }

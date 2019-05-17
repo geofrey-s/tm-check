@@ -40,8 +40,8 @@ public class OfferedCourseFixture extends BaseFixture {
         while (size-- > 0) {
             OfferedCourse offeredCourse = new OfferedCourse();
 
-//            offeredCourse.setBlock(randomBlock());
-//            offeredCourse.setFaculty(randomFacultyUser());
+            offeredCourse.setBlock(randomBlock());
+            offeredCourse.setFaculty(randomFacultyUser());
             offeredCourse.setCourse(randomCourse());
 
             offeredCourseServiceImp.save(offeredCourse);
