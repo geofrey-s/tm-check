@@ -204,6 +204,7 @@ public class AttendanceServiceImp implements AttendanceService {
                 .collect(Collectors.toList())
                 .get(0);
 
+        System.out.println(currentblock);
         /*
          * Get Current CourseOfferings in current block
          *
@@ -219,7 +220,7 @@ public class AttendanceServiceImp implements AttendanceService {
                 .filter(x -> x.getFaculty().getId() == id)
                 .collect(Collectors.toList()).get(0);
 
-
+        System.out.println(currentcourse.getId());
         /*
          * Get Students of that specific course
          *

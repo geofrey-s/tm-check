@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.controllers;
 
+import edu.mum.tmcheck.domain.entities.User;
 import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class ExcelGenerator {
 
-    public static ByteArrayInputStream customersToExcel(List<BlockEndEachStudentMeditationData> ECData) throws IOException {
+    public static ByteArrayInputStream customersToExcel(List<User> ECData) throws IOException {
         String[] COLUMNs = {"Student Id", "Student Name", "Days Attended", "Total Days In Block", "Percentage Attended", "Total Extra Credits"};
         try(
                 Workbook workbook = new XSSFWorkbook();
@@ -43,15 +44,15 @@ public class ExcelGenerator {
             ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
-            for (BlockEndEachStudentMeditationData studentdata : ECData)
+            for (User studentdata : ECData)
             {
                 Row row = sheet.createRow(rowIdx++);
-                row.createCell(0).setCellValue(studentdata.getStudent().getStudentRegId());
-                row.createCell(1).setCellValue(studentdata.getStudent().getName());
-                row.createCell(2).setCellValue(studentdata.getNoofdaysattended());
-                row.createCell(3).setCellValue(studentdata.getTotalnoofdays());
-                row.createCell(4).setCellValue(studentdata.getPercentageattended());
-                row.createCell(5).setCellValue(studentdata.getTotalmarks());
+                row.createCell(0).setCellValue(studentdata.getId());
+                row.createCell(1).setCellValue(studentdata.getName());
+                row.createCell(2).setCellValue(studentdata.getUsername());
+                row.createCell(3).setCellValue(studentdata.getPassword());
+                row.createCell(4).setCellValue(studentdata.getClass().getSimpleName());
+                row.createCell(5).setCellValue(studentdata.getId());
             }
 
             workbook.write(out);
