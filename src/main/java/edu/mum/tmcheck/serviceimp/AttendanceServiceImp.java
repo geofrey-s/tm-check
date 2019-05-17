@@ -255,7 +255,7 @@ public class AttendanceServiceImp implements AttendanceService {
             List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
             Long days_attended = attendanceofstudent.stream()
                                                         .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
-                                                        .filter(att -> att.getMeditationType().getName().equals())
+                                                        .filter(att -> !att.getMeditationType().getName().equals("TM_Check") || att.getMeditationType().getName().equals("TM_RETREAT"))
                                                         .count();
             Long percentage = (days_attended/availablesessions) * 100;
             double ExtraCredit;
