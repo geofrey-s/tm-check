@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;

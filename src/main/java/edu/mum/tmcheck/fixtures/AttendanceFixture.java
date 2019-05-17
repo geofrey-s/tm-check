@@ -21,23 +21,18 @@ public class AttendanceFixture extends BaseFixture {
     StudentServiceImp studentServiceImp;
 
     @Autowired
-    TMtypeServiceImp tMtypeServiceImp;
-
-    @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
 
     @Autowired
     LocationServiceImp locationServiceImp;
 
     List<Student> students = new ArrayList<>();
-    List<TMType> tmTypes = new ArrayList<>();
     List<MeditationType> meditationTypes = new ArrayList<>();
     List<Location> locations = new ArrayList<>();
 
     @Override
     public void generate(int size) {
         students = studentServiceImp.findAll();
-        tmTypes = tMtypeServiceImp.findAll();
         meditationTypes = meditationTypeServiceImp.findAll();
         locations = locationServiceImp.findAll();
 
@@ -47,7 +42,6 @@ public class AttendanceFixture extends BaseFixture {
             Attendance attendance = new Attendance();
 
             attendance.setStudent(randomStudent());
-            attendance.setTmType(randomTMType());
             attendance.setMeditationType(randomMeditationType());
             attendance.setLocation(randomLocations());
             Date from = faker.date().past(2 * 30, TimeUnit.DAYS);
@@ -63,12 +57,6 @@ public class AttendanceFixture extends BaseFixture {
         int index = random.nextInt(students.size() - 1) + 1;
 
         return students.get(index);
-    }
-
-    public TMType randomTMType() {
-        int index = random.nextInt(tmTypes.size() - 1) + 1;
-
-        return tmTypes.get(index);
     }
 
     public MeditationType randomMeditationType() {

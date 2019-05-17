@@ -1,10 +1,7 @@
 package edu.mum.tmcheck.serviceimp;
 
 
-import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.domain.entities.Block;
-import edu.mum.tmcheck.domain.entities.OfferedCourse;
-import edu.mum.tmcheck.domain.entities.Student;
+import edu.mum.tmcheck.domain.entities.*;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
 import edu.mum.tmcheck.domain.repository.FacultyRepository;
@@ -39,9 +36,6 @@ public class AttendanceServiceImp implements AttendanceService {
 
     @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
-
-    @Autowired
-    TMtypeServiceImp tMtypeServiceImp;
 
     @Autowired
     LocationServiceImp locationServiceImp;
@@ -81,15 +75,16 @@ public class AttendanceServiceImp implements AttendanceService {
     }
 
     @Override
-    public void deletebyid(Long RecordId){
+    public void deletebyid(Long RecordId) {
         attendanceRepository.deleteById(RecordId);
     }
 
     @Override
-    public Attendance findTMCheckRecord(Long StudentId, Long MeditationTypeID){
-        List<Attendance> attendanceList  = (List<Attendance>) attendanceRepository.findAll();
+    public Attendance findTMCheckRecord(Long StudentId, Long MeditationTypeID) {
+        List<Attendance> attendanceList = (List<Attendance>) attendanceRepository.findAll();
         return attendanceList.stream().filter(record -> record.getStudent().getId() == StudentId && record.getMeditationType().getId() == MeditationTypeID).collect(Collectors.toList()).get(0);
     }
+
     @Override
     /**
      * Reads all students TM attendance records from file and loads the into the database
@@ -124,10 +119,10 @@ public class AttendanceServiceImp implements AttendanceService {
         record.setStudent(studentServiceImp.findByStudentRegId(line[1]));
         record.setMeditationType(meditationTypeServiceImp.findByName(Attendance.DEFAULT_MEDITATION_TYPE));
         record.setLocation(locationServiceImp.findByCode(Attendance.DEFAULT_LOCATION_CODE));
-        record.setTmType(tMtypeServiceImp.findByName(Attendance.DEFAULT_TM_TYPE));
 
         return record;
     }
+
     /**
      * process students' scanned TM attendance sessions converting them to standard Attendance objects
      *
@@ -139,9 +134,10 @@ public class AttendanceServiceImp implements AttendanceService {
 
         record.setStudent(studentServiceImp.findByBarcode(line[0]));
         record.setCreatedAt(parseDate(line[1], DATE_FORMAT));
-        record.setMeditationType(meditationTypeServiceImp.findByName(line[2]));
+
+        String meditationName = MeditationTypeServiceImp.fromShortCode(line[2]);
+        record.setMeditationType(meditationTypeServiceImp.findByName(meditationName));
         record.setLocation(locationServiceImp.findByCode(line[3]));
-        record.setTmType(tMtypeServiceImp.findByName(Attendance.DEFAULT_TM_TYPE));
 
         return record;
     }
@@ -198,17 +194,15 @@ public class AttendanceServiceImp implements AttendanceService {
         return loadFromFile(filename);
     }
 
-
-    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id)
-    {
+    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id) {
         /*
-        * Get Current Block using the current date Using Filter
-        *
-        * */
+         * Get Current Block using the current date Using Filter
+         *
+         * */
         Block currentblock = ((List<Block>) (blockRepository.findAll())).stream()
-                        .filter(x -> x.getStartDate().isBefore(LocalDate.now()) && x.getEndDate().isAfter(LocalDate.now()))
-                        .collect(Collectors.toList())
-                        .get(0);
+                .filter(x -> x.getStartDate().isBefore(LocalDate.now()) && x.getEndDate().isAfter(LocalDate.now()))
+                .collect(Collectors.toList())
+                .get(0);
 
         /*
          * Get Current CourseOfferings in current block
@@ -222,8 +216,8 @@ public class AttendanceServiceImp implements AttendanceService {
          *
          * */
         OfferedCourse currentcourse = courses.stream()
-                                                .filter(x -> x.getFaculty().getId() == id)
-                                                .collect(Collectors.toList()).get(0);
+                .filter(x -> x.getFaculty().getId() == id)
+                .collect(Collectors.toList()).get(0);
 
 
         /*
@@ -232,7 +226,7 @@ public class AttendanceServiceImp implements AttendanceService {
          * */
         List<Student> students = currentcourse.getStudents();
 
-        List<BlockEndEachStudentMeditationData> StudentsData =  new ArrayList<>();
+        List<BlockEndEachStudentMeditationData> StudentsData = new ArrayList<>();
 
         /*
          * Calculate the available session from the block duration
@@ -240,10 +234,9 @@ public class AttendanceServiceImp implements AttendanceService {
          * */
         long noofdays = Duration.between(currentblock.getStartDate(), currentblock.getEndDate()).toDays();
         long availablesessions;
-        if(noofdays > 14){
+        if (noofdays > 14) {
             availablesessions = 11;
-        }
-        else {
+        } else {
             availablesessions = 22;
         }
 
@@ -251,24 +244,25 @@ public class AttendanceServiceImp implements AttendanceService {
          * Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
          *
          * */
-        students.forEach(s ->{
+        students.forEach(s -> {
             List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
             Long days_attended = attendanceofstudent.stream()
                                                         .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
                                                         .filter(att -> !att.getMeditationType().getName().equals("TM_Check") || att.getMeditationType().getName().equals("TM_RETREAT"))
                                                         .count();
             Long percentage = (days_attended/availablesessions) * 100;
+
             double ExtraCredit;
-            if(percentage >= 70)
+            if (percentage >= 70)
                 ExtraCredit = 0.5;
-            else if(percentage >= 80)
+            else if (percentage >= 80)
                 ExtraCredit = 1.0;
-            else if(percentage >= 90)
+            else if (percentage >= 90)
                 ExtraCredit = 1.5;
             else
                 ExtraCredit = 0.0;
 
-            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float)percentage, (float)ExtraCredit);
+            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float) percentage, (float) ExtraCredit);
             StudentsData.add(studentdata);
         });
 
