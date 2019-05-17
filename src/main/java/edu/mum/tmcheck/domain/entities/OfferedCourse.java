@@ -13,15 +13,16 @@ public class OfferedCourse implements Serializable {
     @ManyToOne
     Course course;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn
     Faculty faculty;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn
     Block block;
 
     @ManyToMany(mappedBy = "enrolledCourses")
+    @Transient
     List<Student> students;
 
     public long getId() {

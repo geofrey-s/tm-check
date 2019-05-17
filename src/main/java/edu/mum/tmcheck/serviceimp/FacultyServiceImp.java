@@ -6,6 +6,9 @@ import edu.mum.tmcheck.services.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FacultyServiceImp implements FacultyService {
     @Autowired
@@ -32,5 +35,13 @@ public class FacultyServiceImp implements FacultyService {
     @Override
     public Faculty getFirst() {
         return facultyRepository.getFirst();
+    }
+
+    @Override
+    public List<Faculty> findAll() {
+        List<Faculty> records = new ArrayList<>();
+
+        facultyRepository.findAll().forEach(records::add);
+        return records;
     }
 }

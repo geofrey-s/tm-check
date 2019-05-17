@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.services;
 
+import edu.mum.tmcheck.domain.entities.Block;
 import edu.mum.tmcheck.domain.entities.Course;
 
 import java.util.Collection;
@@ -17,4 +18,5 @@ public interface CourseService {
 
     public Course findById(long id);
     public Course getFirst();
+    public List<Course> findAll();
 }
