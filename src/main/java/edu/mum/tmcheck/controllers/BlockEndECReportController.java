@@ -50,7 +50,7 @@ public class BlockEndECReportController {
     public ResponseEntity<InputStreamResource> excelExtraCreditReport(HttpSession session, Model model) throws IOException {
         Long userid = (Long) session.getAttribute("userid");
         List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC((long) 3);
-        ByteArrayInputStream in = excelReportGeneratorServiceImp.ExtraCreditToExcel((List<BlockEndEachStudentMeditationData>) StudentData);
+        ByteArrayInputStream in = excelReportGeneratorServiceImp.ExtraCreditToExcel(StudentData);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=ECRecord.xlsx");
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
