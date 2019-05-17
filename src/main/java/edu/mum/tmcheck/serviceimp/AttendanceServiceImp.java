@@ -5,6 +5,7 @@ import edu.mum.tmcheck.domain.entities.*;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
 import edu.mum.tmcheck.domain.repository.FacultyRepository;
+import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,6 +52,9 @@ public class AttendanceServiceImp implements AttendanceService {
 
     @Autowired
     BlockRepository blockRepository;
+
+    @Autowired
+    OfferedCourseRepository offeredCourseRepository;
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -204,12 +208,14 @@ public class AttendanceServiceImp implements AttendanceService {
                 .collect(Collectors.toList())
                 .get(0);
 
-        System.out.println(currentblock);
+//        System.out.println(currentblock.getId() + "----------------------------11111111111111111111");
         /*
          * Get Current CourseOfferings in current block
          *
          * */
-        List<OfferedCourse> courses = currentblock.getOfferedCourses();
+
+
+        List<OfferedCourse> courses = offeredCourseRepository.findAll();
 
 
         /*
@@ -217,10 +223,10 @@ public class AttendanceServiceImp implements AttendanceService {
          *
          * */
         OfferedCourse currentcourse = courses.stream()
-                .filter(x -> x.getFaculty().getId() == id)
+                .filter(x -> x.getFaculty().getId() == id && x.getBlock().getId() == currentblock.getId())
                 .collect(Collectors.toList()).get(0);
 
-        System.out.println(currentcourse.getId());
+//        System.out.println(currentcourse.getId() + "------------------------------------------------------2222222");
         /*
          * Get Students of that specific course
          *
@@ -249,7 +255,7 @@ public class AttendanceServiceImp implements AttendanceService {
             List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
             Long days_attended = attendanceofstudent.stream()
                                                         .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
-                                                        .filter(att -> !att.getMeditationType().getName().equals("TM_Check") || att.getMeditationType().getName().equals("TM_RETREAT"))
+                                                        .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
                                                         .count();
             Long percentage = (days_attended/availablesessions) * 100;
 

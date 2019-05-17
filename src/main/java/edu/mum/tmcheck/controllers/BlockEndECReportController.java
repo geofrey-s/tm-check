@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.controllers;
 
+import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.domain.entities.User;
 import edu.mum.tmcheck.domain.repository.UserRepository;
 import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
@@ -35,9 +36,9 @@ public class BlockEndECReportController {
 
     @GetMapping("/ExtraCredit")
     public ResponseEntity<InputStreamResource> excelExtraCreditReport(HttpSession session, Model model) throws IOException {
-        //        Long userid = (Long) session.getAttribute("userid");
-//        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC((long) 3);
-        ByteArrayInputStream in = ExcelGenerator.customersToExcel((List<User>) userRepository.findAll());
+//                Long userid = (Long) session.getAttribute("userid");
+        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC((long) 3);
+        ByteArrayInputStream in = ExcelGenerator.customersToExcel((List<BlockEndEachStudentMeditationData>) StudentData);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=ECRecord.xlsx");
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
