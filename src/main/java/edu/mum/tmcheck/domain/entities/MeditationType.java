@@ -1,21 +1,20 @@
 package edu.mum.tmcheck.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
 
 @Entity
 public class MeditationType implements Serializable {
+    public static final String STANDARD = "standard";
+    public static final String RETREAT = "retreat";
+    public static final String TMCHECK = "check";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     String name;
-    LocalTime startTime;
-    LocalTime endTime;
 
     public long getId() {
         return id;
@@ -31,21 +30,5 @@ public class MeditationType implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
     }
 }

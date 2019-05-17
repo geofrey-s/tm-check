@@ -35,9 +35,6 @@ public class ApplicationFixture {
     MeditationTypeFixture meditationTypeFixture;
 
     @Autowired
-    TMTypeFixture tmTypeFixture;
-
-    @Autowired
     StudentFixture studentFixture;
 
     @Autowired
@@ -57,7 +54,6 @@ public class ApplicationFixture {
         //  offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         meditationTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
-        tmTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         studentFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         adminFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         attendanceFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
