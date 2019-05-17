@@ -4,7 +4,11 @@ import edu.mum.tmcheck.domain.entities.Admin;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, Long> {
     public Admin findById(long id);
+
+
 }

@@ -10,6 +10,7 @@ import edu.mum.tmcheck.domain.repository.BlockRepository;
 import edu.mum.tmcheck.domain.repository.FacultyRepository;
 import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -254,6 +255,7 @@ public class AttendanceServiceImp implements AttendanceService {
             List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
             Long days_attended = attendanceofstudent.stream()
                                                         .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
+                                                        .filter(att -> att.getMeditationType().getName().equals())
                                                         .count();
             Long percentage = (days_attended/availablesessions) * 100;
             double ExtraCredit;

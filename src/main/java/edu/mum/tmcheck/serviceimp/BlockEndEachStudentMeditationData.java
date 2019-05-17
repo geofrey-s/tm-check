@@ -1,6 +1,8 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Student;
+import org.springframework.stereotype.Component;
+
 
 public class BlockEndEachStudentMeditationData
 {
