@@ -16,7 +16,10 @@ public class Student extends User implements Serializable {
     LocalDate departureDate;
 
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     List<OfferedCourse> enrolledCourses;
 
     @OneToOne(mappedBy = "student")
@@ -47,11 +50,10 @@ public class Student extends User implements Serializable {
     }
 
     public List<OfferedCourse> getEnrolledCourses() {
-        return null;
-//        return enrolledCourses;
+        return enrolledCourses;
     }
 
     public void setEnrolledCourses(List<OfferedCourse> enrolledCourses) {
-//        this.enrolledCourses = enrolledCourses;
+        this.enrolledCourses = enrolledCourses;
     }
 }
