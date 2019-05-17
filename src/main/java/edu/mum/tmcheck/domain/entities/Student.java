@@ -16,8 +16,10 @@ public class Student extends User implements Serializable {
     LocalDate departureDate;
 
 
-    @ManyToMany
-    @Transient
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     List<OfferedCourse> enrolledCourses;
 
     @OneToOne(mappedBy = "student")

@@ -13,15 +13,13 @@ public class OfferedCourse implements Serializable {
     @ManyToOne
     Course course;
 
-    @ManyToOne(optional = true)
-    @JoinColumn
+    @ManyToOne
     Faculty faculty;
 
-    @ManyToOne(optional = true)
-    @JoinColumn
+    @ManyToOne
     Block block;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "enrolledCourses")
     List<Student> students;
 
     public long getId() {
@@ -62,5 +60,9 @@ public class OfferedCourse implements Serializable {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public void addStudent(Student student) {
+        this.students.add(student);
     }
 }
