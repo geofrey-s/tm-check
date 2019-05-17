@@ -1,15 +1,13 @@
 package edu.mum.tmcheck.domain.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 public class Faculty extends User implements Serializable {
     @OneToMany
+    @JoinColumn(name = "faculty_id")
     List<OfferedCourse> offeredCourses;
 
     public List<OfferedCourse> getOfferedCourses() {

@@ -11,9 +11,11 @@ public class OfferedCourse implements Serializable {
     long id;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     Course course;
 
     @ManyToOne
+    @JoinColumn(name = "faculty_id")
     Faculty faculty;
 
     @ManyToOne
