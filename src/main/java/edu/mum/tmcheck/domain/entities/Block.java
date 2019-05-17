@@ -15,6 +15,7 @@ public class Block implements Serializable {
     LocalDate endDate;
 
     @OneToMany
+    @JoinColumn(name = "block_id")
     List<OfferedCourse> offeredCourses;
 
     public long getId() {
