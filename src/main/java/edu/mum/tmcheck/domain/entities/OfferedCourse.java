@@ -21,8 +21,7 @@ public class OfferedCourse implements Serializable {
     @JoinColumn
     Block block;
 
-    @ManyToMany(mappedBy = "enrolledCourses")
-    @Transient
+    @ManyToMany
     List<Student> students;
 
     public long getId() {
