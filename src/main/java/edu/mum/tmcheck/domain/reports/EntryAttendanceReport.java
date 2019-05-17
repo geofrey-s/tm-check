@@ -22,7 +22,7 @@ import java.time.LocalDate;
         "SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
         "SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
         "FROM attendance AS a " +
-        "LEFT JOIN user AS u ON u.id = a.student_id " +
+        "LEFT JOIN student AS u ON u.id = a.student_id " +
         "LEFT JOIN entry AS e ON e.id = u.entry_id " +
         "LEFT JOIN meditation_type AS mt ON mt.id = a.meditation_type_id " +
         "GROUP BY u.student_reg_id, u.name, e.name, e.start_date, e.end_date")

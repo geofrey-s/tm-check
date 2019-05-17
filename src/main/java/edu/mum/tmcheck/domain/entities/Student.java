@@ -17,7 +17,6 @@ public class Student extends User implements Serializable {
 
 
     @ManyToMany
-    @Transient
     List<OfferedCourse> enrolledCourses;
 
     @OneToOne(mappedBy = "student")
@@ -48,10 +47,11 @@ public class Student extends User implements Serializable {
     }
 
     public List<OfferedCourse> getEnrolledCourses() {
-        return enrolledCourses;
+        return null;
+//        return enrolledCourses;
     }
 
     public void setEnrolledCourses(List<OfferedCourse> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
+//        this.enrolledCourses = enrolledCourses;
     }
 }

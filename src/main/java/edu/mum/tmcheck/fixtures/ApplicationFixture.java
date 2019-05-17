@@ -50,8 +50,7 @@ public class ApplicationFixture {
         cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         blockFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         facultyFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
-        // @todo need to fix this
-//        offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        offeredCourseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         meditationTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         studentFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
