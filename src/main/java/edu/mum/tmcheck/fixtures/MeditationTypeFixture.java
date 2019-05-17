@@ -15,27 +15,15 @@ public class MeditationTypeFixture extends BaseFixture{
     @Override
     public void generate(int size) {
         MeditationType meditationType = new MeditationType();
-
-        meditationType.setName("EAM");
-        meditationType.setStartTime(LocalTime.of(8, 0));
-        meditationType.setEndTime(LocalTime.of(8, 30));
-
+        meditationType.setName("standard");
         meditationTypeServiceImp.save(meditationType);
 
         meditationType = new MeditationType();
-
-        meditationType.setName("AM");
-        meditationType.setStartTime(LocalTime.of(8, 45));
-        meditationType.setEndTime(LocalTime.of(9, 10));
-
+        meditationType.setName("retreat");
         meditationTypeServiceImp.save(meditationType);
 
         meditationType = new MeditationType();
-
-        meditationType.setName("DC");
-        meditationType.setStartTime(LocalTime.of(12, 0));
-        meditationType.setEndTime(LocalTime.of(13, 30));
-
+        meditationType.setName("check");
         meditationTypeServiceImp.save(meditationType);
     }
 }

@@ -1,7 +1,6 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Location;
-import edu.mum.tmcheck.domain.entities.TMType;
 import edu.mum.tmcheck.domain.repository.LocationRepository;
 import edu.mum.tmcheck.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;

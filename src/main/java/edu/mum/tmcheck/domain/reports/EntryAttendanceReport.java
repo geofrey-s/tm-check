@@ -18,14 +18,13 @@ import java.time.LocalDate;
         "e.name AS entry," +
         "e.start_date AS entry_start," +
         "e.end_date AS entry_end," +
-        "SUM(CASE WHEN LOWER(tt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm," +
-        "SUM(CASE WHEN LOWER(tt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
-        "SUM(CASE WHEN LOWER(tt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
+        "SUM(CASE WHEN LOWER(mt.name) = 'standard' AND THEN 1 ELSE 0 END) AS standard_tm," +
+        "SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
+        "SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
         "FROM attendance AS a " +
         "LEFT JOIN user AS u ON u.id = a.student_id " +
         "LEFT JOIN entry AS e ON e.id = u.entry_id " +
         "LEFT JOIN meditation_type AS mt ON mt.id = a.meditation_type_id " +
-        "LEFT JOIN tmtype AS tt ON tt.id = a.tm_type_id " +
         "GROUP BY u.student_reg_id, u.name, e.name, e.start_date, e.end_date")
 @Synchronize({"attendance", "user", "entry", "meditation_type"})
 public class EntryAttendanceReport implements Serializable {

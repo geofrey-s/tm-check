@@ -7,8 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
-
     public Attendance findByStudent(Student student);
-
-
 }

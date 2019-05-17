@@ -9,14 +9,8 @@ import java.time.LocalDate;
         @UniqueConstraint(columnNames = {"student_id", "meditation_type_id", "location_id", "created_at"})
 })
 public class Attendance implements Serializable {
-    @Transient
-    public static final String DEFAULT_MEDITATION_TYPE = "AM";
-
-    @Transient
+    public static final String DEFAULT_MEDITATION_TYPE = "Standard";
     public static final String DEFAULT_LOCATION_CODE = "DB";
-
-    @Transient
-    public static final String DEFAULT_TM_TYPE = "Standard";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +27,6 @@ public class Attendance implements Serializable {
     @ManyToOne
     @JoinColumn(name = "meditation_type_id")
     MeditationType meditationType;
-
-    @ManyToOne
-    @JoinColumn(name = "tm_type_id")
-    TMType tmType;
 
     @Column(name = "created_at")
     LocalDate createdAt;
@@ -79,13 +69,5 @@ public class Attendance implements Serializable {
 
     public void setMeditationType(MeditationType meditationType) {
         this.meditationType = meditationType;
-    }
-
-    public TMType getTmType() {
-        return tmType;
-    }
-
-    public void setTmType(TMType tmType) {
-        this.tmType = tmType;
     }
 }

@@ -1,7 +1,6 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.MeditationType;
-import edu.mum.tmcheck.domain.entities.TMType;
 import edu.mum.tmcheck.domain.repository.MeditationTypeRepository;
 import edu.mum.tmcheck.services.MeditationTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +39,16 @@ public class MeditationTypeServiceImp implements MeditationTypeService {
 
         meditationTypeRepository.findAll().forEach(records::add);
         return records;
+    }
+
+    public static String fromShortCode(String code) {
+        switch (code.toUpperCase()) {
+            case "DC":
+                return MeditationType.TMCHECK;
+            case "RT":
+                return MeditationType.RETREAT;
+            default: // AM/EAM
+                return MeditationType.STANDARD;
+        }
     }
 }
