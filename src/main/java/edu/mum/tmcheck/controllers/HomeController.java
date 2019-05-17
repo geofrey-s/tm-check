@@ -16,6 +16,9 @@ public class HomeController {
 
     @GetMapping
     public String index(Model model){
+        List<EntryAttendanceReport> report = serviceImp.generateByEntry("FEB19");
+        System.out.println(report.toString());
+
         return "home";
     }
 }
