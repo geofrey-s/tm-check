@@ -11,14 +11,8 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    @Autowired
-    EntryAttendanceReportServiceImp serviceImp;
-
     @GetMapping
     public String index(Model model){
-        List<EntryAttendanceReport> report = serviceImp.generateByEntry("FEB19");
-        System.out.println(report.toString());
-
         return "home";
     }
 }
