@@ -14,10 +14,15 @@ public class AttendanceController {
     @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
 
-    @GetMapping("/tmretreatandcheck/form")
+    @GetMapping("/tmretreatandcheckform")
     public String Gettmcheckform(Model model){
         model.addAttribute("meditationtypes", meditationTypeServiceImp.findAll());
         return "tmretreatandcheckformpage";
+    }
+
+    @GetMapping("/tmretreatattendanceform")
+    public String Gettmattendanceretrivalform(Model model){
+        return "tmretreataretrivalform";
     }
 
 }

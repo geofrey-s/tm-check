@@ -42,7 +42,7 @@ public class ReportController {
     }
 
     @PostMapping("/ExtraCreditReport/generate")
-    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, HttpSession session, Model model, RedirectAttributes redirectAttributes){
+    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, P, Model model, RedirectAttributes redirectAttributes){
         Long uid = (Long) session.getAttribute("userid");
         List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(uid, Long.valueOf(blockid));
         redirectAttributes.addFlashAttribute(StudentData);
