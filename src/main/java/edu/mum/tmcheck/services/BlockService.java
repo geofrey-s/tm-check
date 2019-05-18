@@ -2,6 +2,7 @@ package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Block;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface BlockService {
@@ -12,4 +13,5 @@ public interface BlockService {
     public Block save(Block block);
     public Block getFirst();
     public List<Block> findAll();
+    public HashMap<Long, Block> getfacultyteachingblocks(Long userid);
 }

@@ -8,6 +8,7 @@ import edu.mum.tmcheck.domain.repository.BlockRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -15,9 +16,20 @@ public class BlockServiceImp implements BlockService {
     @Autowired
     private BlockRepository blockRepository;
 
+    @Autowired
+    private OfferedCourseServiceImp offeredCourseServiceImp;
+
     @Override
     public void create() {
 
+    }
+
+    public HashMap<Long, Block> getfacultyteachingblocks(Long userid){
+        HashMap<Long, Block> blocks = new HashMap<>();
+        offeredCourseServiceImp.getfacultytaughtblockids(userid).forEach(blk -> {
+            blocks.put(blk.getId(), blk);
+        });
+        return blocks;
     }
 
     @Override
@@ -42,7 +54,6 @@ public class BlockServiceImp implements BlockService {
         blockRepository.findAll().forEach(records::add);
         return records;
     }
-
     public Block findById(long id) {
         return blockRepository.findById(id).get();
     }

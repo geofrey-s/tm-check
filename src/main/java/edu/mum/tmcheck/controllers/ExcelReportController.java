@@ -12,9 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -23,11 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/students/attendancereport")
-public class BlockEndECReportController {
+public class ExcelReportController {
 
     @Autowired
     AttendanceServiceImp attendanceServiceImp;
@@ -38,23 +37,15 @@ public class BlockEndECReportController {
     @Autowired
     ExcelReportGeneratorServiceImp excelReportGeneratorServiceImp;
 
-    @GetMapping("/ExtraCredit")
-    public String ExtraCreditReport(HttpSession session, Model model) {
-        Long userid = (Long) session.getAttribute("userid");
-        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC((userid));
-        model.addAttribute("StudentExtraCreditData", StudentData);
-        return "ExtraCreditList";
-    }
-
-    @GetMapping("/ExtraCredit/download/xls")
-    public ResponseEntity<InputStreamResource> excelExtraCreditReport(HttpSession session, Model model) throws IOException {
-        Long userid = (Long) session.getAttribute("userid");
-        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(userid);
+    @GetMapping("/ExtraCredit/{blockid}/reportdownload/xls")
+    public ResponseEntity<InputStreamResource> excelExtraCreditReport(@RequestParam("id")String userid, @PathVariable("blockid")String blockid, Model model) throws IOException {
+//      Long userid = (Long) session.getAttribute("userid");
+        Long uid = Long.valueOf(userid);
+        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(uid, Long.valueOf(blockid));
         ByteArrayInputStream in = excelReportGeneratorServiceImp.ExtraCreditToExcel(StudentData);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=ECRecord.xlsx");
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
     }
-
 
 }

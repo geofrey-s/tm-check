@@ -11,4 +11,5 @@ public interface MeditationTypeService {
     public MeditationType get();
     public MeditationType save(MeditationType meditationType);
     public List<MeditationType> findAll();
+
 }
