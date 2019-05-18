@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.configs;
 
+import edu.mum.tmcheck.serviceimp.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
