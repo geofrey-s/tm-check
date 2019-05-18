@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Component
 public class OfferedCourseFixture extends BaseFixture {
@@ -48,20 +47,20 @@ public class OfferedCourseFixture extends BaseFixture {
         }
     }
 
-    public Course randomCourse(){
-        int index = random.nextInt(courses.size()-1)+1;
+    public Course randomCourse() {
+        int index = random.nextInt(courses.size() - 1) + 1;
 
         return courses.get(index);
     }
 
-    public Block randomBlock(){
-        int index = random.nextInt(courses.size()-1)+1;
+    public Block randomBlock() {
+        int index = random.nextInt(courses.size() - 1) + 1;
 
         return blocks.get(index);
     }
 
-    public Faculty randomFacultyUser(){
-        int index = random.nextInt(facultyUsers.size()-1)+1;
+    public Faculty randomFacultyUser() {
+        int index = random.nextInt(facultyUsers.size() - 1) + 1;
 
         return facultyUsers.get(index);
     }

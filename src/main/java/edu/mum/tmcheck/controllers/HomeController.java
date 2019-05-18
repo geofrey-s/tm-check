@@ -1,14 +1,10 @@
 package edu.mum.tmcheck.controllers;
 
-import edu.mum.tmcheck.domain.reports.EntryAttendanceReport;
 import edu.mum.tmcheck.serviceimp.EntryAttendanceReportServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -16,7 +12,7 @@ public class HomeController {
     EntryAttendanceReportServiceImp serviceImp;
 
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         return "home";
     }
 

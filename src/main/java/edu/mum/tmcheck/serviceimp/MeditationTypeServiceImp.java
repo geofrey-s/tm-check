@@ -14,7 +14,18 @@ public class MeditationTypeServiceImp implements MeditationTypeService {
     @Autowired
     MeditationTypeRepository meditationTypeRepository;
 
-    public MeditationType findByName(String name){
+    public static String fromShortCode(String code) {
+        switch (code.toUpperCase()) {
+            case "DC":
+                return MeditationType.TMCHECK;
+            case "RT":
+                return MeditationType.RETREAT;
+            default: // AM/EAM
+                return MeditationType.STANDARD;
+        }
+    }
+
+    public MeditationType findByName(String name) {
         return meditationTypeRepository.findByName(name);
     }
 
@@ -39,16 +50,5 @@ public class MeditationTypeServiceImp implements MeditationTypeService {
 
         meditationTypeRepository.findAll().forEach(records::add);
         return records;
-    }
-
-    public static String fromShortCode(String code) {
-        switch (code.toUpperCase()) {
-            case "DC":
-                return MeditationType.TMCHECK;
-            case "RT":
-                return MeditationType.RETREAT;
-            default: // AM/EAM
-                return MeditationType.STANDARD;
-        }
     }
 }

@@ -1,6 +1,8 @@
 package edu.mum.tmcheck.domain.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.List;
 

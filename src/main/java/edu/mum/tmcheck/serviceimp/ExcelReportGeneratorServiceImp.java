@@ -1,7 +1,6 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
 import edu.mum.tmcheck.services.ExcelReportGeneratorService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,10 +18,10 @@ public class ExcelReportGeneratorServiceImp implements ExcelReportGeneratorServi
     @Override
     public ByteArrayInputStream ExtraCreditToExcel(List<BlockEndEachStudentMeditationData> ECData) throws IOException {
         String[] COLUMNs = {"Student Id", "Student Name", "Days Attended", "Total Days In Block", "Percentage Attended", "Total Extra Credits"};
-        try(
+        try (
                 Workbook workbook = new XSSFWorkbook();
                 ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ){
+        ) {
             CreationHelper createHelper = workbook.getCreationHelper();
 
             Sheet sheet = workbook.createSheet("Customers");
@@ -49,8 +48,7 @@ public class ExcelReportGeneratorServiceImp implements ExcelReportGeneratorServi
             ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
-            for (BlockEndEachStudentMeditationData studentdata : ECData)
-            {
+            for (BlockEndEachStudentMeditationData studentdata : ECData) {
                 Row row = sheet.createRow(rowIdx++);
                 row.createCell(0).setCellValue(studentdata.getStudent().getStudentRegId());
                 row.createCell(1).setCellValue(studentdata.getStudent().getName());

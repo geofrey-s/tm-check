@@ -21,8 +21,8 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
     }
 
     @Override
-    public List<Block>  getfacultytaughtblockids(Long userid){
-        return offeredCourseRepository.findAll().stream().filter(offcourse -> offcourse.getFaculty().getId()==userid).map(offcourse -> offcourse.getBlock()).collect(Collectors.toList());
+    public List<Block> getfacultytaughtblockids(Long userid) {
+        return offeredCourseRepository.findAll().stream().filter(offcourse -> offcourse.getFaculty().getId() == userid).map(offcourse -> offcourse.getBlock()).collect(Collectors.toList());
     }
 
     @Override

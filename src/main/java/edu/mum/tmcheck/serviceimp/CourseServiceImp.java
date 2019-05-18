@@ -1,7 +1,6 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Course;
-import edu.mum.tmcheck.domain.entities.Faculty;
 import edu.mum.tmcheck.domain.repository.CourseRepository;
 import edu.mum.tmcheck.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;

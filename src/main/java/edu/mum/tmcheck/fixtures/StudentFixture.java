@@ -55,7 +55,7 @@ public class StudentFixture extends BaseFixture {
         List<OfferedCourse> courses = new ArrayList<>();
 
         while (numCourse-- > 0) {
-            int index = random.nextInt(offeredCourses.size() - 1 ) + 1;
+            int index = random.nextInt(offeredCourses.size() - 1) + 1;
             courses.add(offeredCourses.get(index));
         }
 

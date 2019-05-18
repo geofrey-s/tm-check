@@ -1,7 +1,13 @@
 package edu.mum.tmcheck.fixtures;
 
-import edu.mum.tmcheck.domain.entities.*;
-import edu.mum.tmcheck.serviceimp.*;
+import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.domain.entities.Location;
+import edu.mum.tmcheck.domain.entities.MeditationType;
+import edu.mum.tmcheck.domain.entities.Student;
+import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
+import edu.mum.tmcheck.serviceimp.LocationServiceImp;
+import edu.mum.tmcheck.serviceimp.MeditationTypeServiceImp;
+import edu.mum.tmcheck.serviceimp.StudentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Component

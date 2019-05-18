@@ -6,9 +6,6 @@ import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
 import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
 import edu.mum.tmcheck.serviceimp.BlockServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.io.ByteArrayInputStream;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,7 +37,7 @@ public class ReportController {
     }
 
     @PostMapping("/ExtraCreditReport/generate")
-    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, HttpSession session, Model model, RedirectAttributes redirectAttributes){
+    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
         Long uid = (Long) session.getAttribute("userid");
         List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(uid, Long.valueOf(blockid));
         redirectAttributes.addFlashAttribute(StudentData);
@@ -50,7 +45,7 @@ public class ReportController {
     }
 
     @GetMapping("/ExtraCreditReport/blockreport")
-    public String ViewblockECreport(Model model){
+    public String ViewblockECreport(Model model) {
         return "blockecreportpage";
     }
 }

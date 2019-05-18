@@ -21,11 +21,11 @@ public class EntryServiceImp implements EntryService {
         return null;
     }
 
-    public Entry save(Entry instance){
+    public Entry save(Entry instance) {
         return entryRepository.save(instance);
     }
 
-    public Entry findById(long id){
+    public Entry findById(long id) {
         return entryRepository.findById(id).get();
     }
 }

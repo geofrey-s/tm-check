@@ -9,6 +9,8 @@ public interface StudentService {
 
     //    public void update();
     public Student get();
+
     public Student save(Student student);
+
     public List<Student> findAll();
 }

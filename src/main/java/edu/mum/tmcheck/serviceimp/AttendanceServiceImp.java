@@ -1,14 +1,16 @@
 package edu.mum.tmcheck.serviceimp;
 
 
-import edu.mum.tmcheck.domain.entities.*;
+import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.domain.entities.Block;
+import edu.mum.tmcheck.domain.entities.OfferedCourse;
+import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
 import edu.mum.tmcheck.domain.repository.FacultyRepository;
 import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,32 +33,23 @@ import static java.lang.Math.toIntExact;
 @Service
 public class AttendanceServiceImp implements AttendanceService {
     public static final String ATTENDANCE_UPLOAD_DIR = "/attendance-logs";
-
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
     @Autowired
     IdCardServiceImp idCardServiceImp;
-
     @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
-
     @Autowired
     LocationServiceImp locationServiceImp;
-
     @Autowired
     StudentServiceImp studentServiceImp;
-
     @Autowired
     AttendanceRepository attendanceRepository;
-
     @Autowired
     FacultyRepository facultyRepository;
-
     @Autowired
     BlockRepository blockRepository;
-
     @Autowired
     OfferedCourseRepository offeredCourseRepository;
-
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Override
     public void create() {
@@ -336,7 +329,7 @@ public class AttendanceServiceImp implements AttendanceService {
                     .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
                     .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
                     .count();
-            Long percentage = (days_attended/availablesessions) * 100;
+            Long percentage = (days_attended / availablesessions) * 100;
 
             double ExtraCredit;
             if (percentage >= 70)

@@ -9,6 +9,8 @@ public interface LocationService {
 
     //    public void update();
     public Location get();
+
     public Location save(Location location);
+
     public List<Location> findAll();
 }
