@@ -1,6 +1,5 @@
 package edu.mum.tmcheck.domain.repository;
 
-import edu.mum.tmcheck.domain.entities.Block;
 import edu.mum.tmcheck.domain.entities.Faculty;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

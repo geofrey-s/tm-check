@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,8 +13,9 @@ public class AttendanceController {
     @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
 
-    @GetMapping("/tmretreatandcheckform")
-    public String Gettmcheckform(Model model){
+
+    @GetMapping("/tmretreatandcheck/form")
+    public String Gettmcheckform(Model model) {
         model.addAttribute("meditationtypes", meditationTypeServiceImp.findAll());
         return "tmretreatandcheckformpage";
     }

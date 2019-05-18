@@ -31,6 +31,7 @@ public class StudentFixture extends BaseFixture {
 
         while (size-- > 0) {
             Student student = new Student();
+            student.setRole("student");
             student.setName(faker.name().fullName());
             student.setDepartureDate(futureDateByYear(1));
 
@@ -55,7 +56,7 @@ public class StudentFixture extends BaseFixture {
         List<OfferedCourse> courses = new ArrayList<>();
 
         while (numCourse-- > 0) {
-            int index = random.nextInt(offeredCourses.size() - 1 ) + 1;
+            int index = random.nextInt(offeredCourses.size() - 1) + 1;
             courses.add(offeredCourses.get(index));
         }
 

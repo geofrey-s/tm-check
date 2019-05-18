@@ -10,8 +10,11 @@ public interface OfferedCourseService {
 
     //    public void update();
     public OfferedCourse get();
+
     public OfferedCourse save(OfferedCourse instance);
+
     public List<OfferedCourse> findAll();
 
     public List<Block>  getfacultytaughtblock(Long userid);
+
 }

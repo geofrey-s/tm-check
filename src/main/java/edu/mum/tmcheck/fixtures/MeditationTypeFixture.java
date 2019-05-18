@@ -5,10 +5,8 @@ import edu.mum.tmcheck.serviceimp.MeditationTypeServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
-
 @Component
-public class MeditationTypeFixture extends BaseFixture{
+public class MeditationTypeFixture extends BaseFixture {
     @Autowired
     MeditationTypeServiceImp meditationTypeServiceImp;
 

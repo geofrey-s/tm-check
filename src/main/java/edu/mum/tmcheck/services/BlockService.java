@@ -10,8 +10,12 @@ public interface BlockService {
 
     //    public void update();
     public Block get();
+
     public Block save(Block block);
+
     public Block getFirst();
+
     public List<Block> findAll();
+
     public List<Block> getfacultyteachingblocks(Long userid);
 }

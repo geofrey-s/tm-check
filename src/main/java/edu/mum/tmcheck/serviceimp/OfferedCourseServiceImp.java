@@ -20,7 +20,7 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
     public void create() {
     }
 
-    @Override
+
     public List<Block>  getfacultytaughtblock(Long userid){
         return offeredCourseRepository.findAll().stream().filter(offcourse -> offcourse.getFaculty().getId()==userid).map(offcourse -> offcourse.getBlock()).collect(Collectors.toList());
     }
