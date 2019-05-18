@@ -23,21 +23,13 @@ public class BlockServiceImp implements BlockService {
 
     }
 
-<<<<<<< HEAD
-    public HashMap<Long, Block> getfacultyteachingblocks(Long userid) {
-        HashMap<Long, Block> blocks = new HashMap<>();
-        offeredCourseServiceImp.getfacultytaughtblockids(userid).forEach(blk -> {
-            blocks.put(blk.getId(), blk);
-        });
-        return blocks;
-=======
+
     public List<Block> getfacultyteachingblocks(Long userid){
 //        HashMap<Long, Block> blocks = new HashMap<>();
 //        offeredCourseServiceImp.getfacultytaughtblock(userid).forEach(blk -> {
 //            blocks.put(blk.getId(), blk);
 //        });
         return offeredCourseServiceImp.getfacultytaughtblock(userid);
->>>>>>> 8d6c0977cbbe2101af0fc1119bd3f56aea558f95
     }
 
     @Override

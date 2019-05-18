@@ -15,9 +15,6 @@ public interface OfferedCourseService {
 
     public List<OfferedCourse> findAll();
 
-<<<<<<< HEAD
-    public List<Block> getfacultytaughtblockids(Long userid);
-=======
     public List<Block>  getfacultytaughtblock(Long userid);
->>>>>>> 8d6c0977cbbe2101af0fc1119bd3f56aea558f95
+
 }

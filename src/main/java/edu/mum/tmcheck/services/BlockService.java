@@ -16,10 +16,6 @@ public interface BlockService {
     public Block getFirst();
 
     public List<Block> findAll();
-<<<<<<< HEAD
 
-    public HashMap<Long, Block> getfacultyteachingblocks(Long userid);
-=======
     public List<Block> getfacultyteachingblocks(Long userid);
->>>>>>> 8d6c0977cbbe2101af0fc1119bd3f56aea558f95
 }

@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LogginController {
-    @GetMapping(value = {"/", "/home"})
-    public String getLoginForm() {
-        return "redirct:/home";
-    }
+//    @GetMapping(value = {"/", "/home"})
+//    public String getLoginForm() {
+//        return "redirct:/home";
+//    }
 
 }
