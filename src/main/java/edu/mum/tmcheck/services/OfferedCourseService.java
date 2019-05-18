@@ -13,5 +13,5 @@ public interface OfferedCourseService {
     public OfferedCourse save(OfferedCourse instance);
     public List<OfferedCourse> findAll();
 
-    public List<Block>  getfacultytaughtblockids(Long userid);
+    public List<Block>  getfacultytaughtblock(Long userid);
 }

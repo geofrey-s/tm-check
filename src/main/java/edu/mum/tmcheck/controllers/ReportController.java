@@ -36,7 +36,7 @@ public class ReportController {
     @GetMapping("/ExtraCredit")
     public String ExtraCreditReport(HttpSession session, Model model) {
         Long userid = (Long) session.getAttribute("userid");
-        HashMap<Long, Block> facultyblocks = blockServiceImp.getfacultyteachingblocks(userid);
+        List<Block> facultyblocks = blockServiceImp.getfacultyteachingblocks(userid);
         model.addAttribute("facultyblocks", facultyblocks);
         return "ECReportPage";
     }

@@ -13,5 +13,5 @@ public interface BlockService {
     public Block save(Block block);
     public Block getFirst();
     public List<Block> findAll();
-    public HashMap<Long, Block> getfacultyteachingblocks(Long userid);
+    public List<Block> getfacultyteachingblocks(Long userid);
 }
