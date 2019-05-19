@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.time.format.TextStyle;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/students/attendancereport")
@@ -36,21 +38,21 @@ public class ReportController {
     @GetMapping("/ExtraCredit")
     public String ExtraCreditReport(Principal principal, Model model) {
         Long userid = userServiceImp.findUserByUserName(principal.getName()).getId();
+        HashMap<Long, String> blocks = new HashMap<>();
         List<Block> facultyblocks = blockServiceImp.getfacultyteachingblocks(userid);
-        model.addAttribute("facultyblocks", facultyblocks);
+        facultyblocks.forEach(blk -> {
+            blocks.put(blk.getId(), blk.getStartDate().plusDays(10).getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + blk.getStartDate().plusDays(10).getYear());
+        });
+        model.addAttribute("facultyblocks", blocks);
         return "BlockECReportFormPage";
     }
 
-    @PostMapping("/ProcessExtraCreditforstudents")
-    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, Principal principal, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("/ProcessExtraCreditforstudents")
+    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, Principal principal, Model model) {
         Long uid = userServiceImp.findUserByUserName(principal.getName()).getId();
         List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(uid, Long.valueOf(blockid));
-        redirectAttributes.addFlashAttribute(StudentData);
-        return "redirect:/ExtraCreditReport/blockreport";
-    }
-
-    @GetMapping("/ExtraCreditReport/blockreport")
-    public String ViewblockECreport(Model model) {
+        model.addAttribute("StudentsData", StudentData);
+        model.addAttribute("blockid", blockid);
         return "blockecreportpage";
     }
 }
