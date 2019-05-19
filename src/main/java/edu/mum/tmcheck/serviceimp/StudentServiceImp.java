@@ -45,5 +45,10 @@ public class StudentServiceImp implements StudentService {
 
         return records;
     }
+
+    @Override
+    public Student findByUsername(String username){
+        return studentRepository.findByUsername(username);
+    }
 }
 

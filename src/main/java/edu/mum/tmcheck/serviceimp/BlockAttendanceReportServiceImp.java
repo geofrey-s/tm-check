@@ -21,7 +21,7 @@ public class BlockAttendanceReportServiceImp implements BlockAttendanceReportSer
 
     @Override
     public List<BlockAttendanceReport> findByBlockAndStudent(LocalDate block_start, LocalDate block_end, Long studentId) {
-        return blockAttendanceReportRepository.findByBlockAndStudent(block_start, block_end, studentId);
+        return blockAttendanceReportRepository.findByBlockAndStudent(block_start, block_end, String.valueOf(studentId));
     }
 
 

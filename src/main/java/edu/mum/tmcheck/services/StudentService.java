@@ -13,4 +13,6 @@ public interface StudentService {
     public Student save(Student student);
 
     public List<Student> findAll();
+
+    public Student findByUsername(String username);
 }
