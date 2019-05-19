@@ -61,6 +61,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .csrf().disable();
 
-        http.authorizeRequests().anyRequest().hasAnyRole( "admin", "faculty", "student").and().formLogin().and().logout().permitAll().logoutSuccessUrl("/login").and().csrf().disable();
+        http.authorizeRequests()
+                .anyRequest()
+                .hasAnyRole( "admin", "faculty", "student")
+                .and().formLogin()
+                .and().logout()
+                .permitAll()
+                .logoutSuccessUrl("/login")
+                .and()
+                .csrf()
+                .disable();
     }
 }

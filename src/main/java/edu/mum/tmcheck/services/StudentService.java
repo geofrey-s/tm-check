@@ -7,10 +7,11 @@ import java.util.List;
 public interface StudentService {
     public void create();
 
-    //    public void update();
     public Student get();
 
     public Student save(Student student);
 
     public List<Student> findAll();
+
+    public Student findByID(Long id);
 }
