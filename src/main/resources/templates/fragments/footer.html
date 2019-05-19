@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <footer class="tm-footer" th:fragment="footer">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright ©2012 Maharishi University of Management. All rights reserved.</span>
-        </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/combine/npm/jquery@3.4.1,npm/dropzone@5.5.1,npm/popper.js@1.15.0"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script th:src="@{/js/app.js}" defer></script>
+    <script th:src="@{/js/app-build.js}" defer></script>
 </footer>

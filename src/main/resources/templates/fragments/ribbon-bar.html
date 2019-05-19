@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <div class="tm-ribbon-bar container-fluid" layout:fragment="ribbon">
+        <div class="row tm-ribbon-title-bar">
+            <div class="dropdown">
+                <h2 class="btn dropdown-toggle tm-current-report" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span th:text="${reportTitle}">Report Title</span>
+                </h2>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a th:each="item : ${availableReports}" class="dropdown-item" href="#" th:href="${item.value}" th:text="${item.key}">Report</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm report-options" >
+                <form action="/" th:action="@{/}">
+                    <div class="mini-label">Options</div>
+
+                    <div th:replace="fragments/__${reportKey}__-options :: options"></div>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                One of three columns
+            </div>
+            <div class="col-sm-2">
+                One of three columns
+            </div>
+        </div>
+    </div>
+
+</html>

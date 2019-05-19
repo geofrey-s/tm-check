@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<div class="tm-report-table" th:fragment="table">
+    <div class="tm-table-header container-fluid">
+        <div class="tm-table-row row">
+            <div class="tm-table-cell col-md-1 index"></div>
+            <div class="tm-table-cell col-md-2 student-id">Student ID</div>
+            <div class="tm-table-cell col-md-2 name">Name</div>
+            <div class="tm-table-cell col-md-1 entry">Entry</div>
+            <div class="tm-table-cell col-md-1 start-date">Start Date</div>
+            <div class="tm-table-cell col-md-1 end-date">End Date</div>
+            <div class="tm-table-cell col-md-1 standard-tm">Starndard TM</div>
+            <div class="tm-table-cell col-md-1 retreats">Retreats</div>
+            <div class="tm-table-cell col-md-1 checks">TM Checks</div>
+            <div class="tm-table-cell col-md-1 checks">Overrall (%)</div>
+        </div>
+    </div>
+    <div class="tm-table-body">
+        <div class="tm-table-row row" th:each="index, item : ${reportData}" th:object="${item.current}">
+            <div class="tm-table-cell col-md-1 index" th:text="${item.count}"></div>
+            <div class="tm-table-cell col-md-2 student-id" th:text="*{studentId}">Student ID</div>
+            <div class="tm-table-cell col-md-2 name" th:text="*{name}">Name</div>
+            <div class="tm-table-cell col-md-1 entry" th:text="*{entry}">Entry</div>
+            <div class="tm-table-cell col-md-1 start-date" th:text="*{entryStart}">Start Date</div>
+            <div class="tm-table-cell col-md-1 end-date" th:text="*{entryEnd}">End Date</div>
+            <div class="tm-table-cell col-md-1 standard-tm" th:text="*{standardTm}">Starndard TM</div>
+            <div class="tm-table-cell col-md-1 retreats" th:text="*{retreats}">Retreats</div>
+            <div class="tm-table-cell col-md-1 checks" th:text="*{checks}">TM Checks</div>
+            <div class="tm-table-cell col-md-1 checks" th:text="*{overrallAttendance}">Overrall</div>
+        </div>
+    </div>
+    <div class="tm-table-footer"></div>
+</div>
+</html>

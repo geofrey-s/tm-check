@@ -1,0 +1,53 @@
+h2 {
+  font-size: 1.25em;
+  font-weight: 500;
+}
+
+.tm-ribbon-bar {
+  min-height: 150px;
+  background: #fefbef;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #f5efd7;
+  padding-bottom: 16px;
+}
+.tm-ribbon-bar .tm-ribbon-title-bar {
+  padding: 16px 0;
+}
+.tm-ribbon-bar .tm-ribbon-title-bar > .dropdown {
+  margin-left: 4px;
+}
+.tm-ribbon-bar .tm-ribbon-title-bar > .dropdown .tm-current-report {
+  font-size: 1.25em;
+  font-weight: 500;
+  border: none;
+}
+
+.tm-report-table .tm-table-header {
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 4px;
+}
+.tm-report-table .tm-table-header .tm-table-cell {
+  font-weight: 500;
+  font-size: 0.9em;
+  border-right: 1px solid #eeeeee;
+}
+.tm-report-table .tm-table-header .tm-table-cell:last-child {
+  border-right: none;
+}
+.tm-report-table .tm-table-body {
+  background: #fafafa;
+  overflow-y: auto;
+  height: 200px;
+}
+.tm-report-table .tm-table-cell {
+  padding: 8px 16px;
+}
+.tm-report-table .tm-table-cell:first-child {
+  padding-left: 0;
+}
+.tm-report-table .tm-table-cell:last-child {
+  padding-right: 0;
+}
+
+/*# sourceMappingURL=styles-build.css.map */

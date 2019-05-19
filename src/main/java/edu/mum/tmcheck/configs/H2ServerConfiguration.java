@@ -24,7 +24,16 @@ public class H2ServerConfiguration {
     @Bean
     @ConditionalOnExpression("${h2.tcp.enabled:true}")
     public Server h2TcpServer() throws SQLException {
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", h2TcpPort).start();
+        try{
+            Server.shutdownTcpServer("tcp://localhost:9092", "", false, true);
+        } catch (Exception e){}
+
+        Server h2TcpServer = Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", h2TcpPort);
+
+        if (!h2TcpServer.isRunning(false))
+            h2TcpServer.start();
+
+        return h2TcpServer;
     }
 
     /**
@@ -32,8 +41,13 @@ public class H2ServerConfiguration {
      * Go to http://localhost:8082 and connect to the database "jdbc:h2:mem:testdb", username "sa", password empty.
      */
     @Bean
-    @ConditionalOnExpression("${h2.web.enabled:true}")
+    @ConditionalOnExpression("${h2.web.enabled:false}")
     public Server h2WebServer() throws SQLException {
-        return Server.createWebServer("-web", "-webAllowOthers", "-webPort", h2WebPort).start();
+        Server webServer = Server.createWebServer("-web", "-webAllowOthers", "-webPort", h2WebPort);
+
+        if (!webServer.isRunning(false))
+            webServer.start();
+
+        return webServer;
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="">
+    ribbon bar goes here
+</div>
+
+<nav class="tm-toolbar tm-wide navbar navbar-expand-lg navbar-light bg-light" layout:fragment="toolbar">
+    <a class="navbar-brand" href="#" th:href="@{/}" th:text="${appTitle}">App Title</a>
+
+    <div class="collapse navbar-collapse ml-3 pl-3" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li th:each="item : ${navbarItems}" class="nav-item active"
+            >
+                <a class="nav-link" href="#" th:href="${item.link}" th:text="${item.label}">Item</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</html>
