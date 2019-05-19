@@ -9,7 +9,9 @@ public interface EntryService {
 
     //    public void update();
     public Entry get();
+
     public Entry save(Entry instance);
+
     public Entry findById(long id);
     public List<Entry> findAll();
 }

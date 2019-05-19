@@ -13,7 +13,7 @@ public class EntryAttendanceReportServiceImp implements EntryAttendanceReportSer
     @Autowired
     EntryAttendanceReportRepository entryAttendanceReportRepository;
 
-    public List<EntryAttendanceReport> generateByEntry(String entry){
+    public List<EntryAttendanceReport> generateByEntry(String entry) {
         return entryAttendanceReportRepository.findByEntry(entry);
     }
 }

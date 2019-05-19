@@ -1,6 +1,5 @@
 package edu.mum.tmcheck.fixtures;
 
-import edu.mum.tmcheck.domain.entities.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

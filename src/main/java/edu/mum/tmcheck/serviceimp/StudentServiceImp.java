@@ -15,11 +15,11 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     StudentRepository studentRepository;
 
-    public Student findByBarcode(String barcode){
+    public Student findByBarcode(String barcode) {
         return studentRepository.findByBarcode(barcode);
     }
 
-    public Student findByStudentRegId(String regId){
+    public Student findByStudentRegId(String regId) {
         return studentRepository.findByStudentRegId(regId);
     }
 

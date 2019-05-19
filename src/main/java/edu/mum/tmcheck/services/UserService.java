@@ -4,8 +4,7 @@ import edu.mum.tmcheck.domain.entities.User;
 
 public interface UserService {
     public void create();
-
-    //    public void update();
     public User get();
-//    public void save();
+    public User findUserById(Long id);
+    public User findUserByUserName(String userName);
 }

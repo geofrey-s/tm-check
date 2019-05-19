@@ -1,5 +1,10 @@
 package edu.mum.tmcheck.domain.entities;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +21,16 @@ public class User implements Serializable {
     String username;
 
     String password;
+
+    String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public long getId() {
         return id;
@@ -46,6 +61,9 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        passwordEncoder.encode(password);
+//        this.password = passwordEncoder.encode(password);
+          this.password = password;
     }
 }

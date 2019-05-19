@@ -13,7 +13,7 @@ public class CardFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
-        while (size-- > 0){
+        while (size-- > 0) {
             Card card = new Card();
             card.setBarcode(randomBarcode());
             card.setExpiryDate(futureDateByYear(1));
@@ -22,7 +22,7 @@ public class CardFixture extends BaseFixture {
         }
     }
 
-    protected String randomBarcode(){
+    protected String randomBarcode() {
         return fakeValuesService.bothify("#############");
     }
 }

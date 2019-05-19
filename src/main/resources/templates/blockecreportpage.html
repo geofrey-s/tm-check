@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    Student Id
+                </td>
+                <td>
+                    Student Name
+                </td>
+                <td>
+                    Days Attended
+                </td>
+                <td>
+                    Total Days In Block
+                </td>
+                <td>
+                    Percentage Attended
+                </td>
+                <td>
+                    Total Extra Credits
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="studata: ${StudentsData}">
+            <td th:text="${studata.student.id}" />
+            <td th:text="${studata.student.name}" />
+            <td th:text="${studata.noofdaysattended}" />
+            <td th:text="${studata.totalnoofdays}" />
+            <td th:text="${studata.percentageattended}" />
+            <td th:text="${studata.totalmarks}" />
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{|/students/attendancereport/ExtraCredit/${blockid}/reportdownload/xls|}">Download</a>
+</body>
+</html>

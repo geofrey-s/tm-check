@@ -10,11 +10,11 @@ public class IdCardServiceImp {
     @Autowired
     IdCardRepository idCardRepository;
 
-    public Card save(Card card){
+    public Card save(Card card) {
         return idCardRepository.save(card);
     }
-    
-    public Card findByBarcode(String barcode){
+
+    public Card findByBarcode(String barcode) {
         return idCardRepository.findByBarcode(barcode);
     }
 }

@@ -12,8 +12,9 @@ public class FacultyFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
-        while (size-- > 0){
+        while (size-- > 0) {
             Faculty faculty = new Faculty();
+            faculty.setRole("faculty");
             faculty.setName(faker.name().fullName());
 
             String username = faker.name().username();

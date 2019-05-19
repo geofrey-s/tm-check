@@ -5,7 +5,9 @@ import edu.mum.tmcheck.domain.entities.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
-    public Attendance findByStudent(Student student);
+    public List<Attendance> findByStudent(Student student);
 }

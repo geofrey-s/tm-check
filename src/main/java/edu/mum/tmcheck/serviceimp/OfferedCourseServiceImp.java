@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.serviceimp;
 
+import edu.mum.tmcheck.domain.entities.Block;
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.OfferedCourseService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferedCourseServiceImp implements OfferedCourseService {
@@ -16,6 +18,11 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
 
     @Override
     public void create() {
+    }
+
+
+    public List<Block>  getfacultytaughtblock(Long userid){
+        return offeredCourseRepository.findAll().stream().filter(offcourse -> offcourse.getFaculty().getId()==userid).map(offcourse -> offcourse.getBlock()).collect(Collectors.toList());
     }
 
     @Override

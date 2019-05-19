@@ -14,7 +14,7 @@ public class FacultyServiceImp implements FacultyService {
     @Autowired
     FacultyRepository facultyRepository;
 
-    public Faculty findById(long id){
+    public Faculty findById(long id) {
         return facultyRepository.findById(id).get();
     }
 
@@ -28,7 +28,7 @@ public class FacultyServiceImp implements FacultyService {
         return null;
     }
 
-    public Faculty save(Faculty faculty){
+    public Faculty save(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
 

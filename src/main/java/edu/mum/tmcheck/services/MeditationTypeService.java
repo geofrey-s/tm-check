@@ -9,6 +9,9 @@ public interface MeditationTypeService {
 
     //    public void update();
     public MeditationType get();
+
     public MeditationType save(MeditationType meditationType);
+
     public List<MeditationType> findAll();
+
 }

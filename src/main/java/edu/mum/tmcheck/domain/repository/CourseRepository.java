@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
     public List<Course> findAllByIdIn(Collection<Long> ids);
+
     public Course getTopByIdIsTrue();
 
     @Query(value = "SELECT * FROM course WHERE true LIMIT 1", nativeQuery = true)
