@@ -60,6 +60,7 @@ public class AttendanceController {
 
     @GetMapping("/retrieveTMCheckorRetreatAttendance")
     public String retrievetmcheckorretreat(@RequestParam("studentid") String studentid, @RequestParam("meditationtype") String meditationtypeid, Model model) {
+        System.out.println(studentid + " -------------------------------------" + meditationtypeid);
         List<Attendance> studentattendance = (List<Attendance>) attendanceServiceImp.findTMCheckRecord(studentid, Long.valueOf(meditationtypeid));
         model.addAttribute("studentattendance", studentattendance);
         return "ViewTMAttendace";

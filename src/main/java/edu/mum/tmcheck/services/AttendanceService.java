@@ -2,6 +2,8 @@ package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
 
+import java.util.List;
+
 public interface AttendanceService {
     public void create();
 
@@ -15,5 +17,5 @@ public interface AttendanceService {
 
     public void deletebyid(Long RecordId);
 
-    public Attendance findTMCheckRecord(String StudentId, Long MeditationTypeID);
+    public List<Attendance> findTMCheckRecord(String StudentId, Long MeditationTypeID);
 }
