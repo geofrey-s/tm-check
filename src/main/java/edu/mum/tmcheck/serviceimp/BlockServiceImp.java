@@ -24,7 +24,7 @@ public class BlockServiceImp implements BlockService {
     }
 
 
-    public List<Block> getfacultyteachingblocks(Long userid){
+    public List<Block> getfacultyteachingblocks(Long userid) {
 //        HashMap<Long, Block> blocks = new HashMap<>();
 //        offeredCourseServiceImp.getfacultytaughtblock(userid).forEach(blk -> {
 //            blocks.put(blk.getId(), blk);
@@ -56,6 +56,6 @@ public class BlockServiceImp implements BlockService {
     }
 
     public Block findById(long id) {
-        return blockRepository.findById(id).get();
+        return blockRepository.findById(id).isPresent() ? blockRepository.findById(id).get() : null;
     }
 }

@@ -50,5 +50,9 @@ public class StudentServiceImp implements StudentService {
     public Student findByID(Long id) {
         return studentRepository.findById(id).get();
     }
+
+    public Student findByUsername(String username){
+        return studentRepository.findByUsername(username);
+    }
 }
 

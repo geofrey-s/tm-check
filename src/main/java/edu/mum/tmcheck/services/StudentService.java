@@ -14,4 +14,6 @@ public interface StudentService {
     public List<Student> findAll();
 
     public Student findByID(Long id);
+
+    public Student findByUsername(String username);
 }

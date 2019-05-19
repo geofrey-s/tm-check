@@ -11,4 +11,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
     public Student findByBarcode(String barcode);
 
     public Student findByStudentRegId(String regId);
+
+    @Query(value = "SELECT s FROM Student s WHERE s.username = :username")
+    public Student findByUsername(String username);
 }
