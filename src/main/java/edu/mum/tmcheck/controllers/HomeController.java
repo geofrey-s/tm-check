@@ -13,11 +13,6 @@ import java.security.Principal;
 public class HomeController {
     @Autowired
     EntryAttendanceReportServiceImp serviceImp;
-//
-//    @GetMapping
-//    public String index(Model model) {
-//        return "home";
-//    }
 
     @GetMapping("/")
     public String index(Model model, Principal principal, HttpSession session){

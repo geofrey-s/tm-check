@@ -329,7 +329,8 @@ public class AttendanceServiceImp implements AttendanceService {
                     .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
                     .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
                     .count();
-            Long percentage = (days_attended / availablesessions) * 100;
+            double percentage = (days_attended * 100/ availablesessions);
+            System.out.println(percentage + "-----------------------------------------" + days_attended +"     " +availablesessions);
 
             double ExtraCredit;
             if (percentage >= 70)
