@@ -1,5 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +18,16 @@ public class User implements Serializable {
     String username;
 
     String password;
+
+    String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public long getId() {
         return id;

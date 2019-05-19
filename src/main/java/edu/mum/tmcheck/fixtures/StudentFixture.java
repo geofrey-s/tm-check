@@ -31,6 +31,7 @@ public class StudentFixture extends BaseFixture {
 
         while (size-- > 0) {
             Student student = new Student();
+            student.setRole("student");
             student.setName(faker.name().fullName());
             student.setDepartureDate(futureDateByYear(1));
 

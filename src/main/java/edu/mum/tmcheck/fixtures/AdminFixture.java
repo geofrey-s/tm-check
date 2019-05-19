@@ -13,6 +13,7 @@ public class AdminFixture extends BaseFixture {
     @Override
     public void generate(int size) {
         Admin admin = new Admin();
+        admin.setRole("admin");
         admin.setName(faker.name().fullName());
 
         String username = faker.name().username();
