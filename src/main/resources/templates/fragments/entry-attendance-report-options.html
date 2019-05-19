@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<div class="form-row" th:fragment="options">
+    <div class="form-group col-6">
+        <label for="entry">Select Entry</label>
+        <select class="form-control" id="entry" path="entry.id">
+            <option th:each="item : ${entries}" th:value="${item.id}" th:text="${item.name}"></option>
+        </select>
+    </div>
+</div>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/report}"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="entry-attendance-report">
+    <div th:replace="fragments/entry-attendance-report-table :: table"></div>
+</div>
+</html>

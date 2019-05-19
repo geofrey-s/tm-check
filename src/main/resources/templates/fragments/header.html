@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org/"
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:fragment="header">
     <meta charset="UTF-8">
@@ -10,6 +11,6 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/styles-build.css}">
 
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Meditation Attendance</title>
+    <title th:text="${pageTitle}">Meditation Attendance</title>
 </head>
 

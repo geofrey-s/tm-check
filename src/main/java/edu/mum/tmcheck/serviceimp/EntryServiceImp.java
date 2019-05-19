@@ -6,6 +6,9 @@ import edu.mum.tmcheck.services.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EntryServiceImp implements EntryService {
     @Autowired
@@ -28,4 +31,14 @@ public class EntryServiceImp implements EntryService {
     public Entry findById(long id){
         return entryRepository.findById(id).get();
     }
+
+    @Override
+    public List<Entry> findAll() {
+        List<Entry> records = new ArrayList<>();
+
+        entryRepository.findAll().forEach(records::add);
+
+        return records;
+    }
+
 }
