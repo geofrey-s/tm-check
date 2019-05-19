@@ -15,5 +15,5 @@ public interface AttendanceService {
 
     public void deletebyid(Long RecordId);
 
-    public Attendance findTMCheckRecord(Long StudentId, Long MeditationTypeID);
+    public Attendance findTMCheckRecord(String StudentId, Long MeditationTypeID);
 }

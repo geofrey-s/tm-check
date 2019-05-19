@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="savestudentdata" method="post">
+    <h1>Select Block</h1>
+    <label for="StudentID"> Student ID</label>
+    <input name="StudentID" placeholder="StudentId" id="StudentID">
+    <select name="TMCheckType" >
+        <option th:each="tmtypes: ${meditationtypes.entrySet()}" th:value="${tmtypes.key}" th:text="${tmtypes.value}"></option>
+    </select>
+    <input name="TMCheckDate" type="date">
+    <input type="submit" value="Get EC Data">
+</form>
+
+</body>
+</html>
