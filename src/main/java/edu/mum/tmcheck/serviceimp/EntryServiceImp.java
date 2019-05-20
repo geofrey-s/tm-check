@@ -41,4 +41,7 @@ public class EntryServiceImp implements EntryService {
         return records;
     }
 
+    public List<Entry> findAllByIdExcept(long id){
+        return entryRepository.findAllByIdNot(id);
+    }
 }

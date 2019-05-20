@@ -1,12 +1,14 @@
 package edu.mum.tmcheck.domain.reports;
 
 
-import org.hibernate.annotations.Formula;
+import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.utils.Dates;
 import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Synchronize;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 
 @Entity(name = "BlockAttendanceReport")
@@ -36,7 +38,7 @@ public class BlockAttendanceReport {
     int retreats;
     int checks;
 
-    @Formula(value = "ROUND(standard_tm/DATEDIFF('DAY', block_start, block_end), 1)*100")
+    @Transient
     double overrallAttendance = 0;
 
     public String getStudentId() {
@@ -96,11 +98,18 @@ public class BlockAttendanceReport {
     }
 
     public double getOverrallAttendance() {
-        return overrallAttendance;
+        long days = Dates.countWeekDays(block_start, block_end);
+
+        if (days == 0) return 0;
+
+        double _retreats = convertRetreats(retreats, days);
+
+        double _overrallAttendance = ((standard_tm + _retreats) / days) * 100;
+        return Math.round(_overrallAttendance);
     }
 
-    public void setOverrallAttendance(double overrallAttendance) {
-        this.overrallAttendance = overrallAttendance;
+    public double convertRetreats(int count, long days) {
+        return Attendance.RETREAT_TO_STANDARD_TM_RATE * count * days;
     }
 
     @Override

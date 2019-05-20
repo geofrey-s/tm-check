@@ -30,23 +30,27 @@ public class StudentFixture extends BaseFixture {
         offeredCourses = offeredCourseServiceImp.findAll();
 
         while (size-- > 0) {
-            Student student = new Student();
-            student.setRole("student");
-            student.setName(faker.name().fullName());
-            student.setDepartureDate(futureDateByYear(1));
+            try {
+                Student student = new Student();
+                student.setRole("student");
+                student.setName(faker.name().fullName());
+                student.setDepartureDate(futureDateByYear(1));
 
-            String username = faker.name().username();
-            student.setUsername(username);
-            student.setPassword(username);
+                String username = faker.name().username();
+                student.setUsername(username);
+                student.setPassword(username);
 
-            student.setStudentRegId(faker.bothify("000-9#-####"));
+                student.setStudentRegId(faker.bothify("000-9#-####"));
 
-            Entry entry = entryServiceImp.findById(random.nextInt(2) + 1);
-            student.setEntry(entry);
-            student = studentServiceImp.save(student);
+                Entry entry = entryServiceImp.findById(random.nextInt(2) + 1);
+                student.setEntry(entry);
+                student = studentServiceImp.save(student);
 
-            student.setEnrolledCourses(randomEnrolledCourses());
-            studentServiceImp.save(student);
+                student.setEnrolledCourses(randomEnrolledCourses());
+                studentServiceImp.save(student);
+            } catch (Exception e) {
+                size++;
+            }
         }
     }
 
@@ -56,7 +60,7 @@ public class StudentFixture extends BaseFixture {
         List<OfferedCourse> courses = new ArrayList<>();
 
         while (numCourse-- > 0) {
-            int index = random.nextInt(offeredCourses.size() - 1) + 1;
+            int index = random.nextInt(offeredCourses.size() - 1);
             courses.add(offeredCourses.get(index));
         }
 

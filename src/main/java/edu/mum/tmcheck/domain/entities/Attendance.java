@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Attendance implements Serializable {
     public static final String DEFAULT_MEDITATION_TYPE = "Standard";
     public static final String DEFAULT_LOCATION_CODE = "DB";
+    public static final double RETREAT_TO_STANDARD_TM_RATE = 0.2;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

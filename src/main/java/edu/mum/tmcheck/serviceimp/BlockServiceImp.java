@@ -24,7 +24,7 @@ public class BlockServiceImp implements BlockService {
     }
 
 
-    public List<Block> getfacultyteachingblocks(Long userid){
+    public List<Block> findAllByUserId(Long userid){
 //        HashMap<Long, Block> blocks = new HashMap<>();
 //        offeredCourseServiceImp.getfacultytaughtblock(userid).forEach(blk -> {
 //            blocks.put(blk.getId(), blk);

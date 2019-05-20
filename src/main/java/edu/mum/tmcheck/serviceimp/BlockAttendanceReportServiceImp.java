@@ -12,11 +12,18 @@ import java.util.List;
 
 @Service
 public class BlockAttendanceReportServiceImp implements BlockAttendanceReportService {
+    public static String REPORT_ID = "block-attendance-report";
+    public static String REPORT_TITLE = "Block Attendance Report";
+
     @Autowired
     BlockAttendanceReportRepository blockAttendanceReportRepository;
 
     @Override
     public List<BlockAttendanceReport> findByBlock(LocalDate block_start, LocalDate block_end) {
         return blockAttendanceReportRepository.findByBlock(block_start, block_end);
+    }
+
+    public String downloadLink(Long blockId){
+        return String.format("/download/%s/%s", REPORT_ID, blockId);
     }
 }

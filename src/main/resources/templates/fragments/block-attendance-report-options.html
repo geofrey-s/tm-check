@@ -2,17 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <div class="form-row" th:fragment="options">
     <div class="form-group col-6">
-        <label >Select Entry</label>
-<!--        th:href="@{/reports/__${reportKey}__/__${item.id}__}"-->
+        <label >Select Block</label>
         <div class="dropdown">
             <div class="btn dropdown-toggle btn-outline-success" type="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
-                <span th:text="${currentEntry.name}">Entry Name</span>
+                <span th:text="${currentBlock.startDate}">Block Start Date</span>
             </div>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a th:each="item : ${entries}" class="dropdown-item" href="#"
-                   th:href="@{/reports/{report}/{entry_id}(report=${reportKey}, entry_id=${item.id})}"
-                   th:text="${item.name}">Entry</a>
+                <a th:each="item : ${blocks}" class="dropdown-item" href="#"
+                   th:href="@{/reports/{report}/{block_id}(report=${reportKey}, block_id=${item.id})}"
+                   th:text="${item.startDate}">Block</a>
             </div>
         </div>
     </div>

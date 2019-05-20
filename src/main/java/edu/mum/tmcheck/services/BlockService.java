@@ -17,5 +17,5 @@ public interface BlockService {
 
     public List<Block> findAll();
 
-    public List<Block> getfacultyteachingblocks(Long userid);
+    public List<Block> findAllByUserId(Long userid);
 }

@@ -4,6 +4,7 @@ import edu.mum.tmcheck.domain.entities.Course;
 import edu.mum.tmcheck.domain.repository.CourseRepository;
 import edu.mum.tmcheck.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +26,12 @@ public class CourseServiceImp implements CourseService {
     }
 
     @Override
-    public Course save(Course instance) {
-        return courseRepository.save(instance);
+    public Course save(Course course) {
+        try {
+            course = courseRepository.save(course);
+        } catch (DataIntegrityViolationException e){}
+
+        return course;
     }
 
     @Override

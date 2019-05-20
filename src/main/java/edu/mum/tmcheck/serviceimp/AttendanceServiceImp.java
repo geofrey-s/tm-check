@@ -11,6 +11,7 @@ import edu.mum.tmcheck.domain.repository.FacultyRepository;
 import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,10 +22,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -68,7 +66,12 @@ public class AttendanceServiceImp implements AttendanceService {
 
     @Override
     public Attendance save(Attendance attendance) {
-        return attendanceRepository.save(attendance);
+        try {
+            attendance = attendanceRepository.save(attendance);
+        } catch (DataIntegrityViolationException e) {
+        }
+
+        return attendance;
     }
 
     @Override
@@ -191,146 +194,39 @@ public class AttendanceServiceImp implements AttendanceService {
         return loadFromFile(filename);
     }
 
-//    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id, LocalDate date) {
-//        /*
-//         * Get Current Block using the current date Using Filter
-//         *
-//         * */
-//        Block currentblock = ((List<Block>) (blockRepository.findAll())).stream()
-//                .filter(x -> x.getStartDate().isBefore(date) && x.getEndDate().isAfter(date))
-//                .collect(Collectors.toList())
-//                .get(0);
-//
-//        System.out.println(currentblock.getId() + "----------------------------11111111111111111111");
-//        /*
-//         * Get Current CourseOfferings in current block
-//         *
-//         * */
-//
-//
-//        List<OfferedCourse> courses = offeredCourseRepository.findAll();
-//
-//
-//        /*
-//         * Filter the current course offerings using Faculty ID to get the current course of the professor
-//         *
-//         * */
-//        OfferedCourse currentcourse = courses.stream()
-//                .filter(x -> x.getFaculty().getId() == id && x.getBlock().getId() == currentblock.getId())
-//                .collect(Collectors.toList()).get(0);
-//
-////        System.out.println(currentcourse.getId() + "------------------------------------------------------2222222");
-//        /*
-//         * Get Students of that specific course
-//         *
-//         * */
-//        List<Student> students = currentcourse.getStudents();
-//
-//        List<BlockEndEachStudentMeditationData> StudentsData = new ArrayList<>();
-//
-//        /*
-//         * Calculate the available session from the block duration
-//         *
-//         * */
-//        long noofdays = Duration.between(currentblock.getStartDate().atStartOfDay(), currentblock.getEndDate().atStartOfDay()).toDays();
-//        long availablesessions;
-//        if (noofdays > 14) {
-//            availablesessions = 11;
-//        } else {
-//            availablesessions = 22;
-//        }
-//
-//        /*
-//         * Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
-//         *
-//         * */
-//        students.forEach(s -> {
-//            List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
-//            Long days_attended = attendanceofstudent.stream()
-//                                                        .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
-//                                                        .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
-//                                                        .count();
-//            Long percentage = (days_attended/availablesessions) * 100;
-//
-//            double ExtraCredit;
-//            if (percentage >= 70)
-//                ExtraCredit = 0.5;
-//            else if (percentage >= 80)
-//                ExtraCredit = 1.0;
-//            else if (percentage >= 90)
-//                ExtraCredit = 1.5;
-//            else
-//                ExtraCredit = 0.0;
-//
-//            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float) percentage, (float) ExtraCredit);
-//            StudentsData.add(studentdata);
-//        });
-//
-//
-//        /*
-//         * Return all the data from the List
-//         */
-//        return StudentsData;
-//    }
-
     public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id, Long blockid) {
-        /*
-         * Get Current Block using the current date Using Filter
-         *
-         * */
+        // Get Current Block using the current date Using Filter
         Block currentblock = blockRepository.findById(blockid).get();
 
-        System.out.println(currentblock.getId() + "----------------------------11111111111111111111");
-        /*
-         * Get Current CourseOfferings in current block
-         *
-         * */
-
-
+        // Get Current CourseOfferings in current block
         List<OfferedCourse> courses = offeredCourseRepository.findAll();
 
 
-        /*
-         * Filter the current course offerings using Faculty ID to get the current course of the professor
-         *
-         * */
-        OfferedCourse currentcourse = courses.stream()
+        // Filter the current course offerings using Faculty ID to get the current course of the professor
+        Optional<OfferedCourse> currentcourse = courses.stream()
                 .filter(x -> x.getFaculty().getId() == id && x.getBlock().getId() == currentblock.getId())
-                .collect(Collectors.toList()).get(0);
+                .findFirst();
 
-//        System.out.println(currentcourse.getId() + "------------------------------------------------------2222222");
-        /*
-         * Get Students of that specific course
-         *
-         * */
-        List<Student> students = currentcourse.getStudents();
+        if (!currentcourse.isPresent())
+            return new ArrayList<BlockEndEachStudentMeditationData>();
+
+        // Get Students of that specific course
+        List<Student> students = currentcourse.get().getStudents();
 
         List<BlockEndEachStudentMeditationData> StudentsData = new ArrayList<>();
 
-        /*
-         * Calculate the available session from the block duration
-         *
-         * */
+        // Calculate the available session from the block duration
         long noofdays = Duration.between(currentblock.getStartDate().atStartOfDay(), currentblock.getEndDate().atStartOfDay()).toDays();
-        long availablesessions;
-        if (noofdays > 14) {
-            availablesessions = 11;
-        } else {
-            availablesessions = 22;
-        }
+        long availablesessions = (noofdays > 14) ? 11 : 12;
 
-        /*
-         * Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
-         *
-         * */
+        // Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
         students.forEach(s -> {
             List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
             Long days_attended = attendanceofstudent.stream()
                     .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
                     .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
                     .count();
-            double percentage = (days_attended * 100/ availablesessions);
-            System.out.println(percentage + "-----------------------------------------" + days_attended +"     " +availablesessions);
+            double percentage = (days_attended * 100 / availablesessions);
 
             double ExtraCredit;
             if (percentage >= 70)
@@ -346,10 +242,6 @@ public class AttendanceServiceImp implements AttendanceService {
             StudentsData.add(studentdata);
         });
 
-
-        /*
-         * Return all the data from the List
-         */
         return StudentsData;
     }
 }

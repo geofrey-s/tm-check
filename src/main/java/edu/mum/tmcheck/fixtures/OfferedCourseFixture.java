@@ -27,7 +27,6 @@ public class OfferedCourseFixture extends BaseFixture {
 
     private List<Block> blocks = new ArrayList<>();
     private List<Faculty> facultyUsers = new ArrayList<>();
-    private List<Student> students = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
 
     @Override
@@ -48,19 +47,19 @@ public class OfferedCourseFixture extends BaseFixture {
     }
 
     public Course randomCourse() {
-        int index = random.nextInt(courses.size() - 1) + 1;
+        int index = random.nextInt(courses.size() - 1);
 
         return courses.get(index);
     }
 
     public Block randomBlock() {
-        int index = random.nextInt(courses.size() - 1) + 1;
+        int index = random.nextInt(courses.size() - 1);
 
         return blocks.get(index);
     }
 
     public Faculty randomFacultyUser() {
-        int index = random.nextInt(facultyUsers.size() - 1) + 1;
+        int index = random.nextInt(facultyUsers.size() - 1);
 
         return facultyUsers.get(index);
     }

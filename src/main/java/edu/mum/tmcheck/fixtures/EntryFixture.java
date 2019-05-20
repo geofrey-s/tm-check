@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Component
 public class EntryFixture extends BaseFixture {
@@ -14,15 +15,20 @@ public class EntryFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         Entry entry = new Entry();
-        entry.setStartDate(LocalDate.now());
-        entry.setEndDate(futureDateByYear(1));
+        LocalDate start = LocalDate.parse("2019-02-01");
+        entry.setStartDate(start);
+
+        entry.setEndDate(futureDateByMonth(8, start));
         entry.setName("FEB19");
         entryServiceImp.save(entry);
 
         entry = new Entry();
-        entry.setStartDate(LocalDate.now());
-        entry.setEndDate(futureDateByYear(1));
+        start = LocalDate.parse("2019-04-01");
+        entry.setStartDate(start);
+        entry.setEndDate(futureDateByMonth(8, start));
         entry.setName("APL19");
         entryServiceImp.save(entry);
     }

@@ -13,15 +13,19 @@ public class FacultyFixture extends BaseFixture {
     @Override
     public void generate(int size) {
         while (size-- > 0) {
-            Faculty faculty = new Faculty();
-            faculty.setRole("faculty");
-            faculty.setName(faker.name().fullName());
+            try {
+                Faculty faculty = new Faculty();
+                faculty.setRole("faculty");
+                faculty.setName(faker.name().fullName());
 
-            String username = faker.name().username();
-            faculty.setUsername(username);
-            faculty.setPassword(username);
+                String username = faker.name().username();
+                faculty.setUsername(username);
+                faculty.setPassword(username);
 
-            facultyServiceImp.save(faculty);
+                facultyServiceImp.save(faculty);
+            } catch (Exception e) {
+                size++;
+            }
         }
     }
 }

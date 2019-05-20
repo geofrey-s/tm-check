@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:replace="fragments/header::header">Head section goes here</div>
 <body>
-<nav layout:replace="fragments/toolbar-wide :: toolbar"></nav>
-<div layout:replace="fragments/ribbon-bar :: ribbon"></div>
+<nav th:replace="fragments/toolbar-wide :: toolbar"></nav>
+<div th:replace="fragments/ribbon-bar :: ribbon"></div>
 <div class="content-fluid" layout:fragment="content">Page content goes here</div>
-<div layout:replace="fragments/footer :: footer">Page footer goes here</div>
+<div th:replace="fragments/footer :: footer">Page footer goes here</div>
 </body>
 </html>

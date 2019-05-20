@@ -3,11 +3,7 @@
       xmlns:th="http://www.thymeleaf.org/"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div class="">
-    ribbon bar goes here
-</div>
-
-<nav class="tm-toolbar tm-wide navbar navbar-expand-lg navbar-light bg-light" layout:fragment="toolbar">
+<nav class="tm-toolbar tm-wide navbar navbar-expand-lg navbar-light bg-light" th:fragment="toolbar">
     <a class="navbar-brand" href="#" th:href="@{/}" th:text="${appTitle}">App Title</a>
 
     <div class="collapse navbar-collapse ml-3 pl-3" id="navbarSupportedContent">

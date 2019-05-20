@@ -6,7 +6,7 @@
   padding-bottom: 16px;
 
   .tm-ribbon-title-bar {
-    padding: 16px 0;
+    padding: 6px 0;
 
     > .dropdown {
       margin-left: 4px;
@@ -15,6 +15,35 @@
         font-size: 1.25em;
         font-weight: 500;
         border: none;
+        color: #444;
+      }
+    }
+  }
+
+  input, select {
+    width: auto;
+    min-width: 120px;
+    outline: none;
+  }
+
+  .report-options {
+
+  }
+
+  .action-bar {
+    padding: 8px 0;
+
+    .btn {
+      color: #28a745;
+
+      * {
+        color: #28a745;
+      }
+
+      &:hover {
+        * {
+          color: #fff;
+        }
       }
     }
   }
@@ -44,22 +73,30 @@
   .tm-table-body {
     background: #fafafa;
     overflow-y: auto;
-    height: 200px;
+    height: calc(100vh - 320px);
   }
 
   .tm-table-footer {
 
   }
 
+  .tm-table-row:nth-child(2n) {
+    background: #f4f6ee;
+  }
+
   .tm-table-cell {
     padding: 8px 16px;
 
+    &.index {
+      width: auto;
+      min-width: 50px;
+      flex: 0 0 auto;
+    }
+
     &:first-child {
-      padding-left: 0;
     }
 
     &:last-child {
-      padding-right: 0;
     }
   }
 }

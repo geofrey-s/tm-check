@@ -44,34 +44,38 @@ public class AttendanceFixture extends BaseFixture {
         Date now = java.sql.Date.valueOf(LocalDate.now());
 
         while (size-- > 0) {
-            Attendance attendance = new Attendance();
+            try{
+                Attendance attendance = new Attendance();
 
-            attendance.setStudent(randomStudent());
-            attendance.setMeditationType(randomMeditationType());
-            attendance.setLocation(randomLocations());
-            Date from = faker.date().past(2 * 30, TimeUnit.DAYS);
+                attendance.setStudent(randomStudent());
+                attendance.setMeditationType(randomMeditationType());
+                attendance.setLocation(randomLocations());
+                Date from = faker.date().past(4 * 30, TimeUnit.DAYS);
 
-            LocalDate createdAt = toLocalDate(faker.date().between(from, now));
-            attendance.setCreatedAt(createdAt);
+                LocalDate createdAt = toLocalDate(faker.date().between(from, now));
+                attendance.setCreatedAt(createdAt);
 
-            attendanceServiceImp.save(attendance);
+                attendanceServiceImp.save(attendance);
+            } catch (Exception e){
+                size++;
+            }
         }
     }
 
     public Student randomStudent() {
-        int index = random.nextInt(students.size() - 1) + 1;
+        int index = random.nextInt(students.size() - 1);
 
         return students.get(index);
     }
 
     public MeditationType randomMeditationType() {
-        int index = random.nextInt(meditationTypes.size() - 1) + 1;
+        int index = random.nextInt(meditationTypes.size() - 1);
 
         return meditationTypes.get(index);
     }
 
     public Location randomLocations() {
-        int index = random.nextInt(locations.size() - 1) + 1;
+        int index = random.nextInt(locations.size() - 1);
 
         return locations.get(index);
     }

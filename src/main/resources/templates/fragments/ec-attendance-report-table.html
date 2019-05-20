@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<div class="tm-report-table" th:fragment="table">
+    <div class="tm-table-header container-fluid">
+        <div class="tm-table-row row">
+            <div class="tm-table-cell col-md index">No.</div>
+            <div class="tm-table-cell col-md-2 student-id">Student ID</div>
+            <div class="tm-table-cell col-md-2 name">Name</div>
+            <div class="tm-table-cell col-md-1 standard-tm">Starndard TM</div>
+            <div class="tm-table-cell col-md-1 attendance">Attendance (%)</div>
+            <div class="tm-table-cell col-md-1 ec">Extra Credit</div>
+
+        </div>
+    </div>
+    <div class="tm-table-body container-fluid">
+        <div class="tm-table-row row" th:each="item, iterStat : ${reportData}" th:object="${item}">
+            <div class="tm-table-cell col-md index" th:text="${iterStat.count}"></div>
+            <div class="tm-table-cell col-md-2 student-id" th:text="*{student.studentRegId}">Student ID</div>
+            <div class="tm-table-cell col-md-2 name" th:text="*{student.name}">Name</div>
+            <div class="tm-table-cell col-md-1 standard-tm" th:text="*{noofdaysattended}">Starndard TM</div>
+            <div class="tm-table-cell col-md-1 attendance" th:text="*{percentageattended}">Overrall</div>
+            <div class="tm-table-cell col-md-1 ec" th:text="*{totalmarks}">EC</div>
+        </div>
+    </div>
+    <div class="tm-table-footer container-fluid"></div>
+</div>
+</html>
