@@ -1,21 +1,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <h3>Welcome <span th:text="${name}" style="color: darkred"></span>!!!</h3>
 
+
+<div class="tm-image-header">
+    <img th:src="@{/banner.jpg}" height="106" width="672">
+    <div class="tm-account-info">
+        <p>Welcome,<br/>
+            <span th:text="@{student!=null? student.name:''}"></span>
+        </p>
+        <form id="logout" name="logout" method="post" action="/logout">
+            <input th:hidden="@{student!=null?student.id:''}"/>
+            <input type="submit" th:value="Logout"/>
+
+        </form>
+    </div>
+</div>
+
 <table cellpadding="20" cellspacing="20">
     <thead>
+    <th>Meditation Attendance Information</th>
     <th>Student Information</th>
-    <th>Meditation Attendance</th>
     </thead>
     <tbody>
     <tr>
-        <td>
-            Student ID: <span th:text="${student.id}"></span><br/>
-            Student Name: <span th:text="${student.name}"></span><br/>
-            Entry: <span th:text="${student.entry.name}"></span><br/>
-        </td>
-        <td>
+        <td th:width="600px">
             <form>
-
                 Block: <select name="blockId" onchange="this.form.submit();">
                 <option value=""> --</option>
                 <option th:each="block : ${blocks}"
@@ -23,10 +32,17 @@
                         th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
             </select><br/>
             </form>
-            Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/>
-            TM Retreats: <span th:text="${report.retreats?:0}"></span><br/>
-            TM Checks: <span th:text="${report.checks?:0}"></span><br/>
+            Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/><br/>
+            TM Retreats: <span th:text="${report.retreats?:0}"></span><br/><br/>
+            TM Checks: <span th:text="${report.checks?:0}"></span><br/><br/>
             Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
+        </td>
+        <td>
+            Student ID: <span th:text="${student!=null?student.id:''}"></span><br/>
+            Username: <span th:text="${student!=null?student.username:''}"></span><br/>
+            Registration ID: <span th:text="${student!=null?student.studentRegId:''}"></span><br/>
+            Full Name: <span th:text="${student!=null?student.name:''}"></span><br/>
+            Entry: <span th:text="${student!=null?student.entry.name:''}"></span><br/>
         </td>
     </tr>
     </tbody>
