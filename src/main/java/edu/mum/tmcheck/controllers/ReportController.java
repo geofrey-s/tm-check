@@ -106,7 +106,7 @@ public class ReportController {
         long defaultBlockId = blocks.get(0) != null ? blocks.get(0).getId() : 0;
         Block currentBlock = blockServiceImp.findById(blockId.orElse(defaultBlockId));
         model.addAttribute("currentBlock", currentBlock);
-        // model.addAttribute("downloadLink", blo.downloadLink(currentBlock.getId()));
+        model.addAttribute("blockid", currentBlock.getId());
 
         model.addAttribute("reportData", attendanceServiceImp.ComputeBlockEC(user.getId(), currentBlock.getId()));
         model.addAttribute("blockId", blockId);

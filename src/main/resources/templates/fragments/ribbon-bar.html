@@ -32,7 +32,10 @@
             <div>Download</div>
             <div class="action-bar">
                 <div class="btn-group" role="group">
-                    <a type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
+<!--                    @GetMapping("download/ec-attendance-report/{blockid}/doenload.xlsx")-->
+<!--                    @GetMapping("/ec-attendance-report/{blockid}.xlsx")-->
+
+                    <a th:href="@{|/download/ec-attendance-report/${blockid}.xlsx|}" type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
                     <a type="button" class="btn btn-outline-success"><i class="fas fa-file-csv"></i></a>
                 </div>
             </div>
