@@ -1,49 +1,9 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Student</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script type="text/javascript"
-            src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/ajax.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-</head>
-<body>
-<h3>Welcome <span th:text="${name}" style="color: darkred"></span>!!!</h3>
-
-<table cellpadding="20" cellspacing="20">
-    <thead>
-    <th>Student Information</th>
-    <th>Meditation Attendance</th>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            Student ID: <span th:text="${student.id}"></span><br/>
-            Student Name: <span th:text="${student.name}"></span><br/>
-            Entry: <span th:text="${student.entry.name}"></span><br/>
-        </td>
-        <td>
-            <form>
-
-                Block: <select name="blockId" onchange="this.form.submit();">
-                <option value=""> --</option>
-                <option th:each="block : ${blocks}"
-                        th:value="${block.id}"
-                        th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
-            </select><br/>
-            </form>
-            Overrall Attendance: <span th:text="${report.overrallAttendance}"></span><br/>
-            TM Retreats: <span th:text="${report.retreats}"></span><br/>
-            TM Checks: <span th:text="${report.checks}"></span><br/>
-            Standard TM: <span th:text="${report.standard_tm}"></span><br/>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<h3></h3>
-
-</body>
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/client}"
+      lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="block-attendance-report">
+    <div th:replace="fragments/student-view :: table"></div>
+</div>
 </html>

@@ -66,7 +66,7 @@ public class StudentController {
         if (block == null) {
             block = blockService.getFirst();
         }
-        List<BlockAttendanceReport> reports = blockAttendanceReportService.findByBlockAndStudent(blockId, student.getId());
+        List<BlockAttendanceReport> reports = blockAttendanceReportService.findByBlockAndStudent(block.getId(), student.getId());
         if (reports != null && reports.size() > 0) {
             model.addAttribute("report", reports.get(0));
         } else {
