@@ -68,6 +68,8 @@ public class StudentController {
 
         model.addAttribute("blockId", blockId);
         List<BlockAttendanceReport> reports = blockAttendanceReportService.findByBlockAndStudent(currentBlock.getId(), student.getId());
+        System.out.println("reports=" + reports);
+        System.out.println("reports.size=" + reports.size());
         if (reports != null && reports.size() > 0) {
             model.addAttribute("report", reports.get(0));
         } else {
