@@ -96,16 +96,17 @@ public class ReportController {
         Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
         reports.remove(reportTitle);
 
-        Block currentBlock = blockServiceImp.findById(blockId.orElse(1L));
-        model.addAttribute("currentBlock", currentBlock);
-        // model.addAttribute("downloadLink", blo.downloadLink(currentBlock.getId()));
-
         model.addAttribute("pageTitle", reportTitle);
         model.addAttribute("reportTitle", reportTitle);
         model.addAttribute("reportKey", reportKey);
 
         List<Block> blocks = blockServiceImp.findAllByUserId(user.getId());
         model.addAttribute("blocks", blocks);
+
+        long defaultBlockId = blocks.get(0) != null ? blocks.get(0).getId() : 0;
+        Block currentBlock = blockServiceImp.findById(blockId.orElse(defaultBlockId));
+        model.addAttribute("currentBlock", currentBlock);
+        // model.addAttribute("downloadLink", blo.downloadLink(currentBlock.getId()));
 
         model.addAttribute("reportData", attendanceServiceImp.ComputeBlockEC(user.getId(), currentBlock.getId()));
         model.addAttribute("blockId", blockId);

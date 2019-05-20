@@ -89,5 +89,8 @@ select {
   min-width: 50px;
   flex: 0 0 auto;
 }
+body {
+  display: block;
+}
 
 /*# sourceMappingURL=styles-build.css.map */

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class GeneralControllerAdvice {
     @ModelAttribute
     public void artefacts(Model model){
-        model.addAttribute("appTitle", "Medidation Attendance");
+        model.addAttribute("appTitle", "Meditation Attendance");
         model.addAttribute("pageTitle", "Meditation Attendance");
     }
 }
