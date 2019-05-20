@@ -61,9 +61,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .and()
 //                .csrf().disable();
 
-        http.authorizeRequests()
+        http.authorizeRequests().antMatchers("/reports/ec-attendance-report/**").hasRole("faculty")
                 .anyRequest()
-                .hasAnyRole( "admin", "faculty", "student")
+                .authenticated()
                 .and().formLogin()
                 .and().logout()
                 .permitAll()
