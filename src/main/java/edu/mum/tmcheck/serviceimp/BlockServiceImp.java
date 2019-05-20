@@ -52,4 +52,8 @@ public class BlockServiceImp implements BlockService {
     public Block findById(long id) {
         return blockRepository.findById(id).isPresent() ? blockRepository.findById(id).get() : null;
     }
+
+    public List<Block> findAllByStudentId(String studentId){
+        return blockRepository.findAllByStudentId(studentId);
+    }
 }

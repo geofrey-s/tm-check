@@ -20,4 +20,6 @@ public interface BlockService {
     public List<Block> findAllByUserId(Long userid);
 
     public Block findById(long id);
+
+    public List<Block> findAllByStudentId(String studentId);
 }
