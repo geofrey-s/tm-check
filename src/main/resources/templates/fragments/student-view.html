@@ -1,21 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <h3>Welcome <span th:text="${name}" style="color: darkred"></span>!!!</h3>
 
-
-<div class="tm-image-header">
-    <img th:src="@{/banner.jpg}" height="106" width="672">
-    <div class="tm-account-info">
-        <p>Welcome,<br/>
-            <span th:text="@{student!=null? student.name:''}"></span>
-        </p>
-        <form id="logout" name="logout" method="post" action="/logout">
-            <input th:hidden="@{student!=null?student.id:''}"/>
-            <input type="submit" th:value="Logout"/>
-
-        </form>
-    </div>
-</div>
-
 <table cellpadding="20" cellspacing="20">
     <thead>
     <th>Meditation Attendance Information</th>
