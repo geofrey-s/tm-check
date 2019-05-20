@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Entity(name = "BlockAttendanceReport")
 @Subselect("SELECT s.student_reg_id                                                 as student_id,\n" +
         "       s.name," +
+        "       b.id as blockId," +
         "       b.START_DATE AS block_start, " +
         "       b.END_DATE AS block_end, " +
         "       SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm, " +
@@ -30,6 +31,7 @@ public class BlockAttendanceReport {
     @Id
     String studentId;
     String name;
+    Long blockId;
     LocalDate block_start;
     LocalDate block_end;
     int standard_tm;
@@ -89,6 +91,14 @@ public class BlockAttendanceReport {
 
     public int getChecks() {
         return checks;
+    }
+
+    public Long getBlockId() {
+        return blockId;
+    }
+
+    public void setBlockId(Long blockId) {
+        this.blockId = blockId;
     }
 
     public void setChecks(int checks) {

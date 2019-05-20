@@ -14,6 +14,6 @@ public interface BlockAttendanceReportRepository extends CrudRepository<BlockAtt
     public List<BlockAttendanceReport> findByBlock(LocalDate block_start, LocalDate block_end);
 
 
-    @Query(value = "SELECT b FROM BlockAttendanceReport AS b WHERE b.block_start = :block_start and b.block_end = :block_end AND b.studentId = :studentId")
-    public List<BlockAttendanceReport> findByBlockAndStudent(LocalDate block_start, LocalDate block_end, String studentId);
+    @Query(value = "SELECT b FROM BlockAttendanceReport AS b WHERE b.blockId = :blockId AND b.studentId = :studentId")
+    public List<BlockAttendanceReport> findByBlockAndStudent(long blockId, String studentId);
 }
