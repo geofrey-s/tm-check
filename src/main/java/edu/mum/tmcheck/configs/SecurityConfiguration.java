@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -47,29 +48,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests().antMatchers("/wallPage").hasAnyRole("ADMIN", "USER")
-//                .and()
-//                .authorizeRequests().antMatchers("/login", "/resource/**").permitAll()
-//                .and()
-//                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").permitAll()
-//                .loginProcessingUrl("/doLogin")
-//                .successForwardUrl("/postLogin")
-//                .failureUrl("/loginFailed")
-//                .and()
-//                .logout().logoutUrl("/doLogout").logoutSuccessUrl("/logout").permitAll()
-//                .and()
-//                .csrf().disable();
-
-        http.authorizeRequests()
-                .anyRequest()
-                .hasAnyRole( "admin", "faculty", "student")
-                .and().formLogin()
+        http.
+                authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+                .authenticated().and().csrf().disable().formLogin()
+                .loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/admin/home")
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .and().logout()
-                .permitAll()
-                .logoutSuccessUrl("/login")
-                .and()
-                .csrf()
-                .disable();
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and().exceptionHandling()
+                .accessDeniedPage("/access-denied");
+
+//        http.authorizeRequests()
+//                .anyRequest()
+//                .hasAnyRole( "admin", "faculty", "student")
+//                .and().formLogin()
+//                .and().logout()
+//                .permitAll()
+//                .logoutSuccessUrl("/login")
+//                .and()
+//                .csrf()
+//                .disable();
     }
 }
