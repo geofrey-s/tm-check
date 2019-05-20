@@ -23,10 +23,10 @@
                         th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
             </select><br/>
             </form>
-            Overrall Attendance: <span th:text="${report.overrallAttendance}"></span><br/>
-            TM Retreats: <span th:text="${report.retreats}"></span><br/>
-            TM Checks: <span th:text="${report.checks}"></span><br/>
-            Standard TM: <span th:text="${report.standard_tm}"></span><br/>
+            Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/>
+            TM Retreats: <span th:text="${report.retreats?:0}"></span><br/>
+            TM Checks: <span th:text="${report.checks?:0}"></span><br/>
+            Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
         </td>
     </tr>
     </tbody>
