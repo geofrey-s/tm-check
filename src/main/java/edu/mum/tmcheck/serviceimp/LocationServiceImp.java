@@ -40,4 +40,10 @@ public class LocationServiceImp implements LocationService {
         locationRepository.findAll().forEach(records::add);
         return records;
     }
+
+    @Override
+    public Location findByName(String name) {
+        return locationRepository.findByName(name);
+    }
+
 }

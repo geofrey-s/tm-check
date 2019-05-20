@@ -18,4 +18,6 @@ public interface BlockService {
     public List<Block> findAll();
 
     public List<Block> findAllByUserId(Long userid);
+
+    public Block findById(long id);
 }

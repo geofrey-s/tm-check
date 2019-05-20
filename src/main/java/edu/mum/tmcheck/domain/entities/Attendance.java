@@ -71,4 +71,15 @@ public class Attendance implements Serializable {
     public void setMeditationType(MeditationType meditationType) {
         this.meditationType = meditationType;
     }
+
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "id=" + id +
+                ", student=" + student +
+                ", location=" + location +
+                ", meditationType=" + meditationType +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }

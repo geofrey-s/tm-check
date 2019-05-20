@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,12 +22,7 @@ public class BlockServiceImp implements BlockService {
 
     }
 
-
-    public List<Block> findAllByUserId(Long userid){
-//        HashMap<Long, Block> blocks = new HashMap<>();
-//        offeredCourseServiceImp.getfacultytaughtblock(userid).forEach(blk -> {
-//            blocks.put(blk.getId(), blk);
-//        });
+    public List<Block> findAllByUserId(Long userid) {
         return offeredCourseServiceImp.getfacultytaughtblock(userid);
     }
 
@@ -56,6 +50,6 @@ public class BlockServiceImp implements BlockService {
     }
 
     public Block findById(long id) {
-        return blockRepository.findById(id).get();
+        return blockRepository.findById(id).isPresent() ? blockRepository.findById(id).get() : null;
     }
 }

@@ -80,9 +80,17 @@ public class AttendanceServiceImp implements AttendanceService {
     }
 
     @Override
-    public Attendance findTMCheckRecord(Long StudentId, Long MeditationTypeID) {
+    public List<Attendance> findTMCheckRecord(String StudentId, Long MeditationTypeID) {
+        System.out.println(StudentId + " " + StudentId.getClass().getSimpleName() + " -------------------------------------" + MeditationTypeID + " " + MeditationTypeID.getClass().getSimpleName());
         List<Attendance> attendanceList = (List<Attendance>) attendanceRepository.findAll();
-        return attendanceList.stream().filter(record -> record.getStudent().getId() == StudentId && record.getMeditationType().getId() == MeditationTypeID).collect(Collectors.toList()).get(0);
+        System.out.println(attendanceList.get(0).getStudent().getStudentRegId());
+        attendanceList = attendanceList.stream().filter(record -> record.getMeditationType().getId() == MeditationTypeID).collect(Collectors.toList());
+        List<Attendance> finalattendcelist = new ArrayList<>();
+        attendanceList.forEach(a -> {
+            if(a.getStudent().getStudentRegId().compareToIgnoreCase(StudentId) == 0)
+                finalattendcelist.add(a);
+        } );
+        return  finalattendcelist;
     }
 
     @Override

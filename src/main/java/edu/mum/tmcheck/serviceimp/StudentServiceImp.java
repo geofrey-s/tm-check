@@ -45,5 +45,14 @@ public class StudentServiceImp implements StudentService {
 
         return records;
     }
+
+    @Override
+    public Student findByID(Long id) {
+        return studentRepository.findById(id).get();
+    }
+
+    public Student findByUsername(String username){
+        return studentRepository.findByUsername(username);
+    }
 }
 

@@ -51,4 +51,9 @@ public class MeditationTypeServiceImp implements MeditationTypeService {
         meditationTypeRepository.findAll().forEach(records::add);
         return records;
     }
+
+    @Override
+    public MeditationType findById(Long id) {
+        return meditationTypeRepository.findById(id).get();
+    }
 }

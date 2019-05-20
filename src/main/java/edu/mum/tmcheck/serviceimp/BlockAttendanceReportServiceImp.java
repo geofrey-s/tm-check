@@ -6,7 +6,6 @@ import edu.mum.tmcheck.services.BlockAttendanceReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +22,12 @@ public class BlockAttendanceReportServiceImp implements BlockAttendanceReportSer
         return blockAttendanceReportRepository.findByBlock(block_start, block_end);
     }
 
-    public String downloadLink(Long blockId){
+    public String downloadLink(Long blockId) {
         return String.format("/download/%s/%s", REPORT_ID, blockId);
+    }
+
+    @Override
+    public List<BlockAttendanceReport> findByBlockAndStudent(long blockId, Long studentId) {
+        return blockAttendanceReportRepository.findByBlockAndStudent(blockId, String.valueOf(studentId));
     }
 }

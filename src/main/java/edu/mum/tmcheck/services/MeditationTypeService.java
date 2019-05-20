@@ -14,4 +14,6 @@ public interface MeditationTypeService {
 
     public List<MeditationType> findAll();
 
+    public MeditationType findById(Long id);
+
 }
