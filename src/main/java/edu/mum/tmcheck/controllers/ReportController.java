@@ -3,7 +3,6 @@ package edu.mum.tmcheck.controllers;
 import edu.mum.tmcheck.domain.entities.Block;
 import edu.mum.tmcheck.domain.entities.Entry;
 import edu.mum.tmcheck.domain.entities.User;
-import edu.mum.tmcheck.domain.models.MenuItem;
 import edu.mum.tmcheck.serviceimp.*;
 import edu.mum.tmcheck.services.ExcelReportGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +49,6 @@ public class ReportController {
         }};
 
         model.addAttribute("availableReports", reports);
-
     }
 
     @GetMapping(value = {"/entry-attendance-report/{entryId}", "/entry-attendance-report"})
@@ -73,13 +71,13 @@ public class ReportController {
         model.addAttribute("entries", entries);
 
         model.addAttribute("reportData", entryAttendanceReportServiceImp.generateByEntry(currentEntry.getName()));
-        if(entryId.isPresent())
-            model.addAttribute("downloadlink", "/download/entry-attendance-report/"+entryId.get()+".xlsx");
+        model.addAttribute("downloadlink", "/download/entry-attendance-report/" + currentEntry.getId() + ".xlsx");
+
         return "entry-attendance-report";
     }
 
     @GetMapping(value = {"/ec-attendance-report/{blockId}", "/ec-attendance-report"})
-    public String ecAttendanceReport(@PathVariable(name = "blockId", required = false) Optional<Long> blockId, Model model, Principal principal) throws Exception{
+    public String ecAttendanceReport(@PathVariable(name = "blockId", required = false) Optional<Long> blockId, Model model, Principal principal) throws Exception {
         if (principal.getName() == null)
             return "redirect:/login";
 
@@ -104,8 +102,7 @@ public class ReportController {
         model.addAttribute("blockid", currentBlock.getId());
 
         model.addAttribute("reportData", attendanceServiceImp.ComputeBlockEC(user.getId(), currentBlock.getId()));
-        if(blockId.isPresent())
-            model.addAttribute("downloadlink", "/download/ec-attendance-report/"+blockId.get()+".xlsx");
+        model.addAttribute("downloadlink", "/download/ec-attendance-report/" + defaultBlockId + ".xlsx");
 
         return "ec-attendance-report";
     }
@@ -131,26 +128,5 @@ public class ReportController {
                 .findByBlock(currentBlock.getStartDate(), currentBlock.getEndDate()));
 
         return "block-attendance-report";
-    }
-
-    @GetMapping("/ExtraCredit")
-    public String ExtraCreditReport(Principal principal, Model model) {
-        Long userid = userServiceImp.findUserByUserName(principal.getName()).getId();
-        HashMap<Long, String> blocks = new HashMap<>();
-        List<Block> facultyblocks = blockServiceImp.findAllByUserId(userid);
-        facultyblocks.forEach(blk -> {
-            blocks.put(blk.getId(), blk.getStartDate().plusDays(10).getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + blk.getStartDate().plusDays(10).getYear());
-        });
-        model.addAttribute("facultyblocks", blocks);
-        return "BlockECReportFormPage";
-    }
-
-    @GetMapping("/ProcessExtraCreditforstudents")
-    public String GetStudetsExtraCredit(@RequestParam("block") String blockid, Principal principal, Model model) {
-        Long uid = userServiceImp.findUserByUserName(principal.getName()).getId();
-        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(uid, Long.valueOf(blockid));
-        model.addAttribute("StudentsData", StudentData);
-        model.addAttribute("blockid", blockid);
-        return "blockecreportpage";
     }
 }

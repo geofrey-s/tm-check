@@ -15,11 +15,9 @@ public class Block implements Serializable {
     long id;
 
     @NotNull
-    @Valid
     LocalDate startDate;
 
     @NotNull
-    @Valid
     LocalDate endDate;
 
     @OneToMany

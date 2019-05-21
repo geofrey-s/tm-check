@@ -17,11 +17,9 @@ public class Entry implements Serializable {
     long id;
 
     @NotEmpty
-    @NotEmpty
     String name;
 
     @NotNull
-    @Past
     LocalDate startDate;
 
     @NotNull

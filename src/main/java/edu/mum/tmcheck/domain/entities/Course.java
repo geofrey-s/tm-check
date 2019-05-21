@@ -18,7 +18,6 @@ public class Course implements Serializable {
     @NotEmpty
     String code;
 
-
     @OneToMany()
     @JoinColumn(name = "course_id")
     List<OfferedCourse> offeredCourses;

@@ -1,6 +1,10 @@
 package edu.mum.tmcheck.domain.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class MeditationAttendanceEditor {
+    @NotEmpty
     private String studentRegId;
     private long meditationTypeId;
     private long locationId;

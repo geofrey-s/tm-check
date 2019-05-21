@@ -2,6 +2,7 @@ package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -34,7 +35,7 @@ public class Attendance implements Serializable {
     MeditationType meditationType;
 
     @Column(name = "created_at")
-    @Valid
+    @NotNull
     LocalDate createdAt;
 
     public LocalDate getCreatedAt() {
