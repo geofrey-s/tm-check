@@ -22,6 +22,56 @@ select {
 .tm-toolbar * {
   color: #084c5f !important;
 }
+.tm-image-header {
+  background-color: lightblue;
+  width: 100%;
+  height: 106px;
+  text-align: center;
+}
+.tm-account-info {
+  background-color: #ebf0f0;
+  color: #d70;
+  border: 2px solid;
+  border-top-color: #666666;
+  border-right-color: #666666;
+  border-bottom-color: #666666;
+  border-left-color: #666666;
+  border-color: lightslategrey;
+  border-radius: 5px;
+  width: auto;
+  height: 45px;
+  position: absolute;
+  right: 93px;
+  top: 111px;
+  padding: 5px;
+  font-family: Georgia;
+  font-size: 12px;
+}
+.tm-student-info-left {
+   height: 100%;
+   float: left;
+   clear: both;
+   background-color: lightgoldenrodyellow;
+   margin: 2px 1em 2em 2em;
+ }
+
+.tm-student-info-right {
+  height: 100%;
+  margin: 0;
+  float: right;
+  background-color: lightgoldenrodyellow;
+
+}
+
+#tm-student-container {
+  overflow: hidden;
+  text-align: left;
+  height: 150px;
+  width: 100%;
+  margin: 0;
+  background-color: lightgoldenrodyellow;
+  display: inline-block;
+}
 
 .tm-footer {
   margin: 16px auto;

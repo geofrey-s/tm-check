@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<nav class="tm-toolbar tm-wide navbar navbar-expand-lg navbar-light bg-light" th:fragment="toolbar">
+    <a class="navbar-brand" href="#" th:href="@{/}" th:text="${appTitle}">App Title</a>
+
+    <div style="float: right; right: 5px; position: absolute;">
+        <form id="logout" name="logout" method="post" action="/logout">
+            <input th:hidden="${student!=null?student.id:''}"/>
+            <input type="submit" th:value="Logout"/>
+        </form>
+    </div>
+</nav>
+</html>
