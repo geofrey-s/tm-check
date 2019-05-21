@@ -91,7 +91,7 @@ body {
 .police-tape--1 {
   transform: rotate(10deg);
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: -5%;
   right: -5%;
   z-index: 2;
@@ -131,27 +131,27 @@ body {
   .ghost--column:nth-child(1) .code:nth-child(1) {
     margin-left: 3em; }
   .ghost--column:nth-child(1) .code:nth-child(2) {
-    margin-left: 2.5em; }
+    margin-left: 5.5em; }
   .ghost--column:nth-child(1) .code:nth-child(3) {
-    margin-left: 4.5em; }
+    margin-left: 3em; }
   .ghost--column:nth-child(1) .code:nth-child(4) {
     margin-left: 4.5em; }
   .ghost--column:nth-child(2) .code:nth-child(1) {
-    margin-left: 3.5em; }
+    margin-left: 5.5em; }
   .ghost--column:nth-child(2) .code:nth-child(2) {
-    margin-left: 4.5em; }
+    margin-left: 1.5em; }
   .ghost--column:nth-child(2) .code:nth-child(3) {
-    margin-left: 3.5em; }
+    margin-left: 3em; }
   .ghost--column:nth-child(2) .code:nth-child(4) {
-    margin-left: 2.5em; }
+    margin-left: 5.5em; }
   .ghost--column:nth-child(3) .code:nth-child(1) {
     margin-left: 5em; }
   .ghost--column:nth-child(3) .code:nth-child(2) {
-    margin-left: 5.5em; }
-  .ghost--column:nth-child(3) .code:nth-child(3) {
     margin-left: 5em; }
+  .ghost--column:nth-child(3) .code:nth-child(3) {
+    margin-left: 4.5em; }
   .ghost--column:nth-child(3) .code:nth-child(4) {
-    margin-left: 3.5em; }
+    margin-left: 2.5em; }
 
 .ghost--main {
   background-color: #111111;
