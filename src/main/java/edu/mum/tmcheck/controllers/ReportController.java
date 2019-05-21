@@ -62,7 +62,6 @@ public class ReportController {
         model.addAttribute("downloadLink", entryAttendanceReportServiceImp.downloadLink(currentEntry.getId()));
 
         Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
-        System.out.println("---------------------------------------------------------reports   " + reports.size());
         reports.remove(reportTitle);
 
         model.addAttribute("pageTitle", reportTitle);
@@ -92,11 +91,13 @@ public class ReportController {
         Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
         reports.remove(reportTitle);
 
+
         model.addAttribute("pageTitle", reportTitle);
         model.addAttribute("reportTitle", reportTitle);
         model.addAttribute("reportKey", reportKey);
 
         List<Block> blocks = blockServiceImp.findAllByUserId(user.getId());
+//        HashMap<Long, String> availableblocks = new HashMap();
         model.addAttribute("blocks", blocks);
 
         long defaultBlockId = blocks.get(0) != null ? blocks.get(0).getId() : 0;

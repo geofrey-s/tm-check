@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"faculty_id", "block_id"})
+})
 public class OfferedCourse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
