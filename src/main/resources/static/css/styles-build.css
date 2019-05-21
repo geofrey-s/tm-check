@@ -23,6 +23,16 @@ select {
   color: #084c5f !important;
 }
 
+.tm-footer {
+  margin: 16px auto;
+  text-align: center;
+  color: #666;
+  font-weight: 300;
+}
+.tm-footer hr {
+  margin: 32px auto 16px;
+}
+
 .tm-ribbon-bar {
   min-height: 150px;
   background: #fefbef;
@@ -101,10 +111,11 @@ select {
 }
 .tm-editor .main-content {
   padding: 32px 0;
+  min-height: 70vh;
 }
 .tm-editor .main-content #attendanceLog {
   width: 90%;
-  height: 40%;
+  height: 30%;
   border: 3px dashed #158626;
   background: #f3ffed;
   border-radius: 4px;
@@ -121,6 +132,8 @@ select {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
+  padding: 16px;
+  text-align: center;
 }
 .tm-editor .main-content #attendanceLog .dz-preview.dz-file-preview {
   width: 90%;

@@ -13,10 +13,11 @@
 
   .main-content {
     padding: 32px 0;
+    min-height: 70vh;
 
     #attendanceLog {
       width: 90%;
-      height: 40%;
+      height: 30%;
       border: 3px dashed #158626;
       background: #f3ffed;
       border-radius: 4px;
@@ -33,6 +34,8 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 24px;
+        padding: 16px;
+        text-align: center;
       }
 
       .dz-preview.dz-file-preview {
@@ -78,10 +81,6 @@
           > svg {
             display: none;
           }
-
-          //&::before {
-          //  content: '\f058';
-          //}
         }
 
         .dz-error-mark {
@@ -90,10 +89,6 @@
           > svg {
             display: none;
           }
-
-          //&::before {
-          //  content: '\f057'
-          //}
         }
       }
 
