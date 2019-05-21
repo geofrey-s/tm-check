@@ -20,6 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    LoginSucessHandler sucessHandler;
+
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
@@ -47,11 +50,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/reports/ec-attendance-report/**").hasRole("faculty")
+        http.authorizeRequests().antMatchers("/reports/ec-attendance-report/**").hasRole("faculty")
                 .anyRequest()
                 .authenticated()
-                .and().formLogin()
+                .and().formLogin().successHandler(sucessHandler)
                 .and().logout()
                 .permitAll()
                 .logoutSuccessUrl("/login")

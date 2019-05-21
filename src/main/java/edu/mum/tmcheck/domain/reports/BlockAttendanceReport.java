@@ -6,15 +6,16 @@ import edu.mum.tmcheck.utils.Dates;
 import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Synchronize;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.time.LocalDate;
 
 @Entity(name = "BlockAttendanceReport")
-@Subselect("SELECT s.student_reg_id                                                 as student_id,\n" +
+@Subselect("SELECT s.student_reg_id as student_id," +
         "       s.name," +
-        "       b.id as blockId," +
+        "       b.id as block_id," +
         "       b.START_DATE AS block_start, " +
         "       b.END_DATE AS block_end, " +
         "       SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm, " +
@@ -27,7 +28,7 @@ import java.time.LocalDate;
         "         LEFT JOIN  BLOCK as b on b.ID = oc.BLOCK_ID " +
         "         LEFT JOIN meditation_type AS mt ON mt.id = a.meditation_type_id " +
         "WHERE a.CREATED_AT between b.START_DATE and b.END_DATE " +
-        "GROUP BY s.student_reg_id, s.name, b.START_DATE, b.END_DATE")
+        "GROUP BY s.student_reg_id, s.name, b.id, b.START_DATE, b.END_DATE")
 @Synchronize({"attendance", "student", "block", "OFFERED_COURSE", "STUDENT_ENROLLED_COURSES", "meditation_type"})
 public class BlockAttendanceReport {
     @Id

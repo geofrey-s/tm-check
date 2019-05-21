@@ -1,4 +1,3 @@
-@charset "UTF-8";
 h2 {
   font-size: 1.25em;
   font-weight: 500;
@@ -166,9 +165,6 @@ select {
 }
 .tm-editor .main-content #attendanceLog .dz-preview.dz-file-preview .dz-error-mark > svg {
   display: none;
-}
-.tm-editor .main-content #attendanceLog .dz-preview.dz-file-preview .dz-error-mark::before {
-  content: "";
 }
 .tm-editor .main-content #attendanceLog:hover {
   border-color: #e1430f;

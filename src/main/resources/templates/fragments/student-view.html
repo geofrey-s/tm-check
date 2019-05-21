@@ -1,0 +1,35 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<h3>Welcome <span th:text="${name}" style="color: darkred"></span>!!!</h3>
+
+<table cellpadding="20" cellspacing="20">
+    <thead>
+    <th>Meditation Attendance Information</th>
+    <th>Student Information</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:width="600px">
+            <form>
+                Block: <select name="blockId" onchange="this.form.submit();">
+                <option value=""> --</option>
+                <option th:each="block : ${blocks}"
+                        th:value="${block.id}"
+                        th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
+            </select><br/>
+            </form>
+            Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/><br/>
+            TM Retreats: <span th:text="${report.retreats?:0}"></span><br/><br/>
+            TM Checks: <span th:text="${report.checks?:0}"></span><br/><br/>
+            Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
+        </td>
+        <td>
+            Student ID: <span th:text="${student!=null?student.id:''}"></span><br/>
+            Username: <span th:text="${student!=null?student.username:''}"></span><br/>
+            Registration ID: <span th:text="${student!=null?student.studentRegId:''}"></span><br/>
+            Full Name: <span th:text="${student!=null?student.name:''}"></span><br/>
+            Entry: <span th:text="${student!=null?student.entry.name:''}"></span><br/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</html>

@@ -13,7 +13,7 @@ public class Dates {
         final DayOfWeek endW = end.getDayOfWeek();
 
         final long days = ChronoUnit.DAYS.between(start, end);
-        final long daysWithoutWeekends = days - NUM_OF_WEEKENDS * ((days + startW.getValue())/7);
+        final long daysWithoutWeekends = days - NUM_OF_WEEKENDS * ((days + startW.getValue()) / 7);
 
         //adjust for starting and ending on a Sunday:
         return daysWithoutWeekends + (startW == DayOfWeek.SUNDAY ? 1 : 0) + (endW == DayOfWeek.SUNDAY ? 1 : 0);
