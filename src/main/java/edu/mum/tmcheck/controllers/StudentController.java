@@ -48,10 +48,13 @@ public class StudentController {
         Student student = studentService.findByUsername(currentPrincipalName);
         model.addAttribute("student", student);
 
-        //get blocks of student
-        System.out.println("studentId " + student.getId());
-        System.out.println("studentId " + student.getStudentRegId());
-        List<Block> blocks = blockService.findAllByStudentId(student.getStudentRegId());
+        //get blocks
+        List<Block> blocks;
+        if (student != null) {
+            blocks = blockService.findAllByStudentId(student.getStudentRegId());
+        } else {
+            blocks = blockService.findAll();
+        }
         Collections.sort(blocks, new Comparator<Block>() {
             @Override
             public int compare(Block o1, Block o2) {

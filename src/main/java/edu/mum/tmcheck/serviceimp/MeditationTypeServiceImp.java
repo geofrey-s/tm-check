@@ -54,6 +54,11 @@ public class MeditationTypeServiceImp implements MeditationTypeService {
 
     @Override
     public MeditationType findById(Long id) {
-        return meditationTypeRepository.findById(id).get();
+        return meditationTypeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<MeditationType> findAllByNameExcept(String name) {
+        return meditationTypeRepository.findAllByNameNot(name);
     }
 }

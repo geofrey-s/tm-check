@@ -5,11 +5,13 @@ import edu.mum.tmcheck.domain.entities.Attendance;
 import edu.mum.tmcheck.domain.entities.Block;
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 import edu.mum.tmcheck.domain.entities.Student;
+import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
 import edu.mum.tmcheck.domain.repository.FacultyRepository;
 import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.AttendanceService;
+import edu.mum.tmcheck.utils.Dates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,9 @@ import static java.lang.Math.toIntExact;
 
 @Service
 public class AttendanceServiceImp implements AttendanceService {
-    public static final String ATTENDANCE_UPLOAD_DIR = "/attendance-logs";
-    public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String ATTENDANCE_UPLOAD_DIR = "attendance-logs";
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
+
     @Autowired
     IdCardServiceImp idCardServiceImp;
     @Autowired
@@ -87,10 +90,23 @@ public class AttendanceServiceImp implements AttendanceService {
         attendanceList = attendanceList.stream().filter(record -> record.getMeditationType().getId() == MeditationTypeID).collect(Collectors.toList());
         List<Attendance> finalattendcelist = new ArrayList<>();
         attendanceList.forEach(a -> {
-            if(a.getStudent().getStudentRegId().compareToIgnoreCase(StudentId) == 0)
+            if (a.getStudent().getStudentRegId().compareToIgnoreCase(StudentId) == 0)
                 finalattendcelist.add(a);
-        } );
-        return  finalattendcelist;
+        });
+        return finalattendcelist;
+    }
+
+    @Override
+    public Attendance createFromEditor(MeditationAttendanceEditor editor) {
+        Attendance attendance = new Attendance();
+
+        attendance.setMeditationType(meditationTypeServiceImp.findById(editor.getMeditationTypeId()));
+        attendance.setStudent(studentServiceImp.findByStudentRegId(editor.getStudentRegId()));
+        LocalDate createdAt = Dates.parse(editor.getCreatedAt(), "yyyy-MM-dd");
+        attendance.setCreatedAt(createdAt);
+        attendance.setLocation(locationServiceImp.findById(editor.getLocationId()));
+
+        return save(attendance);
     }
 
     @Override
@@ -196,8 +212,13 @@ public class AttendanceServiceImp implements AttendanceService {
      * @throws IOException
      */
     public boolean processFileUpload(MultipartFile file) throws IOException {
-        String filename = Paths.get(ATTENDANCE_UPLOAD_DIR, UUID.randomUUID().toString() + ".log").toString();
-        file.transferTo(new File(filename));
+        String filename = Paths.get(ATTENDANCE_UPLOAD_DIR, UUID.randomUUID().toString() + ".log")
+                .toAbsolutePath()
+                .toString();
+
+        File destFile = new File(filename);
+        destFile.createNewFile();
+        file.transferTo(destFile);
 
         return loadFromFile(filename);
     }

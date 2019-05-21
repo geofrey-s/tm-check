@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}"
+>
+<head th:replace="fragments/header :: header"></head>
+<body>
+<div class="tm-editor container-fluid" layout:fragment="content">
+    <div class="row page-head-bar">
+        <div class="col-md">
+            <h1>TM Attendance Editor</h1>
+        </div>
+    </div>
+    <div class="row main-content">
+        <div class="col-md-4 offset-md-1">
+            <div class="mini-label">Manual Entry</div>
+            <form th:action="@{/attendance/editor/save}" method="post" th:object="${editor}">
+                <div class="form-group">
+                    <label for="student-reg-id"> Student ID</label>
+                    <input class="form-control" th:field="*{studentRegId}" placeholder="000-XX-XXXX"
+                           id="student-reg-id">
+                </div>
+
+                <div class="form-group form-row">
+                    <div class="col-6">
+                        <label for="meditationId">Meditation Type</label>
+                        <select class="custom-select" id="meditationId" th:field="*{meditationTypeId}">
+                            <option th:each="item, iter: ${meditationtypes}"
+                                    th:selected="${iter.count} == 1 ? true : false"
+                                    th:value="${item.id}"
+                                    th:text="${item.name}"></option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="createdAt">Date</label>
+                        <input class="form-control" id="createdAt" th:field="*{createdAt}" type="date" value="${createdAt}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="locationId">Location</label>
+                    <select class="custom-select" id="locationId" name="locationId">
+                        <option th:each="item, iter: ${locations}"
+                                th:selected="${iter.count} == 1 ? true : false"
+                                th:value="${item.id}"
+                                th:text="${item.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <small class="alert alert-success ml-3" th:if="${attendance}">Attendance record added for student
+                        <span
+                                th:text="${attendance.student.studentRegId}"></span></small>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 offset-md-1">
+            <div class="mini-label">File Upload</div>
+            <form id="attendanceLog" th:action="@{/attendance/editor/upload}" method="post" class="dropzone">
+                <div class="prompt dz-message" data-dz-message>
+                    <span>Drag attendace log files here or click to upload!</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

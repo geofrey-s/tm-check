@@ -46,7 +46,7 @@ public class ApplicationFixture {
     public void initialize() {
         entryFixture.generate(2);
         courseFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
-        cardFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
+        cardFixture.generate(120);
         blockFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         facultyFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         offeredCourseFixture.generate(60);
