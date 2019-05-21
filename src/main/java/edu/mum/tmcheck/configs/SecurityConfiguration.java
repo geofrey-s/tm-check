@@ -61,16 +61,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().formLogin().successHandler(sucessHandler)
-<<<<<<< HEAD
-                .and().logout();
-=======
+                .and().formLogin().successHandler(sucessHandler
                 .and().logout()
                 .permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")
                 .and()
                 .csrf()
                 .disable();
->>>>>>> 341d8cea035e3df851cbd9492d5f488fb3825e6f
     }
 }
