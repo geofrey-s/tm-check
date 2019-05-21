@@ -40,7 +40,6 @@ public class HomeController {
 
     @RequestMapping("/login")
     public String login(Model model, Principal principal){
-        System.out.println("Loggin........");
         return "login";
     }
 

@@ -52,7 +52,7 @@ public class AttendanceController {
     }
 
     @PostMapping("/editor/save")
-    public String editorSave(@ModelAttribute MeditationAttendanceEditor editor, Model model, RedirectAttributes redirectAttributes) {
+    public String editorSave(@ModelAttribute MeditationAttendanceEditor editor, RedirectAttributes redirectAttributes) {
         Attendance attendance = attendanceServiceImp.createFromEditor(editor);
 
         redirectAttributes.addFlashAttribute(attendance);
@@ -61,39 +61,8 @@ public class AttendanceController {
 
     @PostMapping("/editor/upload")
     @ResponseBody
-    public String editorFileUpload(@ModelAttribute MultipartFile file, Model model) throws IOException {
+    public String editorFileUpload(@ModelAttribute MultipartFile file) throws IOException {
         attendanceServiceImp.processFileUpload(file);
         return "";
     }
-
-    @GetMapping("/getstudentretreatattendanceform")
-    public String retrievetmdataforstudentform(Model model) {
-        List<MeditationType> meditationTypes = meditationTypeServiceImp.findAll().stream().filter(m -> !m.getName().equalsIgnoreCase("standard")).collect(Collectors.toList());
-        HashMap<Long, String> types = new HashMap<>();
-        meditationTypes.forEach(m -> {
-            types.put(m.getId(), m.getName());
-        });
-        model.addAttribute("meditationtypes", types);
-        return "getretrievelform";
-    }
-
-    @GetMapping("/retrieveTMCheckorRetreatAttendance")
-    public String retrievetmcheckorretreat(@RequestParam("studentid") String studentid, @RequestParam("meditationtype") String meditationtypeid, Model model) {
-        System.out.println(studentid + " -------------------------------------" + meditationtypeid);
-        List<Attendance> studentattendance = (List<Attendance>) attendanceServiceImp.findTMCheckRecord(studentid, Long.valueOf(meditationtypeid));
-        model.addAttribute("studentattendance", studentattendance);
-        return "ViewTMAttendace";
-    }
-
-    @DeleteMapping("/{attendanceId}")
-    public String deleteUser(@PathVariable String attendaceId) {
-        attendanceServiceImp.deletebyid(Long.valueOf(attendaceId));
-        return "viewattedancepage";
-    }
-
-    @GetMapping("/tmsviewavedattendancepage")
-    public String viewsavedattendace(Model model) {
-        return "viewsavedattendancepage";
-    }
-
 }

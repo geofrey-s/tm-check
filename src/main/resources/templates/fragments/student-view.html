@@ -1,33 +1,52 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<h3>Welcome <span th:text="${name}" style="color: darkred"></span>!!!</h3>
 
+<div class="tm-account-info">
+    <p>Welcome,<br/>
+        <span th:text="${student!=null? student.name:''}"></span>
+    </p>
+</div>
+
+<div id="tm-student-container">
+    <div class="tm-student-info-left">
+        <b>Selected Student</b><br/>
+        ID: <span id="stuid" th:text="${student!=null?student.studentRegId:''}"></span><br/>
+        Full Name: <span id="fname" th:text="${student!=null?student.name:''}"></span><br/>
+        Registration number: <span id="regnum" th:text="${student!=null?student.id:''}"></span><br/>
+        Email: <span id="email" th:text="${student!=null?student.username+'@mum.edu':''}"></span><br/>
+        Entry: <span id="entry" th:text="${student!=null?student.entry.name:''}"></span><br/><br/>
+    </div>
+    <div class="tm-student-info-right">
+        <b>Assignment Settings</b><br/>
+        <span id="openState">Registration availability:   closed </span><br/>
+        Term start: <span id="termStart" th:text="${student!=null?student.entry.startDate:''}"></span><br/>
+        Term end: <span id="termEnd" th:text="${student!=null?student.entry.endDate:''}"></span><br/>
+        Block being assigned: <span id="blockState"> </span><br/>
+    </div>
+</div>
+<br/>
 <table cellpadding="20" cellspacing="20">
     <thead>
     <th>Meditation Attendance Information</th>
-    <th>Student Information</th>
+    <th></th>
     </thead>
     <tbody>
     <tr>
         <td th:width="600px">
-            <form>
-                Block: <select name="blockId" onchange="this.form.submit();">
-                <option value=""> --</option>
-                <option th:each="block : ${blocks}"
-                        th:value="${block.id}"
-                        th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
-            </select><br/>
-            </form>
             Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/><br/>
             TM Retreats: <span th:text="${report.retreats?:0}"></span><br/><br/>
             TM Checks: <span th:text="${report.checks?:0}"></span><br/><br/>
             Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
         </td>
         <td>
-            Student ID: <span th:text="${student!=null?student.id:''}"></span><br/>
-            Username: <span th:text="${student!=null?student.username:''}"></span><br/>
-            Registration ID: <span th:text="${student!=null?student.studentRegId:''}"></span><br/>
-            Full Name: <span th:text="${student!=null?student.name:''}"></span><br/>
-            Entry: <span th:text="${student!=null?student.entry.name:''}"></span><br/>
+            <form>
+                Block: <select name="blockId" onchange="this.form.submit();">
+                <option value="">Select block</option>
+                <option th:each="block : ${blocks}"
+                        th:value="${block.id}"
+                        th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
+            </select><br/>
+            </form>
+            <br/>
         </td>
     </tr>
     </tbody>

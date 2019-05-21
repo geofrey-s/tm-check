@@ -25,17 +25,13 @@
             </form>
         </div>
         <div class="col-sm-4">
-            <!--Report Summary goes here-->
         </div>
         <div class="col-sm-2">
             <div class="mini-label">Actions</div>
             <div>Download</div>
             <div class="action-bar">
                 <div class="btn-group" role="group">
-<!--                    @GetMapping("download/ec-attendance-report/{blockid}/doenload.xlsx")-->
-<!--                    @GetMapping("/ec-attendance-report/{blockid}.xlsx")-->
-
-                    <a th:href="${downloadlink}" type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
+                    <a th:href="@{__${downloadlink}__}" type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
                     <a type="button" class="btn btn-outline-success"><i class="fas fa-file-csv"></i></a>
                 </div>
             </div>
