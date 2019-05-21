@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface AttendanceService {
     public void deletebyid(Long RecordId);
 
     public List<Attendance> findTMCheckRecord(String StudentId, Long MeditationTypeID);
+
+    public Attendance createFromEditor(MeditationAttendanceEditor editor);
 }

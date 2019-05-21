@@ -46,4 +46,10 @@ public class LocationServiceImp implements LocationService {
         return locationRepository.findByName(name);
     }
 
+    @Override
+    public Location findById(long id) {
+        return locationRepository.findById(id).orElse(null);
+    }
+
+
 }

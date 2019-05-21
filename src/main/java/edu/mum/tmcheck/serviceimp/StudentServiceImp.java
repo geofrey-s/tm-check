@@ -48,7 +48,7 @@ public class StudentServiceImp implements StudentService {
 
     @Override
     public Student findByID(Long id) {
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(null);
     }
 
     public Student findByUsername(String username){

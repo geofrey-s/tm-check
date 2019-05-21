@@ -1,9 +1,11 @@
 package edu.mum.tmcheck.fixtures;
 
+import edu.mum.tmcheck.domain.entities.Card;
 import edu.mum.tmcheck.domain.entities.Entry;
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.serviceimp.EntryServiceImp;
+import edu.mum.tmcheck.serviceimp.IdCardServiceImp;
 import edu.mum.tmcheck.serviceimp.OfferedCourseServiceImp;
 import edu.mum.tmcheck.serviceimp.StudentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 @Component
 public class StudentFixture extends BaseFixture {
@@ -23,11 +26,16 @@ public class StudentFixture extends BaseFixture {
     @Autowired
     OfferedCourseServiceImp offeredCourseServiceImp;
 
+    @Autowired
+    IdCardServiceImp idCardServiceImp;
+
     List<OfferedCourse> offeredCourses = new ArrayList<>();
 
     @Override
     public void generate(int size) {
         offeredCourses = offeredCourseServiceImp.findAll();
+        Stack<Card> cards = new Stack<>();
+        cards.addAll(idCardServiceImp.findAll());
 
         while (size-- > 0) {
             try {
@@ -48,6 +56,10 @@ public class StudentFixture extends BaseFixture {
 
                 student.setEnrolledCourses(randomEnrolledCourses());
                 studentServiceImp.save(student);
+
+                Card card = cards.pop();
+                card.setStudent(student);
+                idCardServiceImp.save(card);
             } catch (Exception e) {
                 size++;
             }

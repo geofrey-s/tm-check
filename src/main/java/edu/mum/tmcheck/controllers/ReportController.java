@@ -51,12 +51,6 @@ public class ReportController {
 
         model.addAttribute("availableReports", reports);
 
-        Set<MenuItem> navbarItems = new TreeSet<MenuItem>() {{
-            add(new MenuItem("1", "Reports", "/reports/entry-attendance-report").setActive(true));
-            add(new MenuItem("2", "TM Editor", "/tm-editor"));
-        }};
-
-        model.addAttribute("navbarItems", navbarItems);
     }
 
     @GetMapping(value = {"/entry-attendance-report/{entryId}", "/entry-attendance-report"})

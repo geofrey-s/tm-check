@@ -14,4 +14,6 @@ public interface LocationService {
     public List<Location> findAll();
 
     public Location findByName(String name);
+
+    public Location findById(long id);
 }
