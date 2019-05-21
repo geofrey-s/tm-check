@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and().formLogin().successHandler(sucessHandler)
                 .and().logout()
-                .permitAll()
+                .permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")
                 .and()
                 .csrf()

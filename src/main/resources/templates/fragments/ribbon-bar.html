@@ -35,7 +35,7 @@
 <!--                    @GetMapping("download/ec-attendance-report/{blockid}/doenload.xlsx")-->
 <!--                    @GetMapping("/ec-attendance-report/{blockid}.xlsx")-->
 
-                    <a th:href="@{|/download/ec-attendance-report/${blockid}.xlsx|}" type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
+                    <a th:href="${downloadlink}" type="button" class="btn btn-outline-success"><i class="far fa-file-excel"></i></a>
                     <a type="button" class="btn btn-outline-success"><i class="fas fa-file-csv"></i></a>
                 </div>
             </div>

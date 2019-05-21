@@ -79,7 +79,8 @@ public class ReportController {
         model.addAttribute("entries", entries);
 
         model.addAttribute("reportData", entryAttendanceReportServiceImp.generateByEntry(currentEntry.getName()));
-
+        if(entryId.isPresent())
+            model.addAttribute("downloadlink", "/download/entry-attendance-report/"+entryId.get()+".xlsx");
         return "entry-attendance-report";
     }
 
@@ -109,7 +110,8 @@ public class ReportController {
         model.addAttribute("blockid", currentBlock.getId());
 
         model.addAttribute("reportData", attendanceServiceImp.ComputeBlockEC(user.getId(), currentBlock.getId()));
-        model.addAttribute("blockId", blockId);
+        if(blockId.isPresent())
+            model.addAttribute("downloadlink", "/download/ec-attendance-report/"+blockId.get()+".xlsx");
 
         return "ec-attendance-report";
     }

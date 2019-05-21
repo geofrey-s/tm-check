@@ -1,10 +1,8 @@
 package edu.mum.tmcheck.controllers;
 
+import edu.mum.tmcheck.domain.reports.EntryAttendanceReport;
 import edu.mum.tmcheck.domain.repository.UserRepository;
-import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
-import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
-import edu.mum.tmcheck.serviceimp.ExcelReportGeneratorServiceImp;
-import edu.mum.tmcheck.serviceimp.UserServiceImp;
+import edu.mum.tmcheck.serviceimp.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -34,6 +32,9 @@ public class ExcelReportController {
     @Autowired
     UserServiceImp userServiceImp;
 
+    @Autowired
+    EntryAttendanceReportServiceImp entryAttendanceReportServiceImp;
+
     @GetMapping("/ec-attendance-report/{blockid}.xlsx")
     public ResponseEntity<InputStreamResource> excelExtraCreditReport(Principal principal, @PathVariable("blockid") String blockid) throws IOException
     {
@@ -47,10 +48,15 @@ public class ExcelReportController {
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
     }
 
-    @GetMapping("/entry-attendance-report/{entryId}.xls")
+    @GetMapping("/entry-attendance-report/{entryId}.xlsx")
     public ResponseEntity<InputStreamResource> entryAttendanceReport(Principal principal, @PathVariable("entryId") Optional<Long> entryId) throws IOException
     {
-        return null;
+        Long entryid = entryId.get();
+        List<EntryAttendanceReport> EntryAttendanceReport =  entryAttendanceReportServiceImp.generateByEntryId(entryid);
+        ByteArrayInputStream in = excelReportGeneratorServiceImp.EntryMeditationAttendanceReportToExcel(EntryAttendanceReport);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachement; filename=EntryAttendanceReport.xlsx");
+        return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
     }
 
     @GetMapping("/block-attendance-report/{blockId}.xls")
