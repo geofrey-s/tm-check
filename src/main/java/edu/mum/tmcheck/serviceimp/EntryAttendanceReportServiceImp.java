@@ -30,6 +30,6 @@ public class EntryAttendanceReportServiceImp implements EntryAttendanceReportSer
     }
 
     public String downloadLink(long entryId) {
-        return String.format("/download/%s/%s", REPORT_ID, entryId);
+        return String.format("/download/%s/%s.xslx", REPORT_ID, entryId);
     }
 }

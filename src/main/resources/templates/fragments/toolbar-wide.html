@@ -8,9 +8,22 @@
 
     <div class="collapse navbar-collapse ml-3 pl-3" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li th:each="item : ${navbarItems}" class="nav-item active"
-            >
+            <li th:each="item : ${navbarItems}" class="nav-item active">
                 <a class="nav-link" href="#" th:href="${item.link}" th:text="${item.label}">Item</span></a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav" style="float: right">
+            <li class="dropdown">
+                <a href="" class="dropdown-toggle pull-right" data-toggle="dropdown">
+                    <i class=" far fa-user pull-right">Account</i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="/logout" class="btn btn-info btn-lg">
+                            <span class="glyphicon glyphicon-log-out"></span> Log out
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
