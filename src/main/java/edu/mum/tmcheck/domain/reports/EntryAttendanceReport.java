@@ -140,4 +140,12 @@ public class EntryAttendanceReport implements Serializable {
                 ", overrallAttendance=" + overrallAttendance +
                 '}';
     }
+
+    public LocalDate getEntry_start() {
+        return entry_start;
+    }
+
+    public void setEntry_start(LocalDate entry_start) {
+        this.entry_start = entry_start;
+    }
 }

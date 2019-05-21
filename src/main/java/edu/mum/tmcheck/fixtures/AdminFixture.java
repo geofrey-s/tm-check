@@ -16,7 +16,7 @@ public class AdminFixture extends BaseFixture {
         admin.setRole("admin");
         admin.setName(faker.name().fullName());
 
-        String username = faker.name().username();
+        String username = "admin";
         admin.setUsername(username);
         admin.setPassword(username);
 

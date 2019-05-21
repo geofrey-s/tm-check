@@ -25,6 +25,14 @@ public class Student extends User implements Serializable {
     @OneToOne(mappedBy = "student")
     Card card;
 
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
     public Entry getEntry() {
         return entry;
     }

@@ -16,4 +16,6 @@ public interface MeditationTypeService {
 
     public MeditationType findById(Long id);
 
+    public List<MeditationType> findAllByNameExcept(String name);
+
 }

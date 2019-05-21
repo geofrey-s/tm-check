@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -50,12 +51,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/reports/ec-attendance-report/**").hasRole("faculty")
-                .anyRequest()
-                .authenticated()
-                .and().formLogin().successHandler(sucessHandler)
+        http.
+                authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/reports/ec-attendance-report/**").hasRole("faculty").anyRequest()
+                .authenticated().and().csrf().disable()
+                .formLogin()
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and().formLogin().successHandler(sucessHandler
                 .and().logout()
-                .permitAll()
+                .permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")
                 .and()
                 .csrf()
