@@ -3,16 +3,6 @@
 
 <div class="tm-image-header">
     <img th:src="@{/banner.jpg}" height="106" width="672">
-    <div class="tm-account-info">
-        <p>Welcome,<br/>
-            <span th:text="@{student!=null? student.name:''}"></span>
-        </p>
-        <form id="logout" name="logout" method="post" action="/logout">
-            <input th:hidden="@{student!=null?student.id:''}"/>
-            <input type="submit" th:value="Logout"/>
-
-        </form>
-    </div>
 </div>
 
 <div th:replace="fragments/header::header">Head section goes here</div>
