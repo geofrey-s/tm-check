@@ -2,6 +2,7 @@ package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
 import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
+import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface AttendanceService {
     public List<Attendance> findTMCheckRecord(String StudentId, Long MeditationTypeID);
 
     public Attendance createFromEditor(MeditationAttendanceEditor editor);
+
+    public BlockEndEachStudentMeditationData computeBlockEC(String studentId, Long blockId);
 }

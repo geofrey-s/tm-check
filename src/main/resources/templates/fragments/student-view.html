@@ -38,13 +38,18 @@
             Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
         </td>
         <td>
-            <form>
-                Block: <select name="blockId" onchange="this.form.submit();">
+            <form id="blockForm">
+                <input th:hidden="${student!=null?student.id:''}" name="studentId" id="studentId"/>
+                Block: <select name="blockId" id="blockId" onchange="loadTMStudentBlockInfo();">
                 <option value="">Select block</option>
                 <option th:each="block : ${blocks}"
                         th:value="${block.id}"
                         th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
-            </select><br/>
+            </select><br/><br/>
+                <div id="tm-student-block-info">
+                    TM Student Block Information
+                </div>
+
             </form>
             <br/>
         </td>
