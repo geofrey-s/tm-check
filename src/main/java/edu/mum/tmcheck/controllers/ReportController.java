@@ -59,10 +59,12 @@ public class ReportController {
         String reportKey = "entry-attendance-report";
 
         Entry currentEntry = entryServiceImp.findById(entryId.orElse(1L));
+        System.out.println("---------------------------------------------------------" + currentEntry.getId());
         model.addAttribute("currentEntry", currentEntry);
         model.addAttribute("downloadLink", entryAttendanceReportServiceImp.downloadLink(currentEntry.getId()));
 
         Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
+        System.out.println("---------------------------------------------------------reports   " + reports.size());
         reports.remove(reportTitle);
 
         model.addAttribute("pageTitle", reportTitle);
@@ -73,6 +75,7 @@ public class ReportController {
         model.addAttribute("entries", entries);
 
         model.addAttribute("reportData", entryAttendanceReportServiceImp.generateByEntry(currentEntry.getName()));
+        System.out.println(entryAttendanceReportServiceImp.generateByEntry(currentEntry.getName()).size());
         if(entryId.isPresent())
             model.addAttribute("downloadlink", "/download/entry-attendance-report/"+entryId.get()+".xlsx");
         return "entry-attendance-report";
