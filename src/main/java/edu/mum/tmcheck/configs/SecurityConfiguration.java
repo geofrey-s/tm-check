@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/","/css/**", "/js/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/reports/ec-attendance-report/**").hasRole("faculty").anyRequest()
                 .authenticated().and().csrf().disable()
@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().formLogin().successHandler(sucessHandler
+                .and().formLogin().successHandler(sucessHandler)
                 .and().logout()
                 .permitAll().invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")

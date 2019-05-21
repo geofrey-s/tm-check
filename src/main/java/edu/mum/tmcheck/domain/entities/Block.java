@@ -1,6 +1,9 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +14,12 @@ public class Block implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @NotNull
+    @Valid
     LocalDate startDate;
+
+    @NotNull
+    @Valid
     LocalDate endDate;
 
     @OneToMany

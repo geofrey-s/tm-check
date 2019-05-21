@@ -6,6 +6,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -15,13 +18,17 @@ public class User implements Serializable {
     @Id
     long id;
 
+    @NotEmpty
     String name;
 
     @Column(unique = true)
+    @NotEmpty
     String username;
 
+    @NotEmpty
     String password;
 
+    @NotEmpty
     String role;
 
     public String getRole() {

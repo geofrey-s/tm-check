@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,13 +13,16 @@ public class OfferedCourse implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @Valid
     Course course;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id")
+    @Valid
     Faculty faculty;
 
     @ManyToOne
+    @Valid
     Block block;
 
     @ManyToMany(mappedBy = "enrolledCourses")

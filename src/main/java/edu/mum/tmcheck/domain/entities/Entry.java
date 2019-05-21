@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -13,8 +16,15 @@ public class Entry implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @NotEmpty
+    @NotEmpty
     String name;
+
+    @NotNull
+    @Past
     LocalDate startDate;
+
+    @NotNull
     LocalDate endDate;
 
     public long getId() {

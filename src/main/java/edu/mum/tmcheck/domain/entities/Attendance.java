@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -19,17 +20,21 @@ public class Attendance implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @Valid
     Student student;
 
     @ManyToOne
     @JoinColumn(name = "location_id")
+    @Valid
     Location location;
 
     @ManyToOne
     @JoinColumn(name = "meditation_type_id")
+    @Valid
     MeditationType meditationType;
 
     @Column(name = "created_at")
+    @Valid
     LocalDate createdAt;
 
     public LocalDate getCreatedAt() {

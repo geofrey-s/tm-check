@@ -1,6 +1,10 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -11,14 +15,20 @@ public class Card implements Serializable {
     long id;
 
     @Column(unique = true)
+    @NotEmpty
     String barcode;
 
     @OneToOne(optional = true)
+    @Valid
     Student student;
 
+    @NotNull
     boolean status = true;
 
     LocalDate issueDate = LocalDate.now();
+
+    @NotNull
+    @Future
     LocalDate expiryDate;
 
     public Student getStudent() {

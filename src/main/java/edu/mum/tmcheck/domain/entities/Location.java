@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity
@@ -10,9 +11,11 @@ public class Location implements Serializable {
     long id;
 
     @Column(unique = true)
+    @NotEmpty
     String name;
 
     @Column(unique = true)
+    @NotEmpty
     String code;
 
     public long getId() {
