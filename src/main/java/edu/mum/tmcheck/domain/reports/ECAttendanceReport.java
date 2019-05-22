@@ -11,31 +11,31 @@ import javax.persistence.Transient;
 import java.time.LocalDate;
 
 @Entity(name = "ECAttendanceReport")
-@Subselect("SELECT " +
-        "       concat(s.id,a.block_id) as id , " +
-        "       s.student_reg_id, " +
-        "       s.name, " +
-        "       a.faculty_id, " +
-        "       a.block_id, " +
-        "       a.block_start, " +
-        "       a.block_end, " +
-        "       a.standard_tm " +
-        " from STUDENT as s " +
-        "         left join ( " +
-        "    select ai.STUDENT_ID," +
-        "           oc.faculty_id, " +
-        "           b.id                                                         as block_id, " +
-        "           b.START_DATE                                                 AS block_start, " +
-        "           b.END_DATE                                                   AS block_end, " +
-        "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm " +
-        "    from ATTENDANCE ai " +
-        "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id " +
-        "             LEFT JOIN STUDENT_ENROLLED_COURSES as sc on sc.STUDENTS_ID = ai.STUDENT_ID " +
-        "             LEFT JOIN OFFERED_COURSE as oc on oc.ID = sc.ENROLLED_COURSES_ID " +
-        "             LEFT JOIN BLOCK as b on b.ID = oc.BLOCK_ID " +
-        "    group by ai.STUDENT_ID, oc.faculty_id,b.id, b.START_DATE, b.END_DATE " +
-        ") as a on s.id = a.student_id " +
-        " where a.block_id is not null")
+@Subselect("SELECT concat(s.id, a.block_id) as id,\n" +
+        "       s.student_reg_id,\n" +
+        "       s.name,\n" +
+        "       a.faculty_id,\n" +
+        "       a.block_id,\n" +
+        "       a.block_start,\n" +
+        "       a.block_end,\n" +
+        "       a.standard_tm\n" +
+        "from STUDENT as s\n" +
+        "         left join (\n" +
+        "    select ai.STUDENT_ID,\n" +
+        "           oc.faculty_id,\n" +
+        "           b.id                                                         as block_id,\n" +
+        "           b.START_DATE                                                 AS block_start,\n" +
+        "           b.END_DATE                                                   AS block_end,\n" +
+        "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm\n" +
+        "    from ATTENDANCE ai\n" +
+        "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id\n" +
+        "             LEFT JOIN STUDENT_ENROLLED_COURSES as sc on sc.STUDENTS_ID = ai.STUDENT_ID\n" +
+        "             LEFT JOIN OFFERED_COURSE as oc on oc.ID = sc.ENROLLED_COURSES_ID\n" +
+        "             LEFT JOIN BLOCK as b on b.ID = oc.BLOCK_ID\n" +
+        "            where ai.CREATED_AT between b.START_DATE and b.END_DATE\n" +
+        "    group by b.id, ai.STUDENT_ID, oc.faculty_id,  b.START_DATE, b.END_DATE\n" +
+        ") as a on s.id = a.student_id\n" +
+        "where a.block_id is not null")
 @Synchronize({"attendance", "student", "block", "OFFERED_COURSE", "STUDENT_ENROLLED_COURSES", "meditation_type"})
 public class ECAttendanceReport {
     @Id

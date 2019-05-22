@@ -31,22 +31,25 @@
                         <div class="row">
                             <div class="col-md-2 field">
                                 <small class="field-name">Standard TM</small>
-                                <div class="field-value" th:text="${currentBlockReport.standardTm}">8</div>
+                                <div class="field-value" th:text="${currentBlockReport.standardTm}"></div>
                             </div>
                             <div class="col-md-2 field">
                                 <small class="field-name">Retreats</small>
-                                <div class="field-value" th:text="${currentBlockReport.retreats}">3</div>
+                                <div class="field-value" th:text="${currentBlockReport.retreats}"></div>
                             </div>
                             <div class="col-md-2 field">
                                 <small class="field-name">TM Checks</small>
-                                <div class="field-value" th:text="${currentBlockReport.checks}">2</div>
+                                <div class="field-value" th:text="${currentBlockReport.checks}"></div>
                             </div>
                             <div class="col-md-2 field overrall">
-                                <small class="field-name">Overall</small>
+                                <small class="field-name">Overall(%)</small>
                                 <div class="field-value" th:text="${currentBlockReport.overrallAttendance}"></div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="empty-stats-view" th:unless="${currentBlockReport}">
+                    No Block registered for you! Please visit the Registra's Office.
                 </div>
             </div>
         </div>
@@ -67,22 +70,25 @@
                         <div class="row">
                             <div class="col-md-2 field">
                                 <small class="field-name">Standard TM</small>
-                                <div class="field-value" th:text="${item.standardTm}">8</div>
+                                <div class="field-value" th:text="${item.standardTm}"></div>
                             </div>
                             <div class="col-md-2 field">
                                 <small class="field-name">Retreats</small>
-                                <div class="field-value" th:text="${item.retreats}">3</div>
+                                <div class="field-value" th:text="${item.retreats}"></div>
                             </div>
                             <div class="col-md-2 field">
                                 <small class="field-name">TM Checks</small>
-                                <div class="field-value" th:text="${item.checks}">2</div>
+                                <div class="field-value" th:text="${item.checks}"></div>
                             </div>
                             <div class="col-md-2 field overrall">
-                                <small class="field-name">Overall</small>
+                                <small class="field-name">Overall(%)</small>
                                 <div class="field-value" th:text="${item.overrallAttendance}"></div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="empty-stats-view-info" th:if="${#lists.isEmpty(historicBlockReports)}">
+                    No historic Blocks registered for you
                 </div>
             </div>
         </div>

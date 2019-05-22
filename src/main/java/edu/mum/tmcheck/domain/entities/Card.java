@@ -28,7 +28,6 @@ public class Card implements Serializable {
     LocalDate issueDate = LocalDate.now();
 
     @NotNull
-    @Future
     LocalDate expiryDate;
 
     public Student getStudent() {

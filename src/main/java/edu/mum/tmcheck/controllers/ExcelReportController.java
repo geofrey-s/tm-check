@@ -62,10 +62,4 @@ public class ExcelReportController {
         headers.add("Content-Disposition", "attachement; filename=EntryAttendanceReport.xlsx");
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
     }
-
-    @GetMapping("/block-attendance-report/{blockId}.xls")
-    public ResponseEntity<InputStreamResource> blockAttendanceReport(Principal principal, @PathVariable("blockId") Optional<Long> blockId) throws IOException
-    {
-        return null;
-    }
 }

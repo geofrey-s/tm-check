@@ -37,6 +37,8 @@ public class AttendanceFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
+        System.out.println("Generating Attendance fixture data ...");
+
         students = studentServiceImp.findAll();
         meditationTypes = meditationTypeServiceImp.findAll();
         locations = locationServiceImp.findAll();

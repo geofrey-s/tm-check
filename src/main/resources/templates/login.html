@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
           integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
+    <style>body {
+        display: none;
+    }</style>
     <link rel="stylesheet" type="text/css" th:href="@{/auth/css/util.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/auth/css/main.css}">
 </head>
@@ -18,23 +21,19 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-b-190">
-            <form class="login100-form validate-form flex-sb flex-w" th:action="@{/login}" method="post" th:Object = "${user}">
+            <form class="login100-form validate-form flex-sb flex-w" th:action="@{/login}" method="post"
+                  th:Object="${user}">
                 <img class="logo" th:src="@{/images/mum.png}" alt="">
                 <span class="login100-form-title p-b-30 p-t-20">Login</span>
 
                 <div class="wrap-input100 m-b-16">
-                    <!--<input class="input100" type="text" name="username" placeholder="Username">-->
-                    <!--<span class="focus-input100"></span>-->
-                    <input class="input100" type="text" placeholder="Username" th:field="*{username}" />
-                    <span class="focus-input100" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:style="'color:red'">Username is required</span>
-
+                    <input class="input100" type="text" placeholder="Username" th:field="*{username}"/>
+                    <span class="error focus-input100" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username is required</span>
                 </div>
 
                 <div class="wrap-input100 m-b-16">
-                    <!--<input class="input100" type="password" name="password" placeholder="Password">-->
-                    <!--<span class="focus-input100"></span>-->
-                    <input class="input100" type="password" placeholder="Password" th:field="*{password}" />
-                    <span class="focus-input100" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="'color:red'">Password is required</span>
+                    <input class="input100" type="password" placeholder="Password" th:field="*{password}"/>
+                    <span class="error focus-input100" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password is required</span>
                 </div>
 
                 <div class="flex-sb-m w-full p-t-3 p-b-24">

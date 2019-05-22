@@ -5,11 +5,11 @@ import edu.mum.tmcheck.serviceimp.IdCardServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,40 +22,22 @@ public class CardFixture extends BaseFixture {
     IdCardServiceImp idCardServiceImp;
 
     @Override
-    public void generate(int size)
-    {
-
-        String filename = Paths.get("src/main/java/edu/mum/tmcheck/fixtures/carddata.txt").toAbsolutePath().toString();
-        File file = new File(filename);
-
-//        String filename = Paths.get(SAMPLE_FILENAME).toAbsolutePath().toString();
-//        File file = new File(filename);
+    public void generate(int size) {
+        System.out.println("Generating Card fixture data ...");
 
         Set<String> barcodedata = new HashSet<>();
 
-//        try {
-//            Scanner sc = new Scanner(file);
-//            while (sc.hasNextLine())
-//            {
-//                String line = sc.nextLine();
-//                String[] spllitedtext =  line.split(",");
-//                barcodedata.add(spllitedtext[0]);
-//            }
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         try (Stream<String> stream = Files.lines(Paths.get(SAMPLE_FILENAME).toAbsolutePath())) {
-            barcodedata = stream.parallel().map(x -> x.split(",")[0]).collect(Collectors.toSet());
-        } catch (IOException e) {}
+            stream.parallel().map(x -> x.split(",")[0]).forEach(barcodedata::add);
 
-        int count = 0;
-        barcodedata.forEach(x -> {
-            Card card = new Card();
-            card.setBarcode(x);
-            card.setExpiryDate(futureDateByYear(1));
-            idCardServiceImp.save(card);
-        });
+            barcodedata.forEach(x -> {
+                Card card = new Card();
+                card.setBarcode(x);
+                card.setExpiryDate(futureDateByYear(1));
+                idCardServiceImp.save(card);
+            });
+        } catch (IOException e) {
+        }
     }
 
     protected String randomBarcode() {

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AdminFixture extends BaseFixture {
+    private final String DEFAULT_USERNAME = "admin";
+
     @Autowired
     AdminServiceImp adminServiceImp;
 
@@ -16,9 +18,8 @@ public class AdminFixture extends BaseFixture {
         admin.setRole("admin");
         admin.setName(faker.name().fullName());
 
-        String username = "admin";
-        admin.setUsername(username);
-        admin.setPassword(username);
+        admin.setUsername(DEFAULT_USERNAME);
+        admin.setPassword(DEFAULT_USERNAME);
 
         adminServiceImp.save(admin);
     }

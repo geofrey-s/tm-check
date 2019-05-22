@@ -14,6 +14,7 @@ import edu.mum.tmcheck.services.AttendanceService;
 import edu.mum.tmcheck.utils.Dates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -142,6 +143,7 @@ public class AttendanceServiceImp implements AttendanceService {
      * @param line
      * @return
      */
+    @Async
     protected Attendance processManualAttendanceRecord(String[] line) {
         Attendance record = new Attendance();
 

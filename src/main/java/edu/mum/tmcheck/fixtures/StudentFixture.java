@@ -17,6 +17,8 @@ import java.util.Stack;
 
 @Component
 public class StudentFixture extends BaseFixture {
+    private final String DEFAULT_USERNAME = "student";
+
     @Autowired
     StudentServiceImp studentServiceImp;
 
@@ -33,9 +35,14 @@ public class StudentFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
+        System.out.println("Generating Student fixture data ...");
+
         offeredCourses = offeredCourseServiceImp.findAll();
         Stack<Card> cards = new Stack<>();
         cards.addAll(idCardServiceImp.findAll());
+
+        String username = DEFAULT_USERNAME;
+
 
         while (size-- > 0) {
             try {
@@ -44,9 +51,9 @@ public class StudentFixture extends BaseFixture {
                 student.setName(faker.name().fullName());
                 student.setDepartureDate(futureDateByYear(1));
 
-                String username = faker.name().username();
                 student.setUsername(username);
                 student.setPassword(username);
+                username = faker.name().username();
 
                 student.setStudentRegId(faker.bothify("000-9#-####"));
 

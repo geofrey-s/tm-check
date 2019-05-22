@@ -16,23 +16,30 @@ import java.time.LocalDate;
 @Immutable
 @Subselect(value = "SELECT u.student_reg_id                                              as student_id,\n" +
         "       u.name,\n" +
-        "       e.name                                                        AS entry,\n" +
-        "       e.start_date                                                  AS entry_start,\n" +
-        "       LEAST(u.departure_date, CURRENT_DATE)                         AS entry_end,\n" +
+        "       a.name                                                        AS entry,\n" +
+        "       a.entry_start,\n" +
+        "       a.entry_end,\n" +
         "       case when a.standard_tm is null then 0 else a.standard_tm end as standard_tm,\n" +
         "       case when a.retreats is null then 0 else a.retreats end       as retreats,\n" +
         "       case when a.checks is null then 0 else a.checks end           as checks\n" +
         "FROM STUDENT as u\n" +
         "         left JOIN (\n" +
         "    select ai.STUDENT_ID,\n" +
+        "           e.NAME,\n" +
+        "           e.START_DATE                                                 as entry_start,\n" +
+        "           LEAST(s.departure_date, CURRENT_DATE)                        as entry_end,\n" +
         "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm,\n" +
         "           SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END)  AS retreats,\n" +
         "           SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END)    AS checks\n" +
         "    from ATTENDANCE ai\n" +
         "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id\n" +
-        "    group by STUDENT_ID\n" +
-        ") a ON u.id = a.student_id\n" +
-        "         LEFT JOIN entry AS e ON e.id = u.entry_id")
+        "             LEFT JOIN STUDENT s on s.id = ai.STUDENT_ID\n" +
+        "             LEFT JOIN entry AS e ON e.id = s.entry_id\n" +
+        "    where ai.CREATED_AT between e.START_DATE and LEAST(s.departure_date, CURRENT_DATE)\n" +
+        "    group by STUDENT_ID, e.NAME,\n" +
+        "             e.START_DATE,\n" +
+        "             LEAST(s.departure_date, CURRENT_DATE)\n" +
+        ") a ON u.id = a.student_id")
 @Synchronize({"attendance", "user", "entry", "meditation_type"})
 public class EntryAttendanceReport implements Serializable {
     @Id
