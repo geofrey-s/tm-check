@@ -6,12 +6,12 @@
         <div class="dropdown">
             <div class="btn dropdown-toggle btn-outline-success" type="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
-                <span th:text="${currentBlock.startDate}">Block Start Date</span>
+                <span th:text="${currentBlockName}">Block Start Date</span>
             </div>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a th:each="item : ${blocks}" class="dropdown-item" href="#"
-                   th:href="@{/reports/{report}/{block_id}(report=${reportKey}, block_id=${item.id})}"
-                   th:text="${item.startDate}">Block</a>
+                   th:href="@{/reports/{report}/{block_id}(report=${reportKey}, block_id=${item.key})}"
+                   th:text="${item.value}">Block</a>
             </div>
         </div>
     </div>

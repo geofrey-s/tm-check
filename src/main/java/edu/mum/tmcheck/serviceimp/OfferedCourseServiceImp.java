@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Block;
+import edu.mum.tmcheck.domain.entities.Faculty;
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 import edu.mum.tmcheck.domain.repository.OfferedCourseRepository;
 import edu.mum.tmcheck.services.OfferedCourseService;
@@ -23,6 +24,11 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
 
     public List<Block>  getfacultytaughtblock(Long userid){
         return offeredCourseRepository.findAll().stream().filter(offcourse -> offcourse.getFaculty().getId()==userid).map(offcourse -> offcourse.getBlock()).collect(Collectors.toList());
+    }
+
+    @Override
+    public OfferedCourse getbyblockandfaculty(Block block, Faculty faculty) {
+        return offeredCourseRepository.findByBlockAndAndFaculty(block, faculty);
     }
 
     @Override

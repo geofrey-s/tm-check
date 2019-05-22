@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.format.TextStyle;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -48,6 +46,12 @@ public class ReportController {
 
     @Autowired
     ECAttendanceReportServiceImp ecAttendanceReportServiceImp;
+
+    @Autowired
+    OfferedCourseServiceImp offeredCourseServiceImp;
+
+    @Autowired
+    FacultyServiceImp facultyServiceImp;
 
     @ModelAttribute
     public void prepareReportsLists(Model model) {
@@ -104,11 +108,17 @@ public class ReportController {
         model.addAttribute("reportKey", reportKey);
 
         List<Block> blocks = blockServiceImp.findAllByUserId(user.getId());
-        model.addAttribute("blocks", blocks);
+        HashMap<Long, String> blks = new HashMap<>();
+        blocks.forEach(b -> {
+            blks.put(b.getId(), offeredCourseServiceImp.getbyblockandfaculty(b, facultyServiceImp.findById(user.getId())).getCourse().getName() + "  " +b.getStartDate().plusDays(5).getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + "  " + b.getStartDate().plusDays(8).getYear());
+        });
+
+        model.addAttribute("blocks", blks);
 
         long defaultBlockId = blocks.get(0) != null ? blocks.get(0).getId() : 0;
         Block currentBlock = blockServiceImp.findById(blockId.orElse(defaultBlockId));
         model.addAttribute("currentBlock", currentBlock);
+        model.addAttribute("currentBlockName", offeredCourseServiceImp.getbyblockandfaculty(currentBlock, facultyServiceImp.findById(user.getId())).getCourse().getName() + "  "+currentBlock.getStartDate().plusDays(5).getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) +"  "+ currentBlock.getStartDate().plusDays(8).getYear());
         model.addAttribute("blockid", currentBlock.getId());
 
         model.addAttribute("reportData", ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(user.getId(), currentBlock.getId()));

@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.services;
 
 import edu.mum.tmcheck.domain.entities.Block;
+import edu.mum.tmcheck.domain.entities.Faculty;
 import edu.mum.tmcheck.domain.entities.OfferedCourse;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface OfferedCourseService {
     public List<OfferedCourse> findAll();
 
     public List<Block>  getfacultytaughtblock(Long userid);
+
+    public OfferedCourse getbyblockandfaculty(Block block, Faculty faculty);
 
 }
