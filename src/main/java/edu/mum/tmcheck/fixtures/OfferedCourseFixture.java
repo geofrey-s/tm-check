@@ -31,6 +31,8 @@ public class OfferedCourseFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
+        System.out.println("Generating Offered Courses fixture data ...");
+
         blocks = blockServiceImp.findAll();
         courses = courseServiceImp.findAll();
         facultyUsers = facultyServiceImp.findAll();

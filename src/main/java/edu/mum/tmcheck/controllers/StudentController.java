@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/student")
@@ -50,20 +51,13 @@ public class StudentController {
         Student student = (Student) authenticationServiceImp.getAuthenticatedUserByUsername(principal.getName());
         model.addAttribute("student", student);
 
-        List<Block> blocks = blockService.findAllByStudentId(student.getStudentRegId());
-
-        Block currentBlock = blocks.get(0);
-        BlockAttendanceReport currentBlockReport = blockAttendanceReportService.findByStudentRegIdAndBlockId(student.getStudentRegId(), currentBlock.getId());
         List<BlockAttendanceReport> reports = blockAttendanceReportService.findAllByStudentRegIdOrderByBlockStartDesc(student.getStudentRegId());
+        BlockAttendanceReport currentBlockReport = reports.size() > 0 ? reports.get(0) : null;
+        reports = reports.stream().skip(1).collect(Collectors.toList());
 
         model.addAttribute("currentBlockReport", currentBlockReport);
         model.addAttribute("historicBlockReports", reports);
 
         return "student";
-    }
-
-    @RequestMapping(value = "/view/attendance_information", method = RequestMethod.GET)
-    public String viewDetail(Model model, @PathVariable(required = false) Optional<Long> blockId) {
-        return "";
     }
 }

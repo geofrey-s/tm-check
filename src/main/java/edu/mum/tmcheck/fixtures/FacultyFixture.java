@@ -7,20 +7,24 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FacultyFixture extends BaseFixture {
+    private final String DEFAULT_USERNAME = "faculty";
+
     @Autowired
     FacultyServiceImp facultyServiceImp;
 
     @Override
     public void generate(int size) {
+        String username = DEFAULT_USERNAME;
+
         while (size-- > 0) {
             try {
                 Faculty faculty = new Faculty();
                 faculty.setRole("faculty");
                 faculty.setName(faker.name().fullName());
 
-                String username = faker.name().username();
                 faculty.setUsername(username);
                 faculty.setPassword(username);
+                username = faker.name().username();
 
                 facultyServiceImp.save(faculty);
             } catch (Exception e) {

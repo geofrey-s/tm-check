@@ -94,6 +94,8 @@
     }
 
     .main-content {
+      padding-top: 16px;
+
       .student-details {
         .profile-pic {
           padding-right: 24px;
@@ -129,4 +131,15 @@
     }
   }
 
+  .empty-stats-view {
+    padding: 8px 24px 16px!important;
+    color: #db4040;
+  }
+
+  .empty-stats-view-info {
+    color: #666;
+    font-weight: 200;
+    margin: 0 -15px;
+    padding: 8px 24px 16px!important;
+  }
 }

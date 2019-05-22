@@ -17,12 +17,14 @@ public class BlockFixture extends BaseFixture {
 
     @Override
     public void generate(int size) {
+        System.out.println("Generating Block fixture data ...");
+
         Random random = new Random();
         List<Integer> noofdays = new ArrayList<>();
         noofdays.add(14);
-        noofdays.add(22);
-        LocalDate DataGeneratingStartDate = LocalDate.of(2018, 01, 01);
-        size = 24;
+        noofdays.add(30);
+        LocalDate DataGeneratingStartDate = LocalDate.of(2019, 01, 01);
+        size = 12;
 
         while(size-- > 0){
             Block block = new Block();

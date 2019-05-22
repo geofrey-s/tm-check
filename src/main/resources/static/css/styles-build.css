@@ -262,6 +262,9 @@ select {
 .student-block-attendance-report .layout-container .section .block-details .block-summary .field .field-value {
   font-size: 1.1em;
 }
+.student-block-attendance-report .layout-container .main-content {
+  padding-top: 16px;
+}
 .student-block-attendance-report .layout-container .main-content .student-details .profile-pic {
   padding-right: 24px;
 }
@@ -285,6 +288,16 @@ select {
   padding: 0;
   margin: 0;
   padding-top: 0 !important;
+}
+.student-block-attendance-report .empty-stats-view {
+  padding: 8px 24px 16px !important;
+  color: #db4040;
+}
+.student-block-attendance-report .empty-stats-view-info {
+  color: #666;
+  font-weight: 200;
+  margin: 0 -15px;
+  padding: 8px 24px 16px !important;
 }
 
 body {
