@@ -4,7 +4,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class MeditationAttendanceEditor {
-    @NotEmpty
+    @NotEmpty(message = "{notEmpty}")
     private String studentRegId;
     private long meditationTypeId;
     private long locationId;

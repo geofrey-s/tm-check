@@ -18,14 +18,14 @@ public class User implements Serializable {
     @Id
     long id;
 
-    @NotEmpty
+
     String name;
 
     @Column(unique = true)
-    @NotEmpty
+    @NotEmpty(message = "{notEmpty}")
     String username;
 
-    @NotEmpty
+    @NotEmpty(message = "{notEmpty}")
     String password;
 
     @NotEmpty

@@ -1,16 +1,20 @@
 package edu.mum.tmcheck.controllers;
 
+import edu.mum.tmcheck.domain.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -39,7 +43,10 @@ public class HomeController {
     }
 
     @RequestMapping("/login")
-    public String login(Model model, Principal principal){
+    public String login(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, Principal principal){
+        if(bindingResult.hasErrors()){
+            return "login";
+        }
         return "login";
     }
 

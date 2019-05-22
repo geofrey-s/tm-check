@@ -1,9 +1,6 @@
 package edu.mum.tmcheck.controllers;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.domain.entities.Location;
-import edu.mum.tmcheck.domain.entities.MeditationType;
-import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
 import edu.mum.tmcheck.domain.repository.LocationRepository;
 import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
@@ -21,9 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/attendance")
@@ -54,21 +48,17 @@ public class AttendanceController {
     }
 
     @PostMapping("/editor/save")
-    public String editorSave(@ModelAttribute MeditationAttendanceEditor editor, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if(bindingResult.hasErrors()){
-            return "forward:/attendance/editor";
-        } else{
+    public String editorSave(@Valid @ModelAttribute MeditationAttendanceEditor editor, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         Attendance attendance = attendanceServiceImp.createFromEditor(editor);
 
         redirectAttributes.addFlashAttribute(attendance);
-        return "redirect:/attendance/editor";}
+        return "redirect:/attendance/editor";
     }
 
     @PostMapping("/editor/upload")
     @ResponseBody
-    public String editorFileUpload(@Valid @ModelAttribute MultipartFile file) throws IOException {
+    public String editorFileUpload(@ModelAttribute MultipartFile file) throws IOException {
         attendanceServiceImp.processFileUpload(file);
         return "";
     }
