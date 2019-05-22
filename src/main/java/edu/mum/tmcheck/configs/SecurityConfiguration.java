@@ -55,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers( "/auth/**","/css/**", "/js/**","/images/**").permitAll()
                 .antMatchers("/login").permitAll()
+                .antMatchers("/attendance/editor").hasRole("admin")
                 .antMatchers("/reports/ec-attendance-report/**").hasRole("faculty").anyRequest()
                 .authenticated().and().csrf().disable()
                 .formLogin()

@@ -1,5 +1,7 @@
 package edu.mum.tmcheck.fixtures;
 
+import edu.mum.tmcheck.serviceimp.IdCardServiceImp;
+import edu.mum.tmcheck.services.IdCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +44,9 @@ public class ApplicationFixture {
     @Autowired
     AttendanceFixture attendanceFixture;
 
+    @Autowired
+    IdCardServiceImp idCardServiceImp;
+
     @PostConstruct
     public void initialize() {
         entryFixture.generate(2);
@@ -52,7 +57,7 @@ public class ApplicationFixture {
         offeredCourseFixture.generate(60);
         locationFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         meditationTypeFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
-        studentFixture.generate(120);
+        studentFixture.generate(idCardServiceImp.findAll().size());
         adminFixture.generate(DEFAULT_NUMBER_OF_RECORDS);
         attendanceFixture.generate(200);
     }
