@@ -28,7 +28,7 @@ import java.time.LocalDate;
         "           b.START_DATE                                                 AS block_start, " +
         "           b.END_DATE                                                   AS block_end, " +
         "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm " +
-        "    from ATTENDANCE tyrique.willmsai " +
+        "    from ATTENDANCE ai " +
         "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id " +
         "             LEFT JOIN STUDENT_ENROLLED_COURSES as sc on sc.STUDENTS_ID = ai.STUDENT_ID " +
         "             LEFT JOIN OFFERED_COURSE as oc on oc.ID = sc.ENROLLED_COURSES_ID " +
