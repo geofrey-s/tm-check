@@ -48,12 +48,18 @@ public class AttendanceController {
     }
 
     @PostMapping("/editor/save")
-    public String editorSave(@Valid @ModelAttribute MeditationAttendanceEditor editor, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String editorSave(@Valid @ModelAttribute("editor") MeditationAttendanceEditor editor, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("pageTitle", "TM Editor");
+            model.addAttribute("meditationtypes", meditationTypeServiceImp.findAllByNameExcept("standard"));
+            model.addAttribute("locations", locationServiceImp.findAll());
+            return "tm-editor";
+        }
 
         Attendance attendance = attendanceServiceImp.createFromEditor(editor);
-
         redirectAttributes.addFlashAttribute(attendance);
-        return "redirect:/attendance/editor";
+        return "redirect:/editor";
     }
 
     @PostMapping("/editor/upload")

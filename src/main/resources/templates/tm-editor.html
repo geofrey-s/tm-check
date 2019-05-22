@@ -20,6 +20,8 @@
                     <label for="student-reg-id"> Student ID</label>
                     <input class="form-control" th:field="*{studentRegId}" placeholder="000-XX-XXXX"
                            id="student-reg-id">
+                    <span class="focus-input100" th:if="${#fields.errors('studentRegId')}" th:errors="*{studentRegId}" th:style="'color:red'">Reg. ID is required</span>
+
                 </div>
 
                 <div class="form-group form-row">

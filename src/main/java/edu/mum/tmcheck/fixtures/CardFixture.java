@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,7 +22,8 @@ public class CardFixture extends BaseFixture {
     @Override
     public void generate(int size)
     {
-        File file = new File("/home/nth/Downloads/WAAProjectFinal/tm-check/src/main/java/edu/mum/tmcheck/fixtures/carddata.txt");
+        String filename = Paths.get("src/main/java/edu/mum/tmcheck/fixtures/carddata.txt").toAbsolutePath().toString();
+        File file = new File(filename);
         Set<String> barcodedata = new HashSet<>();
 
         try {
