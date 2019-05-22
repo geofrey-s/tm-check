@@ -23,20 +23,18 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model, Principal principal, HttpSession session) {
-        System.out.println(principal.getName());
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-        System.out.println("Roles: " + user.getAuthorities());
+
         boolean isStudent = true;
+
         for (GrantedAuthority a : user.getAuthorities()) {
             if (a.getAuthority().equalsIgnoreCase("ROLE_admin") || a.getAuthority().equalsIgnoreCase("ROLE_faculty")) {
                 isStudent = false;
             }
         }
         if (isStudent)
-            return "redirect:/student/view/attendance_information";
+            return "redirect:/student/report";
         else
             return "redirect:/reports/entry-attendance-report";
 
@@ -49,5 +47,4 @@ public class HomeController {
         }
         return "login";
     }
-
 }

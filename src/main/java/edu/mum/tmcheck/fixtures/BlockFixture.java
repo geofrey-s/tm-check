@@ -29,7 +29,6 @@ public class BlockFixture extends BaseFixture {
             block.setStartDate(DataGeneratingStartDate);
             Integer n = random.nextInt(noofdays.size());
             block.setEndDate(block.getStartDate().plusDays(noofdays.get(n)));
-            System.out.println(n + "------------------------------------------------------------" + DataGeneratingStartDate.toString()+ "---------------------" + block.getEndDate().toString());
             DataGeneratingStartDate = DataGeneratingStartDate.plusDays(noofdays.get(n)).plusDays(4);
             blockServiceImp.save(block);
         }

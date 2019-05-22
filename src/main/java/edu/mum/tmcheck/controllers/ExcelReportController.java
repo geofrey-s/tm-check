@@ -1,5 +1,6 @@
 package edu.mum.tmcheck.controllers;
 
+import edu.mum.tmcheck.domain.reports.ECAttendanceReport;
 import edu.mum.tmcheck.domain.reports.EntryAttendanceReport;
 import edu.mum.tmcheck.domain.repository.UserRepository;
 import edu.mum.tmcheck.serviceimp.*;
@@ -35,11 +36,14 @@ public class ExcelReportController {
     @Autowired
     EntryAttendanceReportServiceImp entryAttendanceReportServiceImp;
 
+    @Autowired
+    ECAttendanceReportServiceImp ecAttendanceReportServiceImp;
+
     @GetMapping("/ec-attendance-report/{blockid}.xlsx")
     public ResponseEntity<InputStreamResource> excelExtraCreditReport(Principal principal, @PathVariable("blockid") String blockid) throws IOException
     {
         Long userid = userServiceImp.findUserByUserName(principal.getName()).getId();
-        List<BlockEndEachStudentMeditationData> StudentData = attendanceServiceImp.ComputeBlockEC(userid, Long.valueOf(blockid));
+        List<ECAttendanceReport> StudentData = ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(userid, Long.valueOf(blockid));
         ByteArrayInputStream in = excelReportGeneratorServiceImp.ExtraCreditToExcel(StudentData);
 
         HttpHeaders headers = new HttpHeaders();

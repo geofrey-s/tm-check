@@ -1,59 +1,91 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-
-<div class="tm-account-info">
-    <p>Welcome,<br/>
-        <span th:text="${student!=null? student.name:''}"></span>
-    </p>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="shadow-toolbar">
+    <a class="logout btn btn-outline" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i></a>
 </div>
 
-<div id="tm-student-container">
-    <div class="tm-student-info-left">
-        <b>Selected Student</b><br/>
-        ID: <span id="stuid" th:text="${student!=null?student.studentRegId:''}"></span><br/>
-        Full Name: <span id="fname" th:text="${student!=null?student.name:''}"></span><br/>
-        Registration number: <span id="regnum" th:text="${student!=null?student.id:''}"></span><br/>
-        Email: <span id="email" th:text="${student!=null?student.username+'@mum.edu':''}"></span><br/>
-        Entry: <span id="entry" th:text="${student!=null?student.entry.name:''}"></span><br/><br/>
-    </div>
-    <div class="tm-student-info-right">
-        <b>Assignment Settings</b><br/>
-        <span id="openState">Registration availability:   closed </span><br/>
-        Term start: <span id="termStart" th:text="${student!=null?student.entry.startDate:''}"></span><br/>
-        Term end: <span id="termEnd" th:text="${student!=null?student.entry.endDate:''}"></span><br/>
-        Block being assigned: <span id="blockState"> </span><br/>
-    </div>
-</div>
-<br/>
-<table cellpadding="20" cellspacing="20">
-    <thead>
-    <th>Meditation Attendance Information</th>
-    <th></th>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:width="600px">
-            Overrall Attendance: <span th:text="${report.overrallAttendance?:0}"></span><br/><br/>
-            TM Retreats: <span th:text="${report.retreats?:0}"></span><br/><br/>
-            TM Checks: <span th:text="${report.checks?:0}"></span><br/><br/>
-            Standard TM: <span th:text="${report.standard_tm?:0}"></span><br/>
-        </td>
-        <td>
-            <form id="blockForm">
-                <input th:hidden="${student!=null?student.id:''}" name="studentId" id="studentId"/>
-                Block: <select name="blockId" id="blockId" onchange="loadTMStudentBlockInfo();">
-                <option value="">Select block</option>
-                <option th:each="block : ${blocks}"
-                        th:value="${block.id}"
-                        th:utext="${block.startDate} +'-'+ ${block.endDate}"/>
-            </select><br/><br/>
-                <div id="tm-student-block-info">
-                    TM Student Block Information
+<div class="layout-container">
+    <div class="layout-position">
+        <div class="section main-content container">
+            <div class="sub-section student-details row">
+                <div class="col-auto profile-pic">
+                    <img th:src="@{/images/avatar.png}" alt="">
                 </div>
+                <div class="col">
+                    <div class="student-name" th:text="${student.name}"></div>
+                    <div class="reg-id" th:text="${student.studentRegId}">000-00-0000</div>
+                    <div class="entry" th:text="${student.entry.name}"></div>
+                </div>
+            </div>
 
-            </form>
-            <br/>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            <div class="sub-section block-details">
+                <div class="mini-label">Latest Block</div>
+                <div class="plain-wrapper" th:if="${currentBlockReport}">
+                    <div class="container block-period">
+                        <div class="row">
+                            <div class="col-auto" th:text="${currentBlockReport.blockStart}"></div>
+                            <span>to</span>
+                            <div class="col-auto" th:text="${currentBlockReport.blockEnd}"></div>
+                        </div>
+                    </div>
+                    <div class="container block-summary">
+                        <div class="row">
+                            <div class="col-md-2 field">
+                                <small class="field-name">Standard TM</small>
+                                <div class="field-value" th:text="${currentBlockReport.standardTm}">8</div>
+                            </div>
+                            <div class="col-md-2 field">
+                                <small class="field-name">Retreats</small>
+                                <div class="field-value" th:text="${currentBlockReport.retreats}">3</div>
+                            </div>
+                            <div class="col-md-2 field">
+                                <small class="field-name">TM Checks</small>
+                                <div class="field-value" th:text="${currentBlockReport.checks}">2</div>
+                            </div>
+                            <div class="col-md-2 field overrall">
+                                <small class="field-name">Overall</small>
+                                <div class="field-value" th:text="${currentBlockReport.overrallAttendance}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section historic-reports">
+            <div class="mini-label">Past Blocks</div>
+
+            <div class="container">
+                <div class="sub-section block-details row" th:each="item : ${historicBlockReports}">
+                    <div class="container block-period">
+                        <div class="row">
+                            <div class="col-auto" th:text="${item.blockStart}"></div>
+                            <span>to</span>
+                            <div class="col-auto" th:text="${item.blockEnd}"></div>
+                        </div>
+                    </div>
+                    <div class="container block-summary">
+                        <div class="row">
+                            <div class="col-md-2 field">
+                                <small class="field-name">Standard TM</small>
+                                <div class="field-value" th:text="${item.standardTm}">8</div>
+                            </div>
+                            <div class="col-md-2 field">
+                                <small class="field-name">Retreats</small>
+                                <div class="field-value" th:text="${item.retreats}">3</div>
+                            </div>
+                            <div class="col-md-2 field">
+                                <small class="field-name">TM Checks</small>
+                                <div class="field-value" th:text="${item.checks}">2</div>
+                            </div>
+                            <div class="col-md-2 field overrall">
+                                <small class="field-name">Overall</small>
+                                <div class="field-value" th:text="${item.overrallAttendance}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

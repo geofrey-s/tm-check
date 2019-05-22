@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.serviceimp;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
+import edu.mum.tmcheck.domain.reports.ECAttendanceReport;
 import edu.mum.tmcheck.domain.reports.EntryAttendanceReport;
 import edu.mum.tmcheck.services.ExcelReportGeneratorService;
 import org.apache.poi.ss.usermodel.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ExcelReportGeneratorServiceImp implements ExcelReportGeneratorService {
 
     @Override
-    public ByteArrayInputStream ExtraCreditToExcel(List<BlockEndEachStudentMeditationData> ECData) throws IOException {
+    public ByteArrayInputStream ExtraCreditToExcel(List<ECAttendanceReport> ECData) throws IOException {
         String[] COLUMNs = {"Student Id", "Student Name", "Days Attended", "Total Days In Block", "Percentage Attended", "Total Extra Credits"};
         try (
                 Workbook workbook = new XSSFWorkbook();
@@ -49,14 +50,14 @@ public class ExcelReportGeneratorServiceImp implements ExcelReportGeneratorServi
             ageCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("#"));
 
             int rowIdx = 1;
-            for (BlockEndEachStudentMeditationData studentdata : ECData) {
+            for (ECAttendanceReport studentdata : ECData) {
                 Row row = sheet.createRow(rowIdx++);
-                row.createCell(0).setCellValue(studentdata.getStudent().getStudentRegId());
-                row.createCell(1).setCellValue(studentdata.getStudent().getName());
-                row.createCell(2).setCellValue(studentdata.getNoofdaysattended());
-                row.createCell(3).setCellValue(studentdata.getTotalnoofdays());
-                row.createCell(4).setCellValue(studentdata.getPercentageattended());
-                row.createCell(5).setCellValue(studentdata.getTotalmarks());
+                row.createCell(0).setCellValue(studentdata.getStudentRegId());
+                row.createCell(1).setCellValue(studentdata.getName());
+                row.createCell(2).setCellValue(studentdata.getStandardTm());
+                row.createCell(3).setCellValue(studentdata.getDaysAttended());
+                row.createCell(4).setCellValue(studentdata.getOverrallAttendance());
+                row.createCell(5).setCellValue(studentdata.getExtraCredit());
             }
 
             workbook.write(out);

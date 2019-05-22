@@ -23,9 +23,6 @@ public class BlockServiceImp implements BlockService {
     }
 
     public List<Block> findAllByUserId(Long userid) {
-        offeredCourseServiceImp.getfacultytaughtblock(userid).forEach(d ->{
-            System.out.println(d.getStartDate());
-        });
         return offeredCourseServiceImp.getfacultytaughtblock(userid);
     }
 

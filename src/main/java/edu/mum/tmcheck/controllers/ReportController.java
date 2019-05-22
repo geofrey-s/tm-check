@@ -8,11 +8,16 @@ import edu.mum.tmcheck.services.ExcelReportGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.time.format.TextStyle;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/reports")
@@ -41,6 +46,9 @@ public class ReportController {
     @Autowired
     AuthenticationServiceImp authenticationServiceImp;
 
+    @Autowired
+    ECAttendanceReportServiceImp ecAttendanceReportServiceImp;
+
     @ModelAttribute
     public void prepareReportsLists(Model model) {
         Map<String, String> reports = new HashMap<String, String>() {{
@@ -57,7 +65,6 @@ public class ReportController {
         String reportKey = "entry-attendance-report";
 
         Entry currentEntry = entryServiceImp.findById(entryId.orElse(1L));
-        System.out.println("---------------------------------------------------------" + currentEntry.getId());
         model.addAttribute("currentEntry", currentEntry);
         model.addAttribute("downloadLink", entryAttendanceReportServiceImp.downloadLink(currentEntry.getId()));
 
@@ -97,7 +104,6 @@ public class ReportController {
         model.addAttribute("reportKey", reportKey);
 
         List<Block> blocks = blockServiceImp.findAllByUserId(user.getId());
-//        HashMap<Long, String> availableblocks = new HashMap();
         model.addAttribute("blocks", blocks);
 
         long defaultBlockId = blocks.get(0) != null ? blocks.get(0).getId() : 0;
@@ -105,32 +111,9 @@ public class ReportController {
         model.addAttribute("currentBlock", currentBlock);
         model.addAttribute("blockid", currentBlock.getId());
 
-        model.addAttribute("reportData", attendanceServiceImp.ComputeBlockEC(user.getId(), currentBlock.getId()));
+        model.addAttribute("reportData", ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(user.getId(), currentBlock.getId()));
         model.addAttribute("downloadlink", "/download/ec-attendance-report/" + defaultBlockId + ".xlsx");
 
         return "ec-attendance-report";
-    }
-
-    @GetMapping(value = {"/block-attendance-report/{blockId}", "/block-attendance-report"})
-    public String blockAttendanceReport(@PathVariable(name = "blockId", required = false) Optional<Long> blockId, Model model) {
-        Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
-        reports.remove(BlockAttendanceReportServiceImp.REPORT_TITLE);
-
-        Block currentBlock = blockServiceImp.findById(blockId.orElse(1L));
-        model.addAttribute("currentBlock", currentBlock);
-        model.addAttribute("downloadLink", blockAttendanceReportServiceImp
-                .downloadLink(currentBlock.getId()));
-
-        model.addAttribute("pageTitle", BlockAttendanceReportServiceImp.REPORT_TITLE);
-        model.addAttribute("reportTitle", BlockAttendanceReportServiceImp.REPORT_TITLE);
-        model.addAttribute("reportKey", BlockAttendanceReportServiceImp.REPORT_ID);
-
-        List<Block> blocks = blockServiceImp.findAll();
-        model.addAttribute("blocks", blocks);
-
-        model.addAttribute("reportData", blockAttendanceReportServiceImp
-                .findByBlock(currentBlock.getStartDate(), currentBlock.getEndDate()));
-
-        return "block-attendance-report";
     }
 }
