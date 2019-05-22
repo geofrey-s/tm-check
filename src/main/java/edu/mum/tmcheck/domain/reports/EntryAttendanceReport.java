@@ -14,20 +14,25 @@ import java.time.LocalDate;
 
 @Entity(name = "EntryAttendanceReport")
 @Immutable
-@Subselect(value = "SELECT " +
-        "u.student_reg_id as student_id, " +
-        "u.name, " +
-        "e.name AS entry," +
-        "e.start_date AS entry_start," +
-        "LEAST(u.departure_date, CURRENT_DATE) AS entry_end," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END) AS retreats," +
-        "SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END) AS checks " +
-        "FROM attendance AS a " +
-        "LEFT JOIN student AS u ON u.id = a.student_id " +
-        "LEFT JOIN entry AS e ON e.id = u.entry_id " +
-        "LEFT JOIN meditation_type AS mt ON mt.id = a.meditation_type_id " +
-        "GROUP BY u.student_reg_id, u.name, e.name, e.start_date, e.end_date")
+@Subselect(value = "SELECT u.student_reg_id                                              as student_id,\n" +
+        "       u.name,\n" +
+        "       e.name                                                        AS entry,\n" +
+        "       e.start_date                                                  AS entry_start,\n" +
+        "       LEAST(u.departure_date, CURRENT_DATE)                         AS entry_end,\n" +
+        "       case when a.standard_tm is null then 0 else a.standard_tm end as standard_tm,\n" +
+        "       case when a.retreats is null then 0 else a.retreats end       as retreats,\n" +
+        "       case when a.checks is null then 0 else a.checks end           as checks\n" +
+        "FROM STUDENT as u\n" +
+        "         left JOIN (\n" +
+        "    select ai.STUDENT_ID,\n" +
+        "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm,\n" +
+        "           SUM(CASE WHEN LOWER(mt.name) = 'retreat' THEN 1 ELSE 0 END)  AS retreats,\n" +
+        "           SUM(CASE WHEN LOWER(mt.name) = 'check' THEN 1 ELSE 0 END)    AS checks\n" +
+        "    from ATTENDANCE ai\n" +
+        "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id\n" +
+        "    group by STUDENT_ID\n" +
+        ") a ON u.id = a.student_id\n" +
+        "         LEFT JOIN entry AS e ON e.id = u.entry_id")
 @Synchronize({"attendance", "user", "entry", "meditation_type"})
 public class EntryAttendanceReport implements Serializable {
     @Id

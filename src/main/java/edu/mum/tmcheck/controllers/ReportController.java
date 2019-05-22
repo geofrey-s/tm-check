@@ -79,6 +79,7 @@ public class ReportController {
         model.addAttribute("entries", entries);
 
         model.addAttribute("reportData", entryAttendanceReportServiceImp.generateByEntry(currentEntry.getName()));
+
         model.addAttribute("downloadlink", "/download/entry-attendance-report/" + currentEntry.getId() + ".xlsx");
 
         return "entry-attendance-report";
@@ -96,6 +97,7 @@ public class ReportController {
 
         Map<String, String> reports = (HashMap<String, String>) model.asMap().get("availableReports");
         reports.remove(reportTitle);
+
 
         model.addAttribute("pageTitle", reportTitle);
         model.addAttribute("reportTitle", reportTitle);

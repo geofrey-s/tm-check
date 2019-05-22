@@ -13,18 +13,18 @@
                 <div class="col">
                     <div class="student-name" th:text="${student.name}"></div>
                     <div class="reg-id" th:text="${student.studentRegId}">000-00-0000</div>
-                    <div class="entry" th:text="${student.entry.name}">FEB19</div>
+                    <div class="entry" th:text="${student.entry.name}"></div>
                 </div>
             </div>
 
             <div class="sub-section block-details">
                 <div class="mini-label">Latest Block</div>
-                <div class="plain-wrapper">
+                <div class="plain-wrapper" th:if="${currentBlockReport}">
                     <div class="container block-period">
                         <div class="row">
-                            <div class="col-auto" th:text="${currentBlockReport.blockStart}">2019-02-17</div>
+                            <div class="col-auto" th:text="${currentBlockReport.blockStart}"></div>
                             <span>to</span>
-                            <div class="col-auto" th:text="${currentBlockReport.blockEnd}">2019-03-17</div>
+                            <div class="col-auto" th:text="${currentBlockReport.blockEnd}"></div>
                         </div>
                     </div>
                     <div class="container block-summary">
@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-md-2 field overrall">
                                 <small class="field-name">Overall</small>
-                                <div class="field-value" th:text="${currentBlockReport.overrallAttendance}">45%</div>
+                                <div class="field-value" th:text="${currentBlockReport.overrallAttendance}"></div>
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,9 @@
                 <div class="sub-section block-details row" th:each="item : ${historicBlockReports}">
                     <div class="container block-period">
                         <div class="row">
-                            <div class="col-auto" th:text="${item.blockStart}">2019-02-17</div>
+                            <div class="col-auto" th:text="${item.blockStart}"></div>
                             <span>to</span>
-                            <div class="col-auto" th:text="${item.blockEnd}">2019-03-17</div>
+                            <div class="col-auto" th:text="${item.blockEnd}"></div>
                         </div>
                     </div>
                     <div class="container block-summary">
@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-md-2 field overrall">
                                 <small class="field-name">Overall</small>
-                                <div class="field-value" th:text="${item.overrallAttendance}">45%</div>
+                                <div class="field-value" th:text="${item.overrallAttendance}"></div>
                             </div>
                         </div>
                     </div>
@@ -88,5 +88,4 @@
         </div>
     </div>
 </div>
-
 </html>

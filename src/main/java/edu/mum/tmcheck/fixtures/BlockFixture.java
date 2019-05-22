@@ -21,15 +21,16 @@ public class BlockFixture extends BaseFixture {
         List<Integer> noofdays = new ArrayList<>();
         noofdays.add(14);
         noofdays.add(22);
-        while (size-- > 0) {
+        LocalDate DataGeneratingStartDate = LocalDate.of(2018, 01, 01);
+        size = 24;
+
+        while(size-- > 0){
             Block block = new Block();
-            LocalDate startDate = pastDateByMonth(random.nextInt(5) + 1);
-            block.setStartDate(startDate);
+            block.setStartDate(DataGeneratingStartDate);
             Integer n = random.nextInt(noofdays.size());
             block.setEndDate(block.getStartDate().plusDays(noofdays.get(n)));
+            DataGeneratingStartDate = DataGeneratingStartDate.plusDays(noofdays.get(n)).plusDays(4);
             blockServiceImp.save(block);
         }
     }
-
-
 }

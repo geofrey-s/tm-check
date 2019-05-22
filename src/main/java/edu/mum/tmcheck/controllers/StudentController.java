@@ -8,6 +8,8 @@ import edu.mum.tmcheck.services.BlockAttendanceReportService;
 import edu.mum.tmcheck.services.BlockService;
 import edu.mum.tmcheck.services.StudentService;
 import edu.mum.tmcheck.services.UserService;
+import edu.mum.tmcheck.serviceimp.BlockEndEachStudentMeditationData;
+import edu.mum.tmcheck.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -38,6 +41,9 @@ public class StudentController {
 
     @Autowired
     AuthenticationServiceImp authenticationServiceImp;
+
+    @Autowired
+    AttendanceService attendanceService;
 
     @GetMapping({"/", "/report"})
     public String viewAttendanceReport(Model model, Principal principal) {

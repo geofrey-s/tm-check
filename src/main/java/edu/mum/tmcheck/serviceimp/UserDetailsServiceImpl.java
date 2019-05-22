@@ -24,16 +24,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
 
-        log.info("loadUserByUserName() : {}", userName);
-
-
         UserBuilder builder = null;
 
         builder = org.springframework.security.core.userdetails.User.withUsername(userName);
         builder.password(user.getPassword());
         builder.roles(user.getRole());
-
-
 
         return builder.build();
     }

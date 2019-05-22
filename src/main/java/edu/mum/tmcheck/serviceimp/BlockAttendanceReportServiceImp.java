@@ -17,11 +17,6 @@ public class BlockAttendanceReportServiceImp implements BlockAttendanceReportSer
     @Autowired
     BlockAttendanceReportRepository blockAttendanceReportRepository;
 
-//    @Override
-//    public List<BlockAttendanceReport> findByBlock(LocalDate block_start, LocalDate block_end) {
-//        return blockAttendanceReportRepository.findByBlock(block_start, block_end);
-//    }
-
     @Override
     public List<BlockAttendanceReport> findAllByStudentRegIdOrderByBlockStartDesc(String studentRegId) {
         return blockAttendanceReportRepository.findAllByStudentRegIdOrderByBlockStartDesc(studentRegId);
