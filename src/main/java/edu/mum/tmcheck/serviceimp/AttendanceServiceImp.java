@@ -33,7 +33,7 @@ import static java.lang.Math.toIntExact;
 @Service
 public class AttendanceServiceImp implements AttendanceService {
     public static final String ATTENDANCE_UPLOAD_DIR = "attendance-logs";
-    public static final String DATE_FORMAT = "MM/dd/yyyy";
+    public static final String DATE_FORMAT = "MM/dd/yy";
 
     @Autowired
     IdCardServiceImp idCardServiceImp;

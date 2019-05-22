@@ -36,13 +36,18 @@ public class OfferedCourseFixture extends BaseFixture {
         facultyUsers = facultyServiceImp.findAll();
 
         while (size-- > 0) {
-            OfferedCourse offeredCourse = new OfferedCourse();
+            try {
+                OfferedCourse offeredCourse = new OfferedCourse();
 
-            offeredCourse.setBlock(randomBlock());
-            offeredCourse.setFaculty(randomFacultyUser());
-            offeredCourse.setCourse(randomCourse());
+                offeredCourse.setBlock(randomBlock());
+                offeredCourse.setFaculty(randomFacultyUser());
+                offeredCourse.setCourse(randomCourse());
 
-            offeredCourseServiceImp.save(offeredCourse);
+                offeredCourseServiceImp.save(offeredCourse);
+            } catch (Exception e) {
+                size++;
+            }
+
         }
     }
 
