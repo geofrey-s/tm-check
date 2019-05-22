@@ -33,7 +33,7 @@
                 <div class="wrap-input100 m-b-16">
                     <!--<input class="input100" type="password" name="password" placeholder="Password">-->
                     <!--<span class="focus-input100"></span>-->
-                    <input class="input100" type="text" placeholder="Password" th:field="*{password}" />
+                    <input class="input100" type="password" placeholder="Password" th:field="*{password}" />
                     <span class="focus-input100" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="'color:red'">Password is required</span>
                 </div>
 

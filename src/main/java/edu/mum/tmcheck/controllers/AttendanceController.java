@@ -59,7 +59,7 @@ public class AttendanceController {
 
         Attendance attendance = attendanceServiceImp.createFromEditor(editor);
         redirectAttributes.addFlashAttribute(attendance);
-        return "redirect:/editor";
+        return "redirect:/attendance/editor";
     }
 
     @PostMapping("/editor/upload")
