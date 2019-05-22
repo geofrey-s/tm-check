@@ -1,9 +1,6 @@
 package edu.mum.tmcheck.controllers;
 
 import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.domain.entities.Location;
-import edu.mum.tmcheck.domain.entities.MeditationType;
-import edu.mum.tmcheck.domain.entities.Student;
 import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
 import edu.mum.tmcheck.domain.repository.LocationRepository;
 import edu.mum.tmcheck.serviceimp.AttendanceServiceImp;
@@ -13,15 +10,14 @@ import edu.mum.tmcheck.serviceimp.StudentServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/attendance")
@@ -52,11 +48,18 @@ public class AttendanceController {
     }
 
     @PostMapping("/editor/save")
-    public String editorSave(@ModelAttribute MeditationAttendanceEditor editor, RedirectAttributes redirectAttributes) {
-        Attendance attendance = attendanceServiceImp.createFromEditor(editor);
+    public String editorSave(@Valid @ModelAttribute("editor") MeditationAttendanceEditor editor, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
+        if(bindingResult.hasErrors()){
+            model.addAttribute("pageTitle", "TM Editor");
+            model.addAttribute("meditationtypes", meditationTypeServiceImp.findAllByNameExcept("standard"));
+            model.addAttribute("locations", locationServiceImp.findAll());
+            return "tm-editor";
+        }
+
+        Attendance attendance = attendanceServiceImp.createFromEditor(editor);
         redirectAttributes.addFlashAttribute(attendance);
-        return "redirect:/attendance/editor";
+        return "redirect:/editor";
     }
 
     @PostMapping("/editor/upload")

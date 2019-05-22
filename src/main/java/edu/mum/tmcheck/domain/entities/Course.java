@@ -1,6 +1,7 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,11 +11,12 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @NotEmpty
     String name;
 
     @Column(unique = true)
+    @NotEmpty
     String code;
-
 
     @OneToMany()
     @JoinColumn(name = "course_id")

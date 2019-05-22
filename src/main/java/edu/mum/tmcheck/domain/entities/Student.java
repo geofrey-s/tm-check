@@ -1,6 +1,9 @@
 package edu.mum.tmcheck.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -8,11 +11,14 @@ import java.util.List;
 @Entity
 public class Student extends User implements Serializable {
     @ManyToOne
+    @Valid
     Entry entry;
 
     @Column(unique = true)
+    @NotEmpty
     String studentRegId;
 
+    @NotNull
     LocalDate departureDate;
 
 
@@ -23,6 +29,7 @@ public class Student extends User implements Serializable {
     List<OfferedCourse> enrolledCourses;
 
     @OneToOne(mappedBy = "student")
+    @Valid
     Card card;
 
     public Card getCard() {
