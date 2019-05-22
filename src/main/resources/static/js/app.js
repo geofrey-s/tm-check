@@ -1,7 +1,7 @@
 function loadTMStudentBlockInfo() {
-    var data = JSON.stringify($("#blockForm").serializeFormJSON());
+    //var data = JSON.stringify($("#blockForm").serializeFormJSON());
     var blockId = $("#blockId").val();
-    var studentId = $("#studentId").val();
+    var studentId = $("#stuid").text();
     var url = "block_information?studentId=" + studentId + "&blockId=" + blockId;
     $.ajax({
         type: "GET",
@@ -9,8 +9,17 @@ function loadTMStudentBlockInfo() {
         //data: data,
         contentType: "application/json",
         //dataType: "json",
-        success: function (result) {
-            $('#tm-student-block-info').html(result);
+        success: function (data) {
+            console.log(data);
+            //var result = JSON.parse(data);
+            var result = JSON.stringify(data) ;
+            console.log(result);
+            //console.log(result);
+            var html='No of days attended: '+result.noofdaysattended+'<br/>';
+            html+='Total no of days: '+result.totalnoofdays+'<br/>';
+            html+='Percentage attended: '+result.percentageattended+'<br/>';
+            html+='Total marks: '+result.totalmarks+'<br/>';
+            $('#tm-student-block-info').html(html);
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {

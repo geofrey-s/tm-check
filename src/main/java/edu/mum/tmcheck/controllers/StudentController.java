@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -89,9 +86,9 @@ public class StudentController {
         return "student";
 
     }
-    @ResponseBody
-    @RequestMapping(value = "/view/block_information", method = RequestMethod.POST)
-    public String viewDetail(Model model, @PathVariable(required = false) Optional<Long> blockId,@PathVariable(required = false) Optional<String> studentId) {
+
+    @RequestMapping(value = "/view/block_information", method = RequestMethod.GET)
+    public @ResponseBody BlockEndEachStudentMeditationData getDetail(Model model, @RequestParam(required = false) Optional<Long> blockId, @RequestParam(required = false) Optional<String> studentId) {
         System.out.println("Prepare data for requesting from client select options");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
@@ -101,6 +98,6 @@ public class StudentController {
         model.addAttribute("student", student);
         //Long userid = userService.findUserByUserName(authentication.getName()).getId();
         BlockEndEachStudentMeditationData data = attendanceService.computeBlockEC(studentId.get(), blockId.get());
-        return String.valueOf(data);
+        return data;
     }
 }
