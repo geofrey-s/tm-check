@@ -22,6 +22,9 @@ select {
 .tm-toolbar * {
   color: #084c5f !important;
 }
+.tm-toolbar .logout {
+  border-color: #084c5f;
+}
 
 .tm-footer {
   margin: 16px auto;
@@ -183,6 +186,105 @@ select {
   border-color: #e1430f;
   background: #fbe7e0;
   cursor: pointer;
+}
+
+.student-block-attendance-report .shadow-toolbar {
+  background: #3d6277;
+  height: 33vh;
+  position: relative;
+}
+.student-block-attendance-report .shadow-toolbar .logout {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #ecdddd;
+  font-size: 1.5em;
+  padding: 1px 12px;
+  border: 1px solid;
+}
+.student-block-attendance-report .shadow-toolbar .logout:hover {
+  background: #fafafa;
+  color: #3d6277 !important;
+}
+.student-block-attendance-report .layout-container {
+  position: relative;
+  width: 800px;
+  min-height: 70vh;
+  margin: -33vh auto 24px;
+}
+.student-block-attendance-report .layout-container .layout-position {
+  position: absolute;
+  width: 800px;
+  z-index: 1;
+  top: 15%;
+}
+.student-block-attendance-report .layout-container .section {
+  border: 1px solid #1a344d;
+  box-shadow: -3px -3px 3px rgba(100, 100, 100, 0.3), 3px 3px 3px rgba(100, 100, 100, 0.3);
+  background: #fafafa;
+  border-radius: 3px;
+  margin-bottom: 24px;
+}
+.student-block-attendance-report .layout-container .section .sub-section {
+  border-bottom: 1px solid #ddd;
+  margin: 0 -15px;
+}
+.student-block-attendance-report .layout-container .section .sub-section.row > :first-child {
+  padding-left: 24px;
+}
+.student-block-attendance-report .layout-container .section .sub-section.row > :last-child {
+  padding-right: 24px;
+}
+.student-block-attendance-report .layout-container .section .sub-section > * {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.student-block-attendance-report .layout-container .section .mini-label {
+  padding: 16px 24px 8px;
+}
+.student-block-attendance-report .layout-container .section .block-details .block-period {
+  font-size: 0.9em;
+  font-weight: 300;
+  padding: 0 24px 8px;
+}
+.student-block-attendance-report .layout-container .section .block-details .block-summary {
+  padding-top: 0;
+}
+.student-block-attendance-report .layout-container .section .block-details .block-summary .field {
+  text-align: center;
+  margin: 0;
+}
+.student-block-attendance-report .layout-container .section .block-details .block-summary .field .field-name {
+  font-size: 0.75em;
+  color: #666;
+  font-weight: 300;
+}
+.student-block-attendance-report .layout-container .section .block-details .block-summary .field .field-value {
+  font-size: 1.1em;
+}
+.student-block-attendance-report .layout-container .main-content .student-details .profile-pic {
+  padding-right: 24px;
+}
+.student-block-attendance-report .layout-container .main-content .student-details .profile-pic img {
+  width: 96px;
+  height: auto;
+  display: block;
+}
+.student-block-attendance-report .layout-container .main-content .student-details .student-name {
+  font-size: 1.15em;
+  font-weight: 500;
+  color: #444;
+}
+.student-block-attendance-report .layout-container .historic-reports .block-details {
+  padding-top: 16px;
+}
+.student-block-attendance-report .layout-container .historic-reports .block-details:first-child {
+  padding-top: 0;
+}
+.student-block-attendance-report .layout-container .plain-wrapper {
+  padding: 0;
+  margin: 0;
+  padding-top: 0 !important;
 }
 
 body {

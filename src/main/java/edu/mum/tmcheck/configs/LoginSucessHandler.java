@@ -26,7 +26,7 @@ public class LoginSucessHandler implements AuthenticationSuccessHandler {
             } else if (userrole.equalsIgnoreCase("ROLE_admin")) {
                 redirectStrategy.sendRedirect(request, response, "/reports/entry-attendance-report");
             } else if (userrole.equalsIgnoreCase("ROLE_student")) {
-                redirectStrategy.sendRedirect(request, response, "/student/view/attendance_information");
+                redirectStrategy.sendRedirect(request, response, "/student/report");
             } else
                 redirectStrategy.sendRedirect(request, response, "/student/block-attendance-report");
         }

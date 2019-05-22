@@ -66,7 +66,7 @@ public class EntryAttendanceReport implements Serializable {
 
         double _retreats = convertRetreats(retreats, days);
 
-        double _overrallAttendance = ((standard_tm + _retreats) / days) * 100;
+        double _overrallAttendance = (Double.valueOf(standard_tm + _retreats) / Double.valueOf(days)) * 100;
         return Math.round(_overrallAttendance);
     }
 

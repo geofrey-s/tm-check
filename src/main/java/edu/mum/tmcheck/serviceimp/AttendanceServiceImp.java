@@ -52,6 +52,9 @@ public class AttendanceServiceImp implements AttendanceService {
     @Autowired
     OfferedCourseRepository offeredCourseRepository;
 
+    @Autowired
+    ECAttendanceReportServiceImp ecAttendanceReportServiceImp;
+
     @Override
     public void create() {
 
@@ -223,54 +226,60 @@ public class AttendanceServiceImp implements AttendanceService {
         return loadFromFile(filename);
     }
 
-    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id, Long blockid) {
-        // Get Current Block using the current date Using Filter
-        Block currentblock = blockRepository.findById(blockid).get();
-
-        // Get Current CourseOfferings in current block
-        List<OfferedCourse> courses = offeredCourseRepository.findAll();
-
-
-        // Filter the current course offerings using Faculty ID to get the current course of the professor
-        Optional<OfferedCourse> currentcourse = courses.stream()
-                .filter(x -> x.getFaculty().getId() == id && x.getBlock().getId() == currentblock.getId())
-                .findFirst();
-
-        if (!currentcourse.isPresent())
-            return new ArrayList<BlockEndEachStudentMeditationData>();
-
-        // Get Students of that specific course
-        List<Student> students = currentcourse.get().getStudents();
-
-        List<BlockEndEachStudentMeditationData> StudentsData = new ArrayList<>();
-
-        // Calculate the available session from the block duration
-        long noofdays = Duration.between(currentblock.getStartDate().atStartOfDay(), currentblock.getEndDate().atStartOfDay()).toDays();
-        long availablesessions = (noofdays > 14) ? 11 : 12;
-
-        // Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
-        students.forEach(s -> {
-            List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
-            Long days_attended = attendanceofstudent.stream()
-                    .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
-                    .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
-                    .count();
-            double percentage = (days_attended * 100 / availablesessions);
-
-            double ExtraCredit;
-            if (percentage >= 70)
-                ExtraCredit = 0.5;
-            else if (percentage >= 80)
-                ExtraCredit = 1.0;
-            else if (percentage >= 90)
-                ExtraCredit = 1.5;
-            else
-                ExtraCredit = 0.0;
-
-            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float) percentage, (float) ExtraCredit);
-            StudentsData.add(studentdata);
-        });
-
-        return StudentsData;
-    }
+//
+//    public List<BlockEndEachStudentMeditationData> ComputeBlockEC(Long id, Long blockid) {
+//        return ecAttendanceReportServiceImp.findAllByBlockId(blockid);
+//    }
+//
+//    @Deprecated
+//    public List<BlockEndEachStudentMeditationData> xComputeBlockEC(Long id, Long blockid) {
+//        // Get Current Block using the current date Using Filter
+//        Block currentblock = blockRepository.findById(blockid).get();
+//
+//        // Get Current CourseOfferings in current block
+//        List<OfferedCourse> courses = offeredCourseRepository.findAll();
+//
+//
+//        // Filter the current course offerings using Faculty ID to get the current course of the professor
+//        Optional<OfferedCourse> currentcourse = courses.stream()
+//                .filter(x -> x.getFaculty().getId() == id && x.getBlock().getId() == currentblock.getId())
+//                .findFirst();
+//
+//        if (!currentcourse.isPresent())
+//            return new ArrayList<BlockEndEachStudentMeditationData>();
+//
+//        // Get Students of that specific course
+//        List<Student> students = currentcourse.get().getStudents();
+//
+//        List<BlockEndEachStudentMeditationData> StudentsData = new ArrayList<>();
+//
+//        // Calculate the available session from the block duration
+//        long noofdays = Duration.between(currentblock.getStartDate().atStartOfDay(), currentblock.getEndDate().atStartOfDay()).toDays();
+//        long availablesessions = (noofdays > 14) ? 11 : 12;
+//
+//        // Calculate and Create Extra Credit Data for each student in that specific course and add it to to the report list
+//        students.forEach(s -> {
+//            List<Attendance> attendanceofstudent = (List<Attendance>) attendanceRepository.findByStudent(s);
+//            Long days_attended = attendanceofstudent.stream()
+//                    .filter(att -> att.getCreatedAt().isBefore(currentblock.getEndDate()) || att.getCreatedAt().isAfter(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getStartDate()) || att.getCreatedAt().isEqual(currentblock.getEndDate()))
+//                    .filter(att -> !att.getMeditationType().getName().equals("check") || att.getMeditationType().getName().equals("retreat"))
+//                    .count();
+//            double percentage = (days_attended * 100 / availablesessions);
+//
+//            double ExtraCredit;
+//            if (percentage >= 70)
+//                ExtraCredit = 0.5;
+//            else if (percentage >= 80)
+//                ExtraCredit = 1.0;
+//            else if (percentage >= 90)
+//                ExtraCredit = 1.5;
+//            else
+//                ExtraCredit = 0.0;
+//
+//            BlockEndEachStudentMeditationData studentdata = new BlockEndEachStudentMeditationData(s, toIntExact(days_attended), toIntExact(availablesessions), (float) percentage, (float) ExtraCredit);
+//            StudentsData.add(studentdata);
+//        });
+//
+//        return StudentsData;
+//    }
 }

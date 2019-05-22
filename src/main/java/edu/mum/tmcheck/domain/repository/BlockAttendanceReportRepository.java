@@ -10,10 +10,12 @@ import java.util.List;
 
 @Repository
 public interface BlockAttendanceReportRepository extends CrudRepository<BlockAttendanceReport, String> {
-    @Query(value = "SELECT b FROM BlockAttendanceReport AS b WHERE b.block_start = :block_start and b.block_end = :block_end")
-    public List<BlockAttendanceReport> findByBlock(LocalDate block_start, LocalDate block_end);
+//    @Query(value = "SELECT b FROM BlockAttendanceReport AS b WHERE b.blockStart = :blockStart and b.blockEnd = :blockEnd")
+//    public List<BlockAttendanceReport> findByBlock(LocalDate blockStart, LocalDate blockEnd);
 
+    public BlockAttendanceReport findByStudentRegIdAndBlockId(String studentRegId, long blockId);
 
-    @Query(value = "SELECT b FROM BlockAttendanceReport AS b WHERE b.blockId = :blockId AND b.studentId = :studentId")
-    public List<BlockAttendanceReport> findByBlockAndStudent(long blockId, String studentId);
+    public List<BlockAttendanceReport> findAllById(long id);
+
+    public List<BlockAttendanceReport> findAllByStudentRegIdOrderByBlockStartDesc(String studentRegId);
 }

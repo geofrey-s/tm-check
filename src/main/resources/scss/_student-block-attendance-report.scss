@@ -1,0 +1,132 @@
+.student-block-attendance-report {
+  .shadow-toolbar {
+    background: #3d6277;
+    height: 33vh;
+    position: relative;
+
+    .logout {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      color: #ecdddd;
+      font-size: 1.5em;
+      padding: 1px 12px;
+      border: 1px solid;
+
+      &:hover {
+        background: #fafafa;
+        color: #3d6277 !important;
+      }
+    }
+  }
+
+  .layout-container {
+    position: relative;
+    width: 800px;
+    min-height: 70vh;
+    margin: -33vh auto 24px;
+
+    .layout-position {
+      position: absolute;
+      width: 800px;
+      z-index: 1;
+      top: 15%;
+    }
+
+    .section {
+      border: 1px solid #1a344d;
+      box-shadow: -3px -3px 3px rgba(100, 100, 100, 0.3), 3px 3px 3px rgba(100, 100, 100, 0.3);
+      background: #fafafa;
+      border-radius: 3px;
+      margin-bottom: 24px;
+
+      .sub-section {
+        border-bottom: 1px solid #ddd;
+        margin: 0 -15px;
+
+        &.row {
+          >:first-child {
+            padding-left: 24px;
+          }
+
+          >:last-child {
+            padding-right: 24px;
+          }
+        }
+
+        > * {
+          padding-top: 16px;
+          padding-bottom: 16px;
+        }
+      }
+
+      .mini-label {
+        padding: 16px 24px 8px;
+      }
+
+      .block-details {
+        .block-period {
+          font-size: .9em;
+          font-weight: 300;
+          padding: 0 24px 8px;
+        }
+
+        .block-summary {
+          padding-top: 0;
+
+          .field {
+            text-align: center;
+            margin: 0;
+
+
+            .field-name {
+              font-size: .75em;
+              color: #666;
+              font-weight: 300;
+            }
+
+            .field-value {
+              font-size: 1.1em;
+            }
+          }
+        }
+      }
+    }
+
+    .main-content {
+      .student-details {
+        .profile-pic {
+          padding-right: 24px;
+
+          img {
+            width: 96px;
+            height: auto;
+            display: block;
+          }
+        }
+
+        .student-name {
+          font-size: 1.15em;
+          font-weight: 500;
+          color: #444;
+        }
+      }
+    }
+
+    .historic-reports {
+      .block-details {
+        padding-top: 16px;
+
+        &:first-child {
+          padding-top: 0;
+        }
+      }
+    }
+    .plain-wrapper {
+      padding: 0;
+      margin: 0;
+      padding-top: 0!important;
+    }
+  }
+
+}

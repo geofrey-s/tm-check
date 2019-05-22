@@ -32,7 +32,7 @@ public class HomeController {
             }
         }
         if (isStudent)
-            return "redirect:/student/view/attendance_information";
+            return "redirect:/student/report";
         else
             return "redirect:/reports/entry-attendance-report";
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ang="en"
       xmlns:th="http://www.thymeleaf.org/"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+>
 
 <nav class="tm-toolbar tm-wide navbar navbar-expand-lg navbar-light bg-light" th:fragment="toolbar">
     <a class="navbar-brand" href="#" th:href="@{/}" th:text="${appTitle}">App Title</a>
@@ -11,21 +11,9 @@
             <li th:each="item : ${navbarItems}" class="nav-item active">
                 <a class="nav-link" href="#" th:href="${item.link}" th:text="${item.label}">Item</span></a>
             </li>
+
         </ul>
-        <ul class="nav navbar-nav" style="float: right">
-            <li class="dropdown">
-                <a href="" class="dropdown-toggle pull-right" data-toggle="dropdown">
-                    <i class=" far fa-user pull-right">Account</i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="/logout" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-log-out"></span> Log out
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <a class="logout btn btn-outline-danger my-2 my-sm-0" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i></a>
     </div>
 </nav>
 </html>
