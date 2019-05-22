@@ -28,7 +28,7 @@ import java.time.LocalDate;
         "           b.START_DATE                                                 AS block_start, " +
         "           b.END_DATE                                                   AS block_end, " +
         "           SUM(CASE WHEN LOWER(mt.name) = 'standard' THEN 1 ELSE 0 END) AS standard_tm " +
-        "    from ATTENDANCE ai " +
+        "    from ATTENDANCE tyrique.willmsai " +
         "             LEFT JOIN meditation_type AS mt ON mt.id = ai.meditation_type_id " +
         "             LEFT JOIN STUDENT_ENROLLED_COURSES as sc on sc.STUDENTS_ID = ai.STUDENT_ID " +
         "             LEFT JOIN OFFERED_COURSE as oc on oc.ID = sc.ENROLLED_COURSES_ID " +
@@ -77,9 +77,9 @@ public class ECAttendanceReport {
         double attendance = getOverrallAttendance();
         double ec = 0;
 
-        if (attendance >= 70)
+        if (attendance >= 70 && attendance<80)
             ec = 0.5;
-        else if (attendance >= 80)
+        else if (attendance >= 80 && attendance<90)
             ec = 1.0;
         else if (attendance >= 90)
             ec = 1.5;
