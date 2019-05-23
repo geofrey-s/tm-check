@@ -1,0 +1,10 @@
+.tm-viewer {
+  .tm-table-body {
+    height: calc(100vh - 220px)!important;
+  }
+
+  .empty-view-tm {
+    font-weight: 300;
+    margin: 12px auto;
+  }
+}

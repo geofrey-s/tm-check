@@ -7,15 +7,12 @@
 <head th:replace="fragments/header :: header"></head>
 <body>
 <div class="tm-editor container-fluid" layout:fragment="content">
-    <div class="row page-head-bar">
-        <div class="col-md">
-            <h1>TM Attendance Editor</h1>
-        </div>
-    </div>
+    <div th:replace="fragments/tm-editor-ribbon :: ribbon"></div>
     <div class="row main-content">
         <div class="col-md-4 offset-md-1">
             <div class="mini-label">Manual Entry</div>
-            <form th:action="@{/attendance/editor/save}" method="post" th:object="${editor}">
+            <form th:action="@{/attendance/editor/save(isEdit=${#bools.isTrue(isEdit)})}" method="post" th:object="${editor}">
+                <input th:if="${isEdit}" type="hidden" th:field="*{recordId}">
                 <div class="form-group">
                     <label for="student-reg-id"> Student ID</label>
                     <input class="form-control" th:field="*{studentRegId}" placeholder="000-XX-XXXX"
@@ -42,7 +39,7 @@
 
                 <div class="form-group">
                     <label for="locationId">Location</label>
-                    <select class="custom-select" id="locationId" name="locationId">
+                    <select class="custom-select" id="locationId" th:field="*{locationId}">
                         <option th:each="item, iter: ${locations}"
                                 th:selected="${iter.count} == 1 ? true : false"
                                 th:value="${item.id}"
@@ -52,7 +49,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <small class="alert alert-success ml-3" th:if="${attendance}">Attendance record added for student
+                    <small class="alert alert-success ml-3" th:if="${attendance}">Attendance record saved for student
                         <span
                                 th:text="${attendance.student.studentRegId}"></span></small>
                 </div>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/main}"
+>
+<body>
+<div class="tm-viewer " layout:fragment="content">
+    <div class="container-fluid">
+        <div th:replace="fragments/tm-editor-ribbon :: ribbon"></div>
+    </div>
+    <div class="tm-view-table tm-table" th:fragment="table">
+        <div class="tm-table-header container-fluid">
+            <div class="tm-table-row row">
+                <div class="tm-table-cell col-md index">No.</div>
+                <div class="tm-table-cell col-md-2 student-id">Student ID</div>
+                <div class="tm-table-cell col-md-2 name">Name</div>
+                <div class="tm-table-cell col-md-1 tm-type">TM Type</div>
+                <div class="tm-table-cell col-md-2 location">Location</div>
+                <div class="tm-table-cell col-md-1 created-at">Created At</div>
+                <div class="tm-table-cell col-md-2 actions">Actions</div>
+            </div>
+        </div>
+        <div class="tm-table-body container-fluid">
+            <div class="tm-table-row row" th:each="item, iterStat : ${reportData}" th:object="${item}">
+                <div class="tm-table-cell col-md index" th:text="${iterStat.count}"></div>
+                <div class="tm-table-cell col-md-2 student-id" th:text="*{student.studentRegId}">Student ID</div>
+                <div class="tm-table-cell col-md-2 name" th:text="*{student.name}">Name</div>
+                <div class="tm-table-cell col-md-1 tm-type" th:text="*{meditationType.name}">tm type</div>
+                <div class="tm-table-cell col-md-2 location" th:text="*{location.name}">location</div>
+                <div class="tm-table-cell col-md-1 created-at" th:text="*{createdAt}">created at</div>
+                <div class="tm-table-cell col-md-2 actions">
+                    <a th:href="@{/attendance/editor/edit/{id}(id=*{id})}" class="btn btn-outline-info btn-sm"
+                       title="Edit record">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    <a th:href="@{/attendance/editor/remove/{id}(id=*{id})}" class="btn btn-outline-danger btn-sm"
+                       title="Remove record">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="empty-view-tm tm-table-row row" th:if="${#lists.isEmpty(reportData)}">There are no TM entries</div>
+        </div>
+        <div class="tm-table-footer container-fluid"></div>
+    </div>
+</div>
+</body>
+</html>

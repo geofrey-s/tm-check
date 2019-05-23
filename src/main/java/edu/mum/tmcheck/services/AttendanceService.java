@@ -24,4 +24,10 @@ public interface AttendanceService {
     public Attendance createFromEditor(MeditationAttendanceEditor editor);
 
     public BlockEndEachStudentMeditationData computeBlockEC(String studentId, Long blockId);
+
+    public List<Attendance> findAllExceptOrderedByIdDesc(String meditationType);
+
+    public MeditationAttendanceEditor editorFromRecordById(long id);
+
+    public void removeById(long id);
 }

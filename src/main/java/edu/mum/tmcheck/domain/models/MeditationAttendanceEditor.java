@@ -1,11 +1,15 @@
 package edu.mum.tmcheck.domain.models;
 
+import edu.mum.tmcheck.domain.entities.Attendance;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class MeditationAttendanceEditor {
+    private long recordId;
+
     @NotEmpty(message = "{notEmpty}")
     @Pattern(regexp = "(0)(00)([-+]\\d+)([-+]\\d+)", message = "{regID}")
     private String studentRegId;
@@ -13,6 +17,13 @@ public class MeditationAttendanceEditor {
     private long locationId;
     private String createdAt;
 
+    public long getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(long recordId) {
+        this.recordId = recordId;
+    }
 
     public long getLocationId() {
         return locationId;
@@ -44,5 +55,19 @@ public class MeditationAttendanceEditor {
 
     public void setMeditationTypeId(long meditationTypeId) {
         this.meditationTypeId = meditationTypeId;
+    }
+
+    public static MeditationAttendanceEditor fromRecord(Attendance record){
+        MeditationAttendanceEditor editor = new MeditationAttendanceEditor();
+
+        if (record == null) return editor;
+
+        editor.recordId = record.getId();
+        editor.studentRegId = record.getStudent().getStudentRegId();
+        editor.meditationTypeId = record.getMeditationType().getId();
+        editor.locationId = record.getLocation().getId();
+        editor.createdAt = record.getCreatedAt().toString();
+
+        return editor;
     }
 }

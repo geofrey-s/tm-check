@@ -1,10 +1,7 @@
 package edu.mum.tmcheck.serviceimp;
 
 
-import edu.mum.tmcheck.domain.entities.Attendance;
-import edu.mum.tmcheck.domain.entities.Block;
-import edu.mum.tmcheck.domain.entities.OfferedCourse;
-import edu.mum.tmcheck.domain.entities.Student;
+import edu.mum.tmcheck.domain.entities.*;
 import edu.mum.tmcheck.domain.models.MeditationAttendanceEditor;
 import edu.mum.tmcheck.domain.repository.AttendanceRepository;
 import edu.mum.tmcheck.domain.repository.BlockRepository;
@@ -22,14 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.lang.Math.toIntExact;
 
 @Service
 public class AttendanceServiceImp implements AttendanceService {
@@ -102,6 +96,9 @@ public class AttendanceServiceImp implements AttendanceService {
     public Attendance createFromEditor(MeditationAttendanceEditor editor) {
         Attendance attendance = new Attendance();
 
+        if (editor.getRecordId() != 0)
+            attendance.setId(editor.getRecordId());
+
         attendance.setMeditationType(meditationTypeServiceImp.findById(editor.getMeditationTypeId()));
         attendance.setStudent(studentServiceImp.findByStudentRegId(editor.getStudentRegId()));
         LocalDate createdAt = Dates.parse(editor.getCreatedAt(), "yyyy-MM-dd");
@@ -114,6 +111,23 @@ public class AttendanceServiceImp implements AttendanceService {
     @Override
     public BlockEndEachStudentMeditationData computeBlockEC(String studentId, Long blockId) {
         return null;
+    }
+
+    @Override
+    public List<Attendance> findAllExceptOrderedByIdDesc(String meditationName) {
+        MeditationType meditationType = meditationTypeServiceImp.findByName(meditationName);
+        return attendanceRepository.findAllByMeditationTypeNotOrderById(meditationType);
+    }
+
+    @Override
+    public MeditationAttendanceEditor editorFromRecordById(long id) {
+        Attendance record = attendanceRepository.findById(id).orElse(null);
+
+        return MeditationAttendanceEditor.fromRecord(record);
+    }
+
+    public void removeById(long id){
+        attendanceRepository.deleteById(id);
     }
 
     @Override
