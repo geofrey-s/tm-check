@@ -22,8 +22,8 @@ public class BlockFixture extends BaseFixture {
         Random random = new Random();
         List<Integer> noofdays = new ArrayList<>();
         noofdays.add(14);
-        noofdays.add(30);
-        LocalDate DataGeneratingStartDate = LocalDate.of(2019, 01, 01);
+        noofdays.add(28);
+        LocalDate DataGeneratingStartDate = LocalDate.of(2019, 02, 01);
         size = 12;
 
         while(size-- > 0){

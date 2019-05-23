@@ -20,4 +20,6 @@ public interface OfferedCourseService {
 
     public OfferedCourse getbyblockandfaculty(Block block, Faculty faculty);
 
+    public List<OfferedCourse> findAllByFacultyId(long facultyId);
+
 }

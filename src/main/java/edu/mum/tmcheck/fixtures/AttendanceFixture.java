@@ -43,6 +43,8 @@ public class AttendanceFixture extends BaseFixture {
         meditationTypes = meditationTypeServiceImp.findAll();
         locations = locationServiceImp.findAll();
 
+        ensureDefaultStudent();
+
         Date now = java.sql.Date.valueOf(LocalDate.now());
 
         while (size-- > 0) {
@@ -80,5 +82,28 @@ public class AttendanceFixture extends BaseFixture {
         int index = random.nextInt(locations.size() - 1);
 
         return locations.get(index);
+    }
+
+    public void ensureDefaultStudent(){
+        Student defaultStudent = studentServiceImp.findByUsername(StudentFixture.DEFAULT_USERNAME);
+        Date now = java.sql.Date.valueOf(LocalDate.now());
+
+        for (int i = 0; i<12;i++){
+            try{
+                Attendance attendance = new Attendance();
+
+                attendance.setStudent(defaultStudent);
+                attendance.setMeditationType(randomMeditationType());
+                attendance.setLocation(randomLocations());
+                Date from = faker.date().past(4 * 30, TimeUnit.DAYS);
+
+                LocalDate createdAt = toLocalDate(faker.date().between(from, now));
+                attendance.setCreatedAt(createdAt);
+
+                attendanceServiceImp.save(attendance);
+            } catch (Exception e){
+                i--;
+            }
+        }
     }
 }

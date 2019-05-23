@@ -1,23 +1,15 @@
 package edu.mum.tmcheck.fixtures;
 
-import edu.mum.tmcheck.domain.entities.Card;
-import edu.mum.tmcheck.domain.entities.Entry;
-import edu.mum.tmcheck.domain.entities.OfferedCourse;
-import edu.mum.tmcheck.domain.entities.Student;
-import edu.mum.tmcheck.serviceimp.EntryServiceImp;
-import edu.mum.tmcheck.serviceimp.IdCardServiceImp;
-import edu.mum.tmcheck.serviceimp.OfferedCourseServiceImp;
-import edu.mum.tmcheck.serviceimp.StudentServiceImp;
+import edu.mum.tmcheck.domain.entities.*;
+import edu.mum.tmcheck.serviceimp.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 @Component
 public class StudentFixture extends BaseFixture {
-    private final String DEFAULT_USERNAME = "student";
+    public static final String DEFAULT_USERNAME = "student";
 
     @Autowired
     StudentServiceImp studentServiceImp;
@@ -31,6 +23,9 @@ public class StudentFixture extends BaseFixture {
     @Autowired
     IdCardServiceImp idCardServiceImp;
 
+    @Autowired
+    UserServiceImp userServiceImp;
+
     List<OfferedCourse> offeredCourses = new ArrayList<>();
 
     @Override
@@ -43,7 +38,6 @@ public class StudentFixture extends BaseFixture {
 
         String username = DEFAULT_USERNAME;
 
-
         while (size-- > 0) {
             try {
                 Student student = new Student();
@@ -53,7 +47,6 @@ public class StudentFixture extends BaseFixture {
 
                 student.setUsername(username);
                 student.setPassword(username);
-                username = faker.name().username();
 
                 student.setStudentRegId(faker.bothify("000-9#-####"));
 
@@ -61,12 +54,19 @@ public class StudentFixture extends BaseFixture {
                 student.setEntry(entry);
                 student = studentServiceImp.save(student);
 
-                student.setEnrolledCourses(randomEnrolledCourses());
+
+                if (username == DEFAULT_USERNAME)
+                    ensureTaughtByDefaultFaculty(student);
+                else
+                    student.setEnrolledCourses(randomEnrolledCourses());
+
                 studentServiceImp.save(student);
 
                 Card card = cards.pop();
                 card.setStudent(student);
                 idCardServiceImp.save(card);
+
+                username = faker.name().username();
             } catch (Exception e) {
                 size++;
             }
@@ -84,5 +84,18 @@ public class StudentFixture extends BaseFixture {
         }
 
         return courses;
+    }
+
+    public void ensureTaughtByDefaultFaculty(Student student){
+        Faculty defaultFaculty = (Faculty)userServiceImp.findUserByUserName(FacultyFixture.DEFAULT_USERNAME);
+        List<OfferedCourse> facultyOfferedCourses = offeredCourseServiceImp.findAllByFacultyId(defaultFaculty.getId());
+        List<OfferedCourse> randomOfferedCourses = randomEnrolledCourses();
+        Set<OfferedCourse> uniqueOfferedCourses = new HashSet<OfferedCourse>(){{
+            add(facultyOfferedCourses.get(random.nextInt(facultyOfferedCourses.size())));
+        }};
+
+        randomOfferedCourses.stream().forEach(uniqueOfferedCourses::add);
+
+        student.setEnrolledCourses(new ArrayList<OfferedCourse>(uniqueOfferedCourses));
     }
 }

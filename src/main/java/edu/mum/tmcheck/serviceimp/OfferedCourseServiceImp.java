@@ -32,6 +32,11 @@ public class OfferedCourseServiceImp implements OfferedCourseService {
     }
 
     @Override
+    public List<OfferedCourse> findAllByFacultyId(long facultyId) {
+        return offeredCourseRepository.findAllByFacultyId(facultyId);
+    }
+
+    @Override
     public OfferedCourse get() {
         return null;
     }

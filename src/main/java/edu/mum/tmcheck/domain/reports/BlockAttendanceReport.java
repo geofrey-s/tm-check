@@ -128,7 +128,7 @@ public class BlockAttendanceReport {
     }
 
     public double getOverrallAttendance() {
-        long days = Dates.countWeekDays(blockStart, blockEnd);
+        long days = Dates.countWeekDays(blockStart, blockEnd) - 2;
 
         if (days == 0) return 0;
 

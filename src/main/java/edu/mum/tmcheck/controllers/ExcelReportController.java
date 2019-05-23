@@ -40,10 +40,10 @@ public class ExcelReportController {
     ECAttendanceReportServiceImp ecAttendanceReportServiceImp;
 
     @GetMapping("/ec-attendance-report/{blockid}.xlsx")
-    public ResponseEntity<InputStreamResource> excelExtraCreditReport(Principal principal, @PathVariable("blockid") String blockid) throws IOException
+    public ResponseEntity<InputStreamResource> excelExtraCreditReport(Principal principal, @PathVariable("blockid") Long blockid) throws IOException
     {
         Long userid = userServiceImp.findUserByUserName(principal.getName()).getId();
-        List<ECAttendanceReport> StudentData = ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(userid, Long.valueOf(blockid));
+        List<ECAttendanceReport> StudentData = ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(userid, blockid);
         ByteArrayInputStream in = excelReportGeneratorServiceImp.ExtraCreditToExcel(StudentData);
 
         HttpHeaders headers = new HttpHeaders();

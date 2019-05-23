@@ -72,7 +72,7 @@ public class EntryAttendanceReport implements Serializable {
     }
 
     public double getOverrallAttendance() {
-        long days = Dates.countWeekDays(entry_start, entry_end);
+        long days = Dates.countWeekDays(entry_start, entry_end) - 2;
 
         if (days == 0) return 0;
 

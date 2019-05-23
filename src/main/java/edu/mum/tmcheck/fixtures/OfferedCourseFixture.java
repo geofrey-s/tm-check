@@ -1,10 +1,7 @@
 package edu.mum.tmcheck.fixtures;
 
 import edu.mum.tmcheck.domain.entities.*;
-import edu.mum.tmcheck.serviceimp.BlockServiceImp;
-import edu.mum.tmcheck.serviceimp.CourseServiceImp;
-import edu.mum.tmcheck.serviceimp.FacultyServiceImp;
-import edu.mum.tmcheck.serviceimp.OfferedCourseServiceImp;
+import edu.mum.tmcheck.serviceimp.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +22,9 @@ public class OfferedCourseFixture extends BaseFixture {
     @Autowired
     CourseServiceImp courseServiceImp;
 
+    @Autowired
+    UserServiceImp userServiceImp;
+
     private List<Block> blocks = new ArrayList<>();
     private List<Faculty> facultyUsers = new ArrayList<>();
     private List<Course> courses = new ArrayList<>();
@@ -36,6 +36,8 @@ public class OfferedCourseFixture extends BaseFixture {
         blocks = blockServiceImp.findAll();
         courses = courseServiceImp.findAll();
         facultyUsers = facultyServiceImp.findAll();
+
+        ensureFacultyMemmber();
 
         while (size-- > 0) {
             try {
@@ -69,5 +71,23 @@ public class OfferedCourseFixture extends BaseFixture {
         int index = random.nextInt(facultyUsers.size() - 1);
 
         return facultyUsers.get(index);
+    }
+
+    public void ensureFacultyMemmber(){
+        Faculty defaultFaculty = (Faculty)userServiceImp.findUserByUserName(FacultyFixture.DEFAULT_USERNAME);
+
+        for (int i=0; i < 6; i++){
+            try {
+                OfferedCourse offeredCourse = new OfferedCourse();
+
+                offeredCourse.setBlock(blocks.get(i));
+                offeredCourse.setFaculty(defaultFaculty);
+                offeredCourse.setCourse(courses.get(i));
+
+                offeredCourseServiceImp.save(offeredCourse);
+            } catch (Exception e) {
+                i--;
+            }
+        }
     }
 }

@@ -123,7 +123,7 @@ public class ReportController {
         model.addAttribute("blockid", currentBlock.getId());
 
         model.addAttribute("reportData", ecAttendanceReportServiceImp.findAllByFacultyIdAndBlockId(user.getId(), currentBlock.getId()));
-        model.addAttribute("downloadlink", "/download/ec-attendance-report/" + defaultBlockId + ".xlsx");
+        model.addAttribute("downloadlink", "/download/ec-attendance-report/" + blockId.orElse(defaultBlockId) + ".xlsx");
 
         return "ec-attendance-report";
     }

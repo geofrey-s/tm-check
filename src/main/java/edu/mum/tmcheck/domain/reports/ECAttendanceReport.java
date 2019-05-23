@@ -66,7 +66,7 @@ public class ECAttendanceReport {
     }
 
     public int getDaysAttended() {
-        return (int) Dates.countWeekDays(blockStart, blockEnd);
+        return (int) Dates.countWeekDays(blockStart, blockEnd) - 2;
     }
 
     public void setDaysAttended(int daysAttended) {
@@ -148,7 +148,7 @@ public class ECAttendanceReport {
     }
 
     public double getOverrallAttendance() {
-        long days = Dates.countWeekDays(blockStart, blockEnd);
+        long days = Dates.countWeekDays(blockStart, blockEnd) - 2;
 
         if (days == 0) return 0;
 

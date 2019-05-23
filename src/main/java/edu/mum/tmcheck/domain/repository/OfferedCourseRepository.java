@@ -13,4 +13,6 @@ public interface OfferedCourseRepository extends CrudRepository<OfferedCourse, L
     public List<OfferedCourse> findAll();
 
     public OfferedCourse findByBlockAndAndFaculty(Block block, Faculty faculty);
+
+    public List<OfferedCourse> findAllByFacultyId(long faculyId);
 }

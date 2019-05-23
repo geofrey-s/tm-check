@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FacultyFixture extends BaseFixture {
-    private final String DEFAULT_USERNAME = "faculty";
+    public static final String DEFAULT_USERNAME = "faculty";
 
     @Autowired
     FacultyServiceImp facultyServiceImp;

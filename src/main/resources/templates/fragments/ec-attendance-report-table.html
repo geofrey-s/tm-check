@@ -20,6 +20,7 @@
             <div class="tm-table-cell col-md-1 attendance" th:text="*{overrallAttendance}">Overrall</div>
             <div class="tm-table-cell col-md-1 ec" th:text="*{extraCredit}">EC</div>
         </div>
+        <div class="tm-table-row row empty-row-view" th:if="${#lists.isEmpty(reportData)}">You have no students enrolled in the selected block</div>
     </div>
     <div class="tm-table-footer container-fluid"></div>
 </div>
